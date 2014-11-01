@@ -24,4 +24,5 @@ pymavlink.egg-info/
 .ropeproject
 include/
 .tags*
+*.sublime-project
 
