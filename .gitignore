@@ -25,4 +25,5 @@ pymavlink.egg-info/
 include/
 .tags*
 *.sublime-project
+*.sublime-workspace
 

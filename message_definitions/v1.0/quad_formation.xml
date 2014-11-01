@@ -1,0 +1,14 @@
+<?xml version='1.0'?>
+<mavlink>
+<include>common.xml</include>
+<include>pixhwak.xml</include>
+     <messages>
+          <message id="160" name="QUAD_POS">
+               <description>Position of quadcopter in VICON space [pos_no,x,y,z]</description>
+               <field type="uint8_t" name="pos_no">Position number</field>
+               <field type="uint16_t" name="x">uint16_t</field>
+               <field type="uint16_t" name="y">uint16_t</field>
+               <field type="uint16_t" name="y">uint16_t</field>
+          </message>
+     </messages>
+</mavlink>
