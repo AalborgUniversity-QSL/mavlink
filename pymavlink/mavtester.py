@@ -34,4 +34,35 @@ wait_heartbeat(master)
 
 #print("Sending all message types")
 #mavtest.generate_outputs(master.mav)
-print(master)
+class fifo(object):
+    def __init__(self):
+        self.buf = []
+    def write(self, data):
+        self.buf += data
+        return len(data)
+    def read(self):
+        return self.buf.pop(0)
+
+f = fifo()
+
+mav = mavlink.MAVLink(f)
+
+# set the WP_RADIUS parameter on the MAV at the end of the link
+mav.param_set_send(7, 1, "WP_RADIUS", 101, mavlink.MAV_PARAM_TYPE_REAL32)
+
+# alternatively, produce a MAVLink_param_set object 
+# this can be sent via your own transport if you like
+m = mav.param_set_encode(7, 1, "WP_RADIUS", 101, mavlink.MAV_PARAM_TYPE_REAL32)
+
+# get the encoded message as a buffer
+b = m.get_msgbuf()
+
+# decode an incoming message
+m2 = mav.decode(b)
+
+#print("Got a message with id %u" % (m2.get_msgId())
+print(m2)
+
+#master.set_mode_flag(1,128)
+master.mav.command_long_send(1,0,mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0,1,0,0,0,0,0,0)
+master.mav.command_long_send(1,0,42,0,0,0,0,0,0,0,0)
