@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <mavlink>
-<include>pixhawk.xml</include>
+<include>common.xml</include>
      <messages>
           <message id="199" name="QUAD_POS">
                <description>Position of quadcopter in VICON space [pos_no,x,y,z]</description>
