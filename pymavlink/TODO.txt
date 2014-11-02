@@ -1,0 +1,4 @@
+export PYTHONPATH=$PYTHONPATH:$HOME/ca1/mavlink/
+export PYTHONPATH=$PYTHONPATH:$HOME/ca1/mavlink/pymavlink/p
+export PYTHONPATH="$HOME/.local/lib/python2.7/site-packages/:$PYTHONPATH"
+export PATH="$HOME/.local/lib/python2.7/site-packages/:$PATH"

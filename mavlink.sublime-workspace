@@ -12,10 +12,37 @@
 	"buffers":
 	[
 		{
-			"file": "pymavlink/generator/mavgen_python.py",
+			"file": "pymavlink/generator/mavgen.py",
 			"settings":
 			{
-				"buffer_size": 19521,
+				"buffer_size": 7808,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "# ~/.bashrc: executed by bash(1) for non-login shells.\n# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)\n# for examples\n\n# If not running interactively, don't do anything\ncase $- in\n    *i*) ;;\n      *) return;;\nesac\n\n# don't put duplicate lines or lines starting with space in the history.\n# See bash(1) for more options\nHISTCONTROL=ignoreboth\n\n# append to the history file, don't overwrite it\nshopt -s histappend\n\n# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)\nHISTSIZE=1000\nHISTFILESIZE=2000\n\n# check the window size after each command and, if necessary,\n# update the values of LINES and COLUMNS.\nshopt -s checkwinsize\n\n# If set, the pattern \"**\" used in a pathname expansion context will\n# match all files and zero or more directories and subdirectories.\n#shopt -s globstar\n\n# make less more friendly for non-text input files, see lesspipe(1)\n[ -x /usr/bin/lesspipe ] && eval \"$(SHELL=/bin/sh lesspipe)\"\n\n# set variable identifying the chroot you work in (used in the prompt below)\nif [ -z \"${debian_chroot:-}\" ] && [ -r /etc/debian_chroot ]; then\n    debian_chroot=$(cat /etc/debian_chroot)\nfi\n\n# set a fancy prompt (non-color, unless we know we \"want\" color)\ncase \"$TERM\" in\n    xterm-color) color_prompt=yes;;\nesac\n\n# uncomment for a colored prompt, if the terminal has the capability; turned\n# off by default to not distract the user: the focus in a terminal window\n# should be on the output of commands, not on the prompt\n#force_color_prompt=yes\n\nif [ -n \"$force_color_prompt\" ]; then\n    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then\n	# We have color support; assume it's compliant with Ecma-48\n	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such\n	# a case would tend to support setf rather than setaf.)\n	color_prompt=yes\n    else\n	color_prompt=\n    fi\nfi\n\nif [ \"$color_prompt\" = yes ]; then\n    PS1='${debian_chroot:+($debian_chroot)}\\[\\033[01;32m\\]\\u@\\h\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ '\nelse\n    PS1='${debian_chroot:+($debian_chroot)}\\u@\\h:\\w\\$ '\nfi\nunset color_prompt force_color_prompt\n\n# If this is an xterm set the title to user@host:dir\ncase \"$TERM\" in\nxterm*|rxvt*)\n    PS1=\"\\[\\e]0;${debian_chroot:+($debian_chroot)}\\u@\\h: \\w\\a\\]$PS1\"\n    ;;\n*)\n    ;;\nesac\n\n# enable color support of ls and also add handy aliases\nif [ -x /usr/bin/dircolors ]; then\n    test -r ~/.dircolors && eval \"$(dircolors -b ~/.dircolors)\" || eval \"$(dircolors -b)\"\n    alias ls='ls --color=auto'\n    #alias dir='dir --color=auto'\n    #alias vdir='vdir --color=auto'\n\n    alias grep='grep --color=auto'\n    alias fgrep='fgrep --color=auto'\n    alias egrep='egrep --color=auto'\nfi\n\n# some more ls aliases\nalias ll='ls -alFh'\nalias la='ls -A'\nalias l='ls -CF'\n\n# Add an \"alert\" alias for long running commands.  Use like so:\n#   sleep 10; alert\nalias alert='notify-send --urgency=low -i \"$([ $? = 0 ] && echo terminal || echo error)\" \"$(history|tail -n1|sed -e '\\''s/^\\s*[0-9]\\+\\s*//;s/[;&|]\\s*alert$//'\\'')\"'\n\n# Alias definitions.\n# You may want to put all your additions into a separate file like\n# ~/.bash_aliases, instead of adding them here directly.\n# See /usr/share/doc/bash-doc/examples in the bash-doc package.\n\nif [ -f ~/.bash_aliases ]; then\n    . ~/.bash_aliases\nfi\n\n# enable programmable completion features (you don't need to enable\n# this, if it's already enabled in /etc/bash.bashrc and /etc/profile\n# sources /etc/bash.bashrc).\nif ! shopt -oq posix; then\n  if [ -f /usr/share/bash-completion/bash_completion ]; then\n    . /usr/share/bash-completion/bash_completion\n  elif [ -f /etc/bash_completion ]; then\n    . /etc/bash_completion\n  fi\nfi\n\n# Opsætning af farver i shell.\nfunction prompt\n{\nlocal WHITE=\"\\[\\033[1;37m\\]\"\nlocal GREEN=\"\\[\\033[0;32m\\]\"\nlocal CYAN=\"\\[\\033[0;36m\\]\"\nlocal GRAY=\"\\[\\033[0;37m\\]\"\nlocal BLUE=\"\\[\\033[0;34m\\]\"\nexport PS1=\"\n${GREEN}\\u${CYAN}@${BLUE}\\h ${CYAN}\\w${GRAY}\n$ \"\n}\nprompt\n\n# Aliaser, egne genveje.\nalias ..='cd ..'\nalias ...='cd ../../'\nalias ....='cd ../../../'\nalias rm='rm -i'\nalias up='sudo apt-get update && sudo apt-get upgrade -y'\n\nalias projekt='cd ~/ca1/projekt'\nalias ca1='cd ~/ca1'\nalias aausat='cd ~/aausat5'\n#alias svnci='svn commit -m[BGT] ~/Documents/Projekt/'\n#alias svnup='svn up ~/Documents/Projekt/'\n#alias afsbt='cd /afs/ies.auc.dk/user/bthoms10'\n#alias afsgr='cd /afs/ies.auc.dk/group/14gr624'\nalias ssh='ssh -l'\n#alias js3='ssh bthoms10 js3.es.aau.dk'\n#alias xilpath='source /opt/Xilinx/14.6/ISE_DS/settings32.sh'\nalias e='emacsclient -t'\nalias ec='emacsclient -c'\nalias ed='emacs --daemon'\nalias edq='emacsclient -e \"(kill-emacs)\"'\n#alias restartx='sudo restart lightdm'\n#alias sub='sublime-text'\n\n#alias xbian\nalias xbian='sudo ssh xbian@192.168.1.3'\nalias cpxbian='xbian@192.168.1.3:/media/jnusb/'\n\n# OS X relaterede genveje\nalias pbcopy='xclip -selection clipboard'\nalias pbpaste='xclip -selection clipboard -o'\nalias open='xdg-open'\n\n# System variabler\n#export SVN=~/Documents/Projekt/\nexport TERM=xterm-256color\n#export MATLAB_USE_USERWORK=1\n#export PATH=~/scripts/:$PATH\n#export PATH=~/arm-none-eabi/bin:$PATH\nsource /opt/ros/indigo/setup.bash\nexport PATH=$PATH:$HOME/omnetpp-4.5/bin\nexport LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/omnetpp-4.5/lib\nexport TCL_LIBRARY=/usr/share/tcltk/tcl8.6\nexport JTAGCONFIG=interface/jtagkey-tiny.cfg\nexport PYTHONPATH=$PYTHONPATH:$HOME/ca1/mavlink/\nexport PYTHONPATH=$PYTHONPATH:$HOME/ca1/mavlink/pymavlink/p\nexport PYTHONPATH=\"$HOME/.local/lib/python2.7/site-packages/:$PYTHONPATH\"\nexport PATH=\"$HOME/.local/lib/python2.7/site-packages/:$PATH\"",
+			"file": "/home/jeni/.bashrc",
+			"file_size": 5532,
+			"file_write_time": 130593575043796738,
+			"settings":
+			{
+				"buffer_size": 5532,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "message_definitions/v1.0/quad_formation.xml",
+			"settings":
+			{
+				"buffer_size": 556,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jeni/ca1/libs_old/mavlink_types.h",
+			"settings":
+			{
+				"buffer_size": 8160,
 				"line_ending": "Unix"
 			}
 		}
@@ -61,15 +88,27 @@
 	"expanded_folders":
 	[
 		"/home/jeni/ca1/mavlink",
-		"/home/jeni/ca1/mavlink/pymavlink"
+		"/home/jeni/ca1/mavlink/message_definitions",
+		"/home/jeni/ca1/mavlink/message_definitions/v1.0"
 	],
 	"file_history":
 	[
+		"/home/jeni/ca1/mavlink/pymavlink/mavlinkv10.py",
+		"/home/jeni/ca1/mavlink/pymavlink/mavparm.py",
+		"/home/jeni/ca1/mavlink/pymavlink/mavtest.py",
+		"/home/jeni/ca1/mavlink/pymavlink/generator/mavgen_python.py",
+		"/home/jeni/ca1/mavlink/pc.in",
+		"/home/jeni/ca1/mavlink/mavgenerate.py",
+		"/home/jeni/ca1/mavlink/pymavlink/build/lib.linux-x86_64-2.7/pymavlink/generator/mavgen_python.py",
+		"/home/jeni/ca1/mavlink/pymavlink/build/scripts-2.7/mavgen.py",
+		"/home/jeni/ca1/mavlink/pymavlink/generator/mavgen.py",
+		"/home/jeni/ca1/mavlink/doc/mavlink_to_html_table.xsl",
+		"/home/jeni/ca1/mavlink/pymavlink/generator/C/include_v0.9/mavlink_helpers.h",
+		"/home/jeni/ca1/mavlink/pymavlink/generator/mavschema.xsd",
 		"/home/jeni/.bashrc",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/mavtemplate.py",
 		"/home/jeni/ca1/mavlink/pymavlink/examples/mavtest.py",
 		"/home/jeni/ca1/mavlink/pymavlink/examples/mavtcpsniff.py",
-		"/home/jeni/ca1/mavlink/pymavlink/generator/mavgen.py",
 		"/home/jeni/ca1/qgroundcontrol/README.md",
 		"/home/jeni/ca1/mavlink/message_definitions/v1.0/common.xml",
 		"/home/jeni/ca1/qgroundcontrol/user_config.pri",
@@ -123,9 +162,7 @@
 		"/home/jeni/mavlink-generator/pymavlink/examples/mavtester.py",
 		"/home/jeni/mavlink-generator/README.md",
 		"/home/jeni/mavlink/pymavlink/mavutil.py",
-		"/home/jeni/ca1/mavlink/mavgenerate.py",
 		"/home/jeni/ca1/mavlink/pymavlink/examples/mav_accel.py",
-		"/home/jeni/ca1/mavlink/pymavlink/generator/mavgen_python.py",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/mavgen_c.py",
 		"/home/jeni/ca1/mavlink/mavlink.sublime-project",
 		"/home/jeni/ca1/mavlink/build/include/v0.9/common/mavlink_msg_vfr_hud.h",
@@ -183,16 +220,7 @@
 		"/home/jeni/ca1/Firmware/Makefile",
 		"/home/jeni/ca1/Firmware/src/modules/commander/commander.cpp",
 		"/home/jeni/ca1/Firmware/src/drivers/hott/comms.h",
-		"/home/jeni/ca1/Firmware/src/drivers/hott/comms.cpp",
-		"/home/jeni/ca1/Firmware/src/modules/commander/commander_helper.cpp",
-		"/home/jeni/ca1/Firmware/src/modules/commander/commander_helper.h",
-		"/home/jeni/ca1/Firmware/src/modules/commander/commander_tests/commander_tests.cpp",
-		"/home/jeni/ca1/Firmware/src/modules/uORB/topics/vehicle_control_mode.h",
-		"/home/jeni/ca1/Firmware/src/modules/uORB/objects_common.cpp",
-		"/home/jeni/ca1/Firmware/src/lib/mathlib/CMSIS/Include/arm_common_tables.h",
-		"/home/jeni/ca1/Firmware/ROMFS/px4fmu_common/init.d/1000_rc_fw_easystar.hil",
-		"/home/jeni/ca1/Firmware/ROMFS/px4fmu_common/init.d/10015_tbs_discovery",
-		"/home/jeni/ca1/Firmware/ROMFS/px4fmu_common/init.d/10016_3dr_iris"
+		"/home/jeni/ca1/Firmware/src/drivers/hott/comms.cpp"
 	],
 	"find":
 	{
@@ -215,6 +243,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"NOGEN",
+			"NOGEN=1",
 			"generate_outputs",
 			"mav_autopilot_",
 			"Got a message with id",
@@ -249,24 +279,24 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "pymavlink/generator/mavgen_python.py",
+					"file": "pymavlink/generator/mavgen.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 19521,
+						"buffer_size": 7808,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								200,
-								200
+								244,
+								244
 							]
 						],
 						"settings":
@@ -277,6 +307,94 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/home/jeni/.bashrc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5532,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5064,
+								5064
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/ShellScript/Shell-Unix-Generic.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2400.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "message_definitions/v1.0/quad_formation.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 556,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								105,
+								105
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/home/jeni/ca1/libs_old/mavlink_types.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8160,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1125.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -336,12 +454,24 @@
 		"selected_items":
 		[
 			[
-				"mavtem",
-				"pymavlink/generator/mavtemplate.py"
+				"mav",
+				"pymavlink/mavlinkv10.py"
+			],
+			[
+				"mavgen_",
+				"pymavlink/generator/mavgen_python.py"
 			],
 			[
 				"mavgen_python",
 				"pymavlink/generator/mavgen_python.py"
+			],
+			[
+				"mavgen",
+				"pymavlink/generator/mavgen.py"
+			],
+			[
+				"mavtem",
+				"pymavlink/generator/mavtemplate.py"
 			],
 			[
 				"mavlink",
@@ -358,10 +488,6 @@
 			[
 				"mavte",
 				"pymavlink/mavtest.py"
-			],
-			[
-				"mavgen",
-				"pymavlink/generator/mavgen.py"
 			],
 			[
 				"mavgen_p",
