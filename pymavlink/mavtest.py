@@ -3,7 +3,7 @@
 import sys, os
 
 #from generator import mavtestgen
-from pymavlink.dialects.v10 import mavlinkv10 as mavlink
+from dialects.v10 import mavlinkv10 as mavlink
 
 class fifo(object):
     def __init__(self):
