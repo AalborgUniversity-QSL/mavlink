@@ -1,14 +1,13 @@
 <?xml version='1.0'?>
 <mavlink>
-<include>common.xml</include>
-<include>pixhwak.xml</include>
+<include>pixhawk.xml</include>
      <messages>
-          <message id="160" name="QUAD_POS">
+          <message id="199" name="QUAD_POS">
                <description>Position of quadcopter in VICON space [pos_no,x,y,z]</description>
                <field type="uint8_t" name="pos_no">Position number</field>
-               <field type="uint16_t" name="x">uint16_t</field>
-               <field type="uint16_t" name="y">uint16_t</field>
-               <field type="uint16_t" name="y">uint16_t</field>
+               <field type="int16_t" name="x">x-axis (int16_t)</field>
+               <field type="int16_t" name="y">y-axis (int16_t)</field>
+               <field type="int16_t" name="z">z-axis (int16_t)</field>
           </message>
      </messages>
 </mavlink>
