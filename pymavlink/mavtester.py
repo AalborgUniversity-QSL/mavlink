@@ -61,6 +61,7 @@ wait_heartbeat(master)
 # #print("Got a message with id %u" % (m2.get_msgId())
 # print(m2)
 
-#master.set_mode_flag(1,128)
-master.mav.command_long_send(1,0,mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0,0,0,0,0,0,0,0)
+ARM = True
+
+#master.mav.command_long_send(1,0,mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0,ARM,0,0,0,0,0,0)
 #master.mav.command_long_send(1,0,42,0,0,0,0,0,0,0,0)
