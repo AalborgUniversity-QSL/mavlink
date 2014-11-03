@@ -3,7 +3,6 @@
 	<include>common.xml</include>
 	<enums>
 	          <enum name="QUAD_FORMATION_ID">
-	               
 	               <entry value="1" name="QUAD_FORMATION_ID_1">
 	                    <description>Quadrotor ID</description>
 	               </entry>
@@ -35,6 +34,15 @@
 	                    <description>Quadrotor ID</description>
 	               </entry>
 	          </enum>
+	          <enum name="MAV_CMD">
+               <!-- 1-10000 reserved for common commands -->
+               <entry value="42" name="MAV_CMD_FORMATION_CONTROL_START">
+                    <description>Start formation algorithm </description>
+                    <param index="1">Empty</param>
+                    <param index="2">Empty</param>
+                    <param index="3">Empty</param>
+               </entry>
+          </enum>
 	</enums>
 	     <messages>
 	          <message id="199" name="QUAD_POS">

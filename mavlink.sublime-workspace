@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"recv",
+				"recv_msg"
+			],
+			[
+				"wait_",
+				"wait_statusmsg"
+			],
+			[
+				"mav",
+				"mavutil"
+			],
+			[
 				"aau",
 				"aausat"
 			]
@@ -23,12 +35,15 @@
 			"file": "pymavlink/dialects/v10/mavlinkv10.py",
 			"settings":
 			{
-				"buffer_size": 547057,
+				"buffer_size": 548769,
 				"line_ending": "Unix"
 			}
 		},
 		{
+			"contents": "#!/usr/bin/python\n\n#  This library is free software; you can redistribute it and/or\n#  modify it under the terms of the GNU General Public\n#  License as published by the Free Software Foundation; either\n#  version 3.0 of the License, or (at your option) any later version.\n#\n#  The library is distributed in the hope that it will be useful,\n#  but WITHOUT ANY WARRANTY; without even the implied warranty of\n#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n#  General Public License for more details.\n#\n# (c) Shai Revzen, U Penn, 2010\n\nimport struct\nimport socket \nimport sys\n\n\"\"\"\nviconreader is a simple library for connecting to the real-time feed emitted\nby a vicon motion capture system. \n\nIt provides two functions:\n\n(1) As a library, it provides the ViconReader class which gives an interface for\nconnect()-ing to and reading data from a vicon system. ViconReader gives its\nuser the list of variables emitted by the vicon, and a python generator object\nwhich yields consecutive samples from the motion capture system. stop() and\nclose() methods allow the user to stop streaming data and to close a TCP\nconnection to the vicon.\n\n(2) As a commandline tool, viconreader.py will connect to the DEFAULT_HOST, \ncurrently configured for the GRASP lab vicon (*NOT* high-bay), and save two \nfiles: a .dcr file containing the variable names, one per line, and a .dat file\ncontaining samples as a continuous stream of 64 bit floats. Capture is stopped \nwith a ctrl-c (or ctrl-break, if you use such systems).\n\"\"\"\nDEFAULT_HOST = \"10.66.68.1\"  \nDEFAULT_PORT = 800\n  \nclass ViconReader(object):\n  \"\"\"ViconReader instances provide access to the real-time data stream \n  made available by vicon motion tracking systems.\n  \n  Instances of ViconReader can send Query, Start and Stop messages and parse \n  responses into lists of attributes and blocks of doubles (encoded as strings).\n  \n  ViconReader is used from the commandline to log tracking data to a file.\n  \n  Typical use is:\n  >>> V = ViconReader()\n  >>> names = V.connect() # names gets list of names from Query Response\n  >>> # V.stream() is a generator returning packet payload each .next()\n  >>> for pkt,_ in zip(V.stream(),xrange(100)): \n  >>>   dat = struct.unpack(\"%dd\" % (len(pkt)/8),pkt)\n  >>>   print\n  >>>   for nm,val in zip(name,dat):\n  >>>     print nm,val\n  >>> V.stop()\n  \"\"\"\n  QUERY = (1,0)\n  INFO = (1,1)\n  START = (3,0)\n  STOP = (4,0)\n  DATA = (2,1)\n  def __init__(self):\n    self.sock = None\n    self.push = ''\n\n  def _get( self, fmt ):\n    \"Read data from socket based on format string, and parse it accordingly\"\n    N = struct.calcsize(fmt)\n    # Start reading from push-back buffer\n    buf = self.push[:min(len(self.push),N)]\n    self.push = self.push[:len(buf)]\n    while len(buf)<N:\n      buf += self.sock.recv(N-len(buf))\n    return struct.unpack(fmt,buf)\n\n  def _parseInfo( self ):\n    \"Parse an INFO packet, starting with byte after the header\"\n    N = self._get(\"1L\")[0]\n    lst = []\n    for _ in xrange(N):\n      L = self._get(\"1L\")[0]\n      lst.append(self._get(\"%ds\" % L)[0])\n    return lst\n  \n  def _parseData( self ):\n    \"Parse a DATA packet, starting with byte after the header\"\n    N = self._get(\"1L\")[0]\n    return self._get(\"%ds\" % (N*8))[0]\n  \n  def _parse( self ):\n    \"Parse an incoming packet\"    \n    hdr = self._get(\"2L\")\n    if hdr==self.__class__.DATA:\n      return (hdr, self._parseData())\n    elif hdr==self.__class__.INFO:\n      return (hdr, self._parseInfo())\n    # Failed -- need to resync\n    self.push = struct.pack(\"2L\",*hdr)\n    self._resync()\n  \n  def _resync(self):\n    raise ValueError,\"Lost synchronization on socket\"\n\n  def _cmd( self, hdr ):\n    \"Command encoded as a 2-tuple header\"\n    self.sock.send(struct.pack( \"2L\", *hdr ))\n  \n  def connect( self, host = DEFAULT_HOST, port = DEFAULT_PORT ):\n    # Connect the socket\n    self.sock = socket.socket( socket.AF_INET, socket.SOCK_STREAM )\n    self.sock.connect((host,port))\n    # Send a query\n    self._cmd( self.__class__.QUERY )\n    # Loop until a query response is received\n    while True:\n      hdr,names = self._parse()\n      if hdr == self.__class__.INFO:\n        return names\n          \n  def stream( self, fps=1e9 ):\n    \"\"\"\n    Generator producing a stream of data packet payloads\n\n    INPUTS\n      fps -- expected fps, for throwing away stale data. \n        If not set, all data will be returned. Set to the expected vicon \n        frames-per-second data capture rate; typically 120\n    \"\"\"\n    self._cmd( self.__class__.START )\n    thresh = 0.5/fps\n    while True:\n      # Make sure we enter data reading loop at least once\n      last = time.time() + 1e6\n      while time.time() < thresh + last:\n        last = time.time()        \n        hdr,data = self._parse()\n      if hdr == self.__class__.DATA:\n        yield data\n\n  def stop( self ):\n    \"Tell Vicon to stop streaming\"\n    self._cmd( self.__class__.STOP )\n  \n  def close( self ):\n    \"Close connection to Vicon\"\n    self.sock.close()\n    self.sock = None\n\nif __name__==\"__main__\":\n  hosts = dict( \n    highbay = \"192.168.129.65\",\n    grasp =  \"10.66.68.1\",\n    DEFAULT = \"10.66.68.1\" \n  )\n  fn = None\n  host = hosts['DEFAULT']\n  port = DEFAULT_PORT\n  argv = []; argv[:] = sys.argv[1:]\n  err = ''\n  while argv:\n    arg = argv.pop(0).lower()\n    if arg in ['-h','--host']:\n      arg = argv.pop(0)\n      host = hosts.get( arg.lower(), arg )\n      continue\n    if arg in ['-p','--port']:\n      port = int(argv.pop(0))\n      continue\n    if arg in ['--help','--usage']:\n      err = ' '\n      break\n    if arg in ['-a','--aliases']:\n      for k,v in hosts.iteritems():\n        print \"%-16s : %s\" % (k,v)\n      sys.exit(0)\n    if arg[0] != '-':\n      if fn is not None:\n        err = 'Only one filename allowed on commandline; got \"%s\" and \"%s\"' % (fn,arg)\n        break\n      fn = arg\n      continue\n    err = 'Unknown commandline argument \"%s\"' % arg\n    break\n  if fn is None:\n    err = \"Must specify filename on the commandline\"\n  if err:\n    sys.stderr.write(\"%s\\n\" % err)\n    sys.stderr.write(\"\"\"\nUsage: %s {options} filename\n\n  Creates filename.dcr with the field names and filename.dat with the raw\n  data stored as doubles.\n  \n  Options:\n   -h <hostname>, --host <hostname> \n        Specify VICON hostname where hostname is an IP address, FQDN or alias \n\n   -p <port>, --port <port> \n        Specify VICON port to connect to \n\n   -a, --aliases\n        List the builtin host aliases\n   \n   --help, --usage\n        Print this message\n  \"\"\" % sys.argv[0])\n    sys.exit(5)\n  # Filename user requested\n  print \"Recording from %s:%d to %s.dcr, %s.raw\" % (host,port,fn,fn)   \n  V = ViconReader()\n  names = V.connect(host=host)\n  # Write descriptor\n  dcr = open(fn+\".dcr\", \"w\")\n  dcr.write(\"\\n\".join(names)+\"\\n\")\n  dcr.close()\n  # Write data\n  L = 0\n  N = 0\n  dat = []\n  try: # for catching ctrl-c termination\n    for pkt in V.stream():\n      if not L: # First packet sets the length we'll expect \n        L = len(pkt)\n      elif L != len(pkt):\n        print \"\\nUnexpected packet of length %d instead of %d\" % (len(pkt),L)\n        continue\n      #P dat.write(pkt)\n      dat.append(pkt)\n      N += 1\n      if (N%50)==0:\n        print \"\\r%5d\" % N,\n    # ---\n  except KeyboardInterrupt, ex:\n    #P dat.close()\n    f = open(fn+\".dat\", \"w\")\n    f.write(\"\".join(dat))\n    f.close()\n    V.stop()\n    print \"\\nStop.\"\n    \n\n",
 			"file": "/home/jeni/ca1/viconReader.py",
+			"file_size": -1,
+			"file_write_time": -1,
 			"settings":
 			{
 				"buffer_size": 7356,
@@ -36,10 +51,53 @@
 			}
 		},
 		{
+			"contents": "#  This library is free software; you can redistribute it and/or\n#  modify it under the terms of the GNU General Public\n#  License as published by the Free Software Foundation; either\n#  version 3.0 of the License, or (at your option) any later version.\n#\n#  The library is distributed in the hope that it will be useful,\n#  but WITHOUT ANY WARRANTY; without even the implied warranty of\n#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n#  General Public License for more details.\n#\n# (c) Shai Revzen, U Penn, 2010\n\nimport struct\nimport socket \nimport sys\n\n\"\"\"\nviconreader is a simple library for connecting to the real-time feed emitted\nby a vicon motion capture system. \n\nIt provides two functions:\n\n(1) As a library, it provides the ViconReader class which gives an interface for\nconnect()-ing to and reading data from a vicon system. ViconReader gives its\nuser the list of variables emitted by the vicon, and a python generator object\nwhich yields consecutive samples from the motion capture system. stop() and\nclose() methods allow the user to stop streaming data and to close a TCP\nconnection to the vicon.\n\n(2) As a commandline tool, viconreader.py will connect to the DEFAULT_HOST, \ncurrently configured for the GRASP lab vicon (*NOT* high-bay), and save two \nfiles: a .dcr file containing the variable names, one per line, and a .dat file\ncontaining samples as a continuous stream of 64 bit floats. Capture is stopped \nwith a ctrl-c (or ctrl-break, if you use such systems).\n\"\"\"\nDEFAULT_HOST = \"10.66.68.1\"  \nDEFAULT_PORT = 800\n  \nclass ViconReader(object):\n  \"\"\"ViconReader instances provide access to the real-time data stream \n  made available by vicon motion tracking systems.\n  \n  Instances of ViconReader can send Query, Start and Stop messages and parse \n  responses into lists of attributes and blocks of doubles (encoded as strings).\n  \n  ViconReader is used from the commandline to log tracking data to a file.\n  \n  Typical use is:\n  >>> V = ViconReader()\n  >>> names = V.connect() # names gets list of names from Query Response\n  >>> # V.stream() is a generator returning packet payload each .next()\n  >>> for pkt,_ in zip(V.stream(),xrange(100)): \n  >>>   dat = struct.unpack(\"%dd\" % (len(pkt)/8),pkt)\n  >>>   print\n  >>>   for nm,val in zip(name,dat):\n  >>>     print nm,val\n  >>> V.stop()\n  \"\"\"\n  QUERY = (1,0)\n  INFO = (1,1)\n  START = (3,0)\n  STOP = (4,0)\n  DATA = (2,1)\n  def __init__(self):\n    self.sock = None\n    self.push = ''\n\n  def _get( self, fmt ):\n    \"Read data from socket based on format string, and parse it accordingly\"\n    N = struct.calcsize(fmt)\n    # Start reading from push-back buffer\n    buf = self.push[:min(len(self.push),N)]\n    self.push = self.push[:len(buf)]\n    while len(buf)<N:\n      buf += self.sock.recv(N-len(buf))\n    return struct.unpack(fmt,buf)\n\n  def _parseInfo( self ):\n    \"Parse an INFO packet, starting with byte after the header\"\n    N = self._get(\"1L\")[0]\n    lst = []\n    for _ in xrange(N):\n      L = self._get(\"1L\")[0]\n      lst.append(self._get(\"%ds\" % L)[0])\n    return lst\n  \n  def _parseData( self ):\n    \"Parse a DATA packet, starting with byte after the header\"\n    N = self._get(\"1L\")[0]\n    return self._get(\"%ds\" % (N*8))[0]\n  \n  def _parse( self ):\n    \"Parse an incoming packet\"    \n    hdr = self._get(\"2L\")\n    if hdr==self.__class__.DATA:\n      return (hdr, self._parseData())\n    elif hdr==self.__class__.INFO:\n      return (hdr, self._parseInfo())\n    # Failed -- need to resync\n    self.push = struct.pack(\"2L\",*hdr)\n    self._resync()\n  \n  def _resync(self):\n    raise ValueError,\"Lost synchronization on socket\"\n\n  def _cmd( self, hdr ):\n    \"Command encoded as a 2-tuple header\"\n    self.sock.send(struct.pack( \"2L\", *hdr ))\n  \n  def connect( self, host = DEFAULT_HOST, port = DEFAULT_PORT ):\n    # Connect the socket\n    self.sock = socket.socket( socket.AF_INET, socket.SOCK_STREAM )\n    self.sock.connect((host,port))\n    # Send a query\n    self._cmd( self.__class__.QUERY )\n    # Loop until a query response is received\n    while True:\n      hdr,names = self._parse()\n      if hdr == self.__class__.INFO:\n        return names\n          \n  def stream( self, fps=1e9 ):\n    \"\"\"\n    Generator producing a stream of data packet payloads\n\n    INPUTS\n      fps -- expected fps, for throwing away stale data. \n        If not set, all data will be returned. Set to the expected vicon \n        frames-per-second data capture rate; typically 120\n    \"\"\"\n    self._cmd( self.__class__.START )\n    thresh = 0.5/fps\n    while True:\n      # Make sure we enter data reading loop at least once\n      last = time.time() + 1e6\n      while time.time() < thresh + last:\n        last = time.time()        \n        hdr,data = self._parse()\n      if hdr == self.__class__.DATA:\n        yield data\n\n  def stop( self ):\n    \"Tell Vicon to stop streaming\"\n    self._cmd( self.__class__.STOP )\n  \n  def close( self ):\n    \"Close connection to Vicon\"\n    self.sock.close()\n    self.sock = None\n\nif __name__==\"__main__\":\n  hosts = dict( \n    highbay = \"192.168.129.65\",\n    grasp =  \"10.66.68.1\",\n    DEFAULT = \"10.66.68.1\" \n  )\n  fn = None\n  host = hosts['DEFAULT']\n  port = DEFAULT_PORT\n  argv = []; argv[:] = sys.argv[1:]\n  err = ''\n  while argv:\n    arg = argv.pop(0).lower()\n    if arg in ['-h','--host']:\n      arg = argv.pop(0)\n      host = hosts.get( arg.lower(), arg )\n      continue\n    if arg in ['-p','--port']:\n      port = int(argv.pop(0))\n      continue\n    if arg in ['--help','--usage']:\n      err = ' '\n      break\n    if arg in ['-a','--aliases']:\n      for k,v in hosts.iteritems():\n        print \"%-16s : %s\" % (k,v)\n      sys.exit(0)\n    if arg[0] != '-':\n      if fn is not None:\n        err = 'Only one filename allowed on commandline; got \"%s\" and \"%s\"' % (fn,arg)\n        break\n      fn = arg\n      continue\n    err = 'Unknown commandline argument \"%s\"' % arg\n    break\n  if fn is None:\n    err = \"Must specify filename on the commandline\"\n  if err:\n    sys.stderr.write(\"%s\\n\" % err)\n    sys.stderr.write(\"\"\"\nUsage: %s {options} filename\n\n  Creates filename.dcr with the field names and filename.dat with the raw\n  data stored as doubles.\n  \n  Options:\n   -h <hostname>, --host <hostname> \n        Specify VICON hostname where hostname is an IP address, FQDN or alias \n\n   -p <port>, --port <port> \n        Specify VICON port to connect to \n\n   -a, --aliases\n        List the builtin host aliases\n   \n   --help, --usage\n        Print this message\n  \"\"\" % sys.argv[0])\n    sys.exit(5)\n  # Filename user requested\n  print \"Recording from %s:%d to %s.dcr, %s.raw\" % (host,port,fn,fn)   \n  V = ViconReader()\n  names = V.connect(host=host)\n  # Write descriptor\n  dcr = open(fn+\".dcr\", \"w\")\n  dcr.write(\"\\n\".join(names)+\"\\n\")\n  dcr.close()\n  # Write data\n  L = 0\n  N = 0\n  dat = []\n  try: # for catching ctrl-c termination\n    for pkt in V.stream():\n      if not L: # First packet sets the length we'll expect \n        L = len(pkt)\n      elif L != len(pkt):\n        print \"\\nUnexpected packet of length %d instead of %d\" % (len(pkt),L)\n        continue\n      #P dat.write(pkt)\n      dat.append(pkt)\n      N += 1\n      if (N%50)==0:\n        print \"\\r%5d\" % N,\n    # ---\n  except KeyboardInterrupt, ex:\n    #P dat.close()\n    f = open(fn+\".dat\", \"w\")\n    f.write(\"\".join(dat))\n    f.close()\n    V.stop()\n    print \"\\nStop.\"\n    \n\n",
+			"file": "viconReader.py",
+			"file_size": -1,
+			"file_write_time": -1,
+			"settings":
+			{
+				"buffer_size": 7337,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "pymavlink/mavtester.py",
 			"settings":
 			{
-				"buffer_size": 2011,
+				"buffer_size": 1840,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pymavlink/examples/mav_accel.py",
+			"settings":
+			{
+				"buffer_size": 1242,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "message_definitions/v1.0/quad_formation.xml",
+			"settings":
+			{
+				"buffer_size": 2555,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "message_definitions/v1.0/common.xml",
+			"settings":
+			{
+				"buffer_size": 207162,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "message_definitions/v1.0/pixhawk.xml",
+			"settings":
+			{
+				"buffer_size": 15615,
 				"line_ending": "Unix"
 			}
 		}
@@ -86,11 +144,20 @@
 	[
 		"/home/jeni/ca1/mavlink",
 		"/home/jeni/ca1/mavlink/pymavlink",
-		"/home/jeni/ca1/mavlink/pymavlink/dialects",
-		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10"
+		"/home/jeni/ca1/mavlink/pymavlink/examples"
 	],
 	"file_history":
 	[
+		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/mavlink.h",
+		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/quad_formation.h",
+		"/home/jeni/ca1/libs/mavlink_types.h",
+		"/home/jeni/ca1/mavlink/message_definitions/v0.9/common.xml",
+		"/home/jeni/ca1/mavlink/message_definitions/v1.0/common.xml",
+		"/home/jeni/ca1/mavlink/message_definitions/v0.9/pixhawk.xml",
+		"/home/jeni/ca1/mavlink/message_definitions/v1.0/pixhawk.xml",
+		"/home/jeni/ca1/mavlink/pymavlink/dialects/v09/pixhawk.py",
+		"/home/jeni/ca1/mavlink/pymavlink/build/lib.linux-x86_64-2.7/pymavlink/dialects/v10/quad_formation.py",
+		"/home/jeni/ca1/mavlink/message_definitions/v1.0/quad_formation.xml",
 		"/home/jeni/Dropbox/CA1/projekt/matlab/GroundStation/Main.m",
 		"/home/jeni/Dropbox/CA1/projekt/matlab/ViconFilter.m",
 		"/home/jeni/Dropbox/CA1/projekt/matlab/Selector.m",
@@ -103,18 +170,13 @@
 		"/home/jeni/ca1/mavlink/pymavlink/scanwin32.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavtest.py",
 		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/mavlink_types.h",
-		"/home/jeni/ca1/mavlink/pymavlink/dialects/v09/pixhawk.py",
-		"/home/jeni/ca1/mavlink/message_definitions/v1.0/quad_formation.xml",
 		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
 		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/mavlink_msg_quad_pos.h",
-		"/home/jeni/ca1/libs/mavlink_types.h",
 		"/home/jeni/ca1/mavlink/missionlib/mavlink_parameters.c",
 		"/home/jeni/ca1/mavlink/missionlib/mavlink_missionlib_data.h",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/C/include_v0.9/test/mavlink_msg_test_types.h",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/C/include_v1.0/test/mavlink_msg_test_types.h",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/java/lib/Messages/MAVLinkStats.java",
-		"/home/jeni/ca1/mavlink/message_definitions/v1.0/pixhawk.xml",
-		"/home/jeni/ca1/mavlink/message_definitions/v0.9/pixhawk.xml",
 		"/home/jeni/ca1/mavlink/pc.in",
 		"/home/jeni/ca1/mavlink/pymavlink/bwtest.py",
 		"/home/jeni/ca1/mavlink/pymavlink/dialects/v09/common.py",
@@ -150,7 +212,6 @@
 		"/home/jeni/ca1/mavlink/pymavlink/generator/mavschema.xsd",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/mavtemplate.py",
 		"/home/jeni/ca1/qgroundcontrol/README.md",
-		"/home/jeni/ca1/mavlink/message_definitions/v1.0/common.xml",
 		"/home/jeni/ca1/qgroundcontrol/user_config.pri",
 		"/home/jeni/ca1/qgroundcontrol/libs/thirdParty/libxbee/README",
 		"/home/jeni/ca1/libs.py",
@@ -214,11 +275,7 @@
 		"/home/jeni/ca1/Firmware/ROMFS/px4fmu_common/init.d/rc.autostart",
 		"/home/jeni/ca1/Firmware/src/modules/commander/rc_calibration.cpp",
 		"/home/jeni/ca1/Firmware/src/modules/systemlib/param/param.h",
-		"/home/jeni/ca1/Firmware/src/systemcmds/param/param.c",
-		"/home/jeni/ca1/Firmware/Documentation/html/params_8h.html",
-		"/home/jeni/ca1/Firmware/src/examples/fixedwing_control/params.c",
-		"/home/jeni/ca1/Firmware/src/examples/fixedwing_control/params.h",
-		"/home/jeni/ca1/Firmware/src/modules/fixedwing_backside/params.c"
+		"/home/jeni/ca1/Firmware/src/systemcmds/param/param.c"
 	],
 	"find":
 	{
@@ -244,6 +301,45 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"VEHICLE_CMD",
+			"MAV_CMD",
+			"recv_msg",
+			"MAV_SEVERITY",
+			"STATUSTEXT",
+			"recv_match",
+			"SYS_STATUS",
+			"mavlink_status",
+			"statustext",
+			"systemtext",
+			"systemtest",
+			"request",
+			"request*",
+			"request",
+			"statustext",
+			"def mavlink_message",
+			"mavlink_message",
+			"mav_system_status",
+			"system_status",
+			"def system_status",
+			"system_status",
+			"recv_match",
+			"command",
+			"post_message",
+			"recv_match",
+			"print",
+			"recv_msg",
+			"recv_match",
+			"recv",
+			"recive",
+			"recive message",
+			"log",
+			"log_request_data_send",
+			"message",
+			"def mav_message",
+			"command_long",
+			"MAV_CMD",
+			"42",
+			"quad_pos",
 			"ARM",
 			"MAV_FRAME",
 			"def command",
@@ -311,7 +407,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -327,8 +423,8 @@
 						"selection":
 						[
 							[
-								10816,
-								10816
+								9484,
+								9484
 							]
 						],
 						"settings":
@@ -338,10 +434,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3638.0,
+						"translation.y": 3838.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -350,15 +446,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 547057,
+						"buffer_size": 548769,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								364,
-								364
+								8307,
+								8307
 							]
 						],
 						"settings":
@@ -367,11 +463,11 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 48.0,
-						"translation.y": 206.0,
+						"translation.x": 0.0,
+						"translation.y": 2893.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -387,8 +483,8 @@
 						"selection":
 						[
 							[
-								1433,
-								1433
+								387,
+								387
 							]
 						],
 						"settings":
@@ -398,10 +494,40 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 276.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "viconReader.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7337,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5665,
+								5665
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2338.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -411,20 +537,20 @@
 			"sheets":
 			[
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "pymavlink/mavtester.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2011,
+						"buffer_size": 1840,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1082,
-								1082
+								1702,
+								1733
 							]
 						],
 						"settings":
@@ -434,10 +560,129 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 195.0,
+						"translation.y": 720.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "pymavlink/examples/mav_accel.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1242,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								908,
+								908
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 225.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "message_definitions/v1.0/quad_formation.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2555,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								154,
+								173
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "message_definitions/v1.0/common.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 207162,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16304,
+								16304
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1130.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "message_definitions/v1.0/pixhawk.xml",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15615,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								666,
+								666
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/XML/XML.tmLanguage",
+							"tab_size": 5,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
@@ -445,7 +690,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 21.0
+		"height": 23.0
 	},
 	"input":
 	{
@@ -471,7 +716,7 @@
 		"cols":
 		[
 			0.0,
-			0.5,
+			0.490483162518,
 			1.0
 		],
 		"rows":
@@ -492,7 +737,7 @@
 	"project": "mavlink.sublime-project",
 	"replace":
 	{
-		"height": 40.0
+		"height": 42.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -500,6 +745,18 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"comm",
+				"message_definitions/v1.0/common.xml"
+			],
+			[
+				"pixha",
+				"message_definitions/v1.0/pixhawk.xml"
+			],
+			[
+				"quad",
+				"message_definitions/v1.0/quad_formation.xml"
+			],
 			[
 				"mavtes",
 				"pymavlink/mavtester.py"
@@ -513,20 +770,12 @@
 				"message_definitions/v1.0/quad_formation.xml"
 			],
 			[
-				"pixha",
-				"pymavlink/dialects/v09/pixhawk.py"
-			],
-			[
 				"mavtestgen",
 				"pymavlink/generator/mavtestgen.py"
 			],
 			[
 				"mavlinkv10",
 				"pymavlink/dialects/v10/mavlinkv10.py"
-			],
-			[
-				"quad",
-				"message_definitions/v1.0/quad_formation.xml"
 			],
 			[
 				"ma",
@@ -563,10 +812,6 @@
 			[
 				"mavlink",
 				"build/include/v0.9/common/mavlink.h"
-			],
-			[
-				"comm",
-				"message_definitions/v1.0/common.xml"
 			],
 			[
 				"mavte",
@@ -647,6 +892,10 @@
 			[
 				"qg",
 				"~/ca1/qgroundcontrol/qgc.sublime-project"
+			],
+			[
+				"fi",
+				"~/ca1/Firmware/Firmware.sublime-project"
 			],
 			[
 				"f",

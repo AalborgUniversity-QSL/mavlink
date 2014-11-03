@@ -24,7 +24,32 @@ def wait_heartbeat(m):
     '''wait for a heartbeat so we know the target system IDs'''
     print("Waiting for APM heartbeat")
     msg = m.recv_match(type='HEARTBEAT', blocking=True)
-    print("Heartbeat from APM (system %u component %u)" % (m.target_system, m.target_system))
+    print("Heartbeat from APM (system %u component %u)" % (m.target_system, m.target_component))
+
+def wait_statusmsg(m):
+    '''wait for a status msg'''
+    print("Waiting for STATUS_MSG")
+    msg = m.recv_match(type='STATUSTEXT', blocking=True, timeout = 10)
+    print(msg)
+
+def quad_arm_disarm(state):
+    master.mav.command_long_send(
+        mavlink.QUAD_FORMATION_ID_1,
+        mavlink.MAV_COMP_ID_ALL,
+        mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
+        0,
+        state,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0)
+    print("Armed: %d" % (state))
+
+ARM = True
+DISARM = False
+
 
 # create a mavlink serial instance
 master = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE_SYSTEM)
@@ -32,36 +57,25 @@ master = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOUR
 # wait for the heartbeat msg to find the system ID
 wait_heartbeat(master)
 
-# class fifo(object):
-#     def __init__(self):
-#         self.buf = []
-#     def write(self, data):
-#         self.buf += data
-#         return len(data)
-#     def read(self):
-#         return self.buf.pop(0)
+quad_arm_disarm(ARM)
 
-# f = fifo()
 
-# mav = mavlink.MAVLink(f)
+# master.mav.command_int_send(
+#     mavlink.QUAD_FORMATION_ID_1,
+#     0,
+#     0,
+#     MAV_CMD_FORMATION_CONTROL_START,
+#     0,
+#     0,
+#     0,
+#     0,
+#     0,
+#     0,
+#     0,
+#     0,
+#     0)
 
-# # set the WP_RADIUS parameter on the MAV at the end of the link
-# mav.param_set_send(7, 1, "WP_RADIUS", 101, mavlink.MAV_PARAM_TYPE_REAL32)
 
-# # alternatively, produce a MAVLink_param_set object 
-# # this can be sent via your own transport if you like
-# m = mav.param_set_encode(7, 1, "WP_RADIUS", 101, mavlink.MAV_PARAM_TYPE_REAL32)
+wait_statusmsg(master)
 
-# # get the encoded message as a buffer
-# b = m.get_msgbuf()
-
-# # decode an incoming message
-# m2 = mav.decode(b)
-
-# #print("Got a message with id %u" % (m2.get_msgId())
-# print(m2)
-
-ARM = True
-
-#master.mav.command_long_send(1,0,mavlink.MAV_CMD_COMPONENT_ARM_DISARM,0,ARM,0,0,0,0,0,0)
-#master.mav.command_long_send(1,0,42,0,0,0,0,0,0,0,0)
+quad_arm_disarm(DISARM)
