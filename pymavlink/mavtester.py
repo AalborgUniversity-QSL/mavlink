@@ -50,6 +50,7 @@ def quad_arm_disarm(state):
 
 ARM = True
 DISARM = False
+CMD_START = 42
 
 
 # create a mavlink serial instance
@@ -60,21 +61,7 @@ wait_heartbeat(master)
 
 quad_arm_disarm(ARM)
 
-
-# master.mav.command_int_send(
-#     mavlink.QUAD_FORMATION_ID_1,
-#     0,
-#     0,
-#     mavlink.MAV_CMD_FORMATION_CONTROL_START,
-#     0,
-#     0,
-#     0,
-#     0,
-#     0,
-#     0,
-#     0,
-#     0,
-#     0)
+master.mav.quad_pos_send(CMD_START, 1, 0, 0, 0)
 
 wait_statusmsg(master)
 
