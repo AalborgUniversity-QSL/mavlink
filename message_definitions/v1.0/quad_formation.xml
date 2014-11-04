@@ -34,13 +34,17 @@
 	                    <description>Quadrotor ID</description>
 	               </entry>
 	          </enum>
-	          <enum name="MAV_CMD">
+	          <enum name="MAV_VEHICLE_CMD">
                <!-- 1-10000 reserved for common commands -->
-               <entry value="42" name="MAV_CMD_FORMATION_CONTROL_START">
+               <entry value="169" name="MAV_VEHICLE_CMD_FORMATION_START">
                     <description>Start formation algorithm </description>
-                    <param index="1">Empty</param>
+ 					<param index="1">Empty</param>
                     <param index="2">Empty</param>
                     <param index="3">Empty</param>
+                    <param index="4">Empty</param>
+                    <param index="5">Empty</param>
+                    <param index="6">Empty</param>
+                    <param index="7">Empty</param>
                </entry>
           </enum>
 	</enums>

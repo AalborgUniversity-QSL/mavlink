@@ -7,6 +7,7 @@ test mavlink messages
 import sys, struct, time, os
 from curses import ascii
 
+from time import sleep
 from pymavlink import mavutil
 from dialects.v10 import mavlinkv10 as mavlink
 
@@ -29,7 +30,7 @@ def wait_heartbeat(m):
 def wait_statusmsg(m):
     '''wait for a status msg'''
     print("Waiting for STATUS_MSG")
-    msg = m.recv_match(type='STATUSTEXT', blocking=True, timeout = 10)
+    msg = m.recv_match(type='STATUSTEXT', blocking=True)
     print(msg)
 
 def quad_arm_disarm(state):
@@ -64,7 +65,7 @@ quad_arm_disarm(ARM)
 #     mavlink.QUAD_FORMATION_ID_1,
 #     0,
 #     0,
-#     MAV_CMD_FORMATION_CONTROL_START,
+#     mavlink.MAV_CMD_FORMATION_CONTROL_START,
 #     0,
 #     0,
 #     0,
@@ -75,7 +76,8 @@ quad_arm_disarm(ARM)
 #     0,
 #     0)
 
-
 wait_statusmsg(master)
+
+sleep(10)
 
 quad_arm_disarm(DISARM)

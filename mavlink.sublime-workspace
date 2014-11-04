@@ -65,7 +65,7 @@
 			"file": "pymavlink/mavtester.py",
 			"settings":
 			{
-				"buffer_size": 1840,
+				"buffer_size": 1899,
 				"line_ending": "Unix"
 			}
 		},
@@ -148,6 +148,15 @@
 	],
 	"file_history":
 	[
+		"/home/jeni/ca1/mavlink/pymavlink/generator/CS/common/ByteArrayUtil.cs",
+		"/home/jeni/ca1/mavlink/pymavlink/generator/java/lib/Messages/MAVLinkStats.java",
+		"/home/jeni/ca1/mavlink/pymavlink/generator/lib/minixsv/xsvalSimpleTypes.py",
+		"/home/jeni/ca1/mavlink/pymavlink/scanwin32.py",
+		"/home/jeni/ca1/mavlink/pymavlink/setup.py",
+		"/home/jeni/ca1/mavlink/pymavlink/tools/AccelSearch.py",
+		"/home/jeni/ca1/mavlink/pymavlink/generator/java/lib/Parser.java",
+		"/home/jeni/.cache/.fr-kan3IS/logconv.m",
+		"/media/jeni/32CD-4E21/APM/LOGS/42.BIN",
 		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/mavlink.h",
 		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/quad_formation.h",
 		"/home/jeni/ca1/libs/mavlink_types.h",
@@ -167,7 +176,6 @@
 		"/home/jeni/ca1/mavlink/pymavlink/tools/magfit_gps.py",
 		"/home/jeni/ca1/mavlink/pymavlink/tools/mavflighttime.py",
 		"/home/jeni/ca1/mavlink/pymavlink/examples/mavtcpsniff.py",
-		"/home/jeni/ca1/mavlink/pymavlink/scanwin32.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavtest.py",
 		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/mavlink_types.h",
 		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
@@ -176,7 +184,6 @@
 		"/home/jeni/ca1/mavlink/missionlib/mavlink_missionlib_data.h",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/C/include_v0.9/test/mavlink_msg_test_types.h",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/C/include_v1.0/test/mavlink_msg_test_types.h",
-		"/home/jeni/ca1/mavlink/pymavlink/generator/java/lib/Messages/MAVLinkStats.java",
 		"/home/jeni/ca1/mavlink/pc.in",
 		"/home/jeni/ca1/mavlink/pymavlink/bwtest.py",
 		"/home/jeni/ca1/mavlink/pymavlink/dialects/v09/common.py",
@@ -268,14 +275,7 @@
 		"/home/jeni/ca1/software-repo/mavlink/doc/README",
 		"/home/jeni/ca1/qgroundcontrol/libs/README.md",
 		"/media/jeni/32CD-4E21/etc/extras.txt",
-		"/home/jeni/ca1/Firmware/src/lib/mathlib/CMSIS/license.txt",
-		"/home/jeni/ca1/Firmware/ROMFS/px4fmu_common/init.d/8001_octo_x",
-		"/home/jeni/ca1/Firmware/ROMFS/px4fmu_test/init.d/rc.standalone",
-		"/home/jeni/ca1/Firmware/ROMFS/px4fmu_common/init.d/3100_tbs_caipirinha",
-		"/home/jeni/ca1/Firmware/ROMFS/px4fmu_common/init.d/rc.autostart",
-		"/home/jeni/ca1/Firmware/src/modules/commander/rc_calibration.cpp",
-		"/home/jeni/ca1/Firmware/src/modules/systemlib/param/param.h",
-		"/home/jeni/ca1/Firmware/src/systemcmds/param/param.c"
+		"/home/jeni/ca1/Firmware/src/lib/mathlib/CMSIS/license.txt"
 	],
 	"find":
 	{
@@ -301,6 +301,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"severity",
+			"statustext",
 			"VEHICLE_CMD",
 			"MAV_CMD",
 			"recv_msg",
@@ -453,8 +455,8 @@
 						"selection":
 						[
 							[
-								8307,
-								8307
+								90025,
+								90025
 							]
 						],
 						"settings":
@@ -463,8 +465,8 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
-						"translation.y": 2893.0,
+						"translation.x": 42.0,
+						"translation.y": 18838.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -542,15 +544,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1840,
+						"buffer_size": 1899,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1702,
-								1733
+								1839,
+								1628
 							]
 						],
 						"settings":
@@ -560,7 +562,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 720.0,
+						"translation.y": 765.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -590,7 +592,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 225.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -890,16 +892,16 @@
 				"~/ca1/Firmware/Firmware.sublime-project"
 			],
 			[
+				"f",
+				"~/ca1/Firmware/Firmware.sublime-project"
+			],
+			[
 				"qg",
 				"~/ca1/qgroundcontrol/qgc.sublime-project"
 			],
 			[
 				"fi",
 				"~/ca1/Firmware/Firmware.sublime-project"
-			],
-			[
-				"f",
-				"~/ca1/Firmware/firmware.sublime-workspace"
 			],
 			[
 				"sli	",
