@@ -1,5 +1,5 @@
 cd mavlink/pymavlink
-python setup.py install --user
+sudo python setup.py install --user
 
 Now it installed to COPY THIS PATH FROM THE STATUS MESSAGES, IT MAY VARY: $HOME/.local/lib/python2.6/site-packages/
 
