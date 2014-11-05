@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import sys, struct, time, os
 from curses import ascii
 
@@ -6,18 +5,18 @@ from time import sleep
 from pymavlink import mavutil
 from dialects.v10 import mavlinkv10 as mavlink
 
-from argparse import ArgumentParser
-parser = ArgumentParser(description=__doc__)
+# from argparse import ArgumentParser
+# parser = ArgumentParser(description=__doc__)
 
-parser.add_argument("-b", type=int,
-                  help="master port baud rate", default=57600)
-parser.add_argument("-d", required=False, help="serial device", default="/dev/ttyUSB0")
-parser.add_argument("--source-system", dest='SOURCE_SYSTEM', type=int,
-                  default=255, help='MAVLink source system for this GCS')
-args = parser.parse_args()
+# parser.add_argument("-b", type=int,
+#                   help="master port baud rate", default=57600)
+# parser.add_argument("-d", required=False, help="serial device", default="/dev/ttyUSB0")
+# parser.add_argument("--source-system", dest='SOURCE_SYSTEM', type=int,
+#                   default=255, help='MAVLink source system for this GCS')
+# args = parser.parse_args()
 
-# create a mavlink serial instance
-xbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE_SYSTEM)
+# # create a mavlink serial instance
+# xbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE_SYSTEM)
 
 def wait_heartbeat(m):
     '''wait for a heartbeat so we know the target system IDs'''
@@ -45,14 +44,14 @@ def quad_arm_disarm(m, target_system, arm_disarm):
         0,
         0)
 
-# def send_cmd_pos(m, target_system, cmd):
-#     m.mav.quad_pos_send(
-#         target_system,
-#         cmd,
-#         0,
-#         0,
-#         0,
-#         0)
+def quad_cmd_pos(m, target_system, cmd_id, no, x, y, z):
+    m.mav.quad_pos_send(
+        target_system,
+        cmd_id,
+        no,
+        x,
+        y,
+        z)
 
 # x = y = np.zeros((1,NO_OF_QUADS),dtype=np.int16)
 
@@ -63,17 +62,17 @@ def quad_arm_disarm(m, target_system, arm_disarm):
 # # wait for the heartbeat msg to find the system ID
 # wait_heartbeat(xbee)
 
-while 1:
-    xbee.mav.quad_pos_send(
-        mav.QUAD_FORMATION_ID_1,
-        mav.QUAD_CMD_START,
-        0,
-        0,
-        0,
-        0)
+# while 1:
+#     xbee.mav.quad_pos_send(
+#         mav.QUAD_FORMATION_ID_1,
+#         mav.QUAD_CMD_START,
+#         0,
+#         0,
+#         0,
+#         0)
 
-    wait_statusmsg(xbee)
+#     wait_statusmsg(xbee)
 
-    Sleep(10)
+#     Sleep(10)
 
 # quad_arm_disarm(DISARM)

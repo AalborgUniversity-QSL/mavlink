@@ -3,6 +3,8 @@ import sys, struct, time, os, shlex
 import numpy as np
 from curses import ascii
 from time import sleep
+from pymavlink import mavutil
+from dialects.v10 import mavlinkv10 as mavlink
 from pymavlink import mav_formation as formation
 
 from argparse import ArgumentParser
@@ -16,7 +18,7 @@ parser.add_argument("--source-system", dest='SOURCE_SYSTEM', type=int,
 args = parser.parse_args()
 
 # create a mavlink serial instance
-xbee = formation.mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE_SYSTEM)
+xbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE_SYSTEM, dialect="mavlinkv10")
 
 formation.wait_heartbeat(xbee)
 
@@ -31,7 +33,7 @@ while True:
 		if dim > 1 :
 			target_system = int(ans[1])
 		else:
-			target_system = formation.mavlink.QUAD_FORMATION_ID_ALL
+			target_system = mavlink.QUAD_FORMATION_ID_ALL
 		print ("1 - Arming target_system: %u" % (target_system))
 
 		formation.quad_arm_disarm(xbee, target_system, ARM)
@@ -40,7 +42,7 @@ while True:
 		if dim > 1 :
 			target_system = int(ans[1])
 		else:
-			target_system = formation.mavlink.QUAD_FORMATION_ID_ALL
+			target_system = mavlink.QUAD_FORMATION_ID_ALL
 		formation.quad_arm_disarm(xbee, target_system, ARM)
 		print ("1 - Arming target_system: %u" % (target_system))
 
@@ -49,12 +51,21 @@ while True:
 			target_system = int(ans[1])
 			QUAD_CMD = int(ans[2])
 		else:
-			target_system = formation.mavlink.QUAD_FORMATION_ID_ALL
-			QUAD_CMD = formation.mavlink.QUAD_CMD_START
+			target_system = mavlink.QUAD_FORMATION_ID_ALL
+			QUAD_CMD = mavlink.QUAD_CMD_START
 		print ("1 - Start script - target_system: %u  CMD: %u" % (target_system, QUAD_CMD))
 
+		sample_no = 25
+		x = y = z = range(10)
+
 		# Execute the given script
-		formation.send_cmd_pos(xbee, target_system, QUAD_CMD)
+		formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, sample_no, x, y, z)
+
+		while 1:
+			formation.wait_statusmsg(xbee)
+			pass
+
+
 
 	elif ans[0] == 'stop':
 		if dim	> 1 :
