@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import sys, struct, time, os, shlex
+import sys, struct, time, os, shlex, select
 import numpy as np
 from curses import ascii
 from time import sleep
@@ -61,15 +61,15 @@ while True:
 		# Execute the given script
 		formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, sample_no, x, y, z)
 
-		while 1:
-			formation.wait_statusmsg(xbee)
-			pass
-
-
+		try:
+			while True:
+				formation.wait_statusmsg(xbee)
+				time.sleep(1)
+		except KeyboardInterrupt:
+			break
 
 	elif ans[0] == 'stop':
 		if dim	> 1 :
-			target_system = ans[1]
 			target_system = int(ans[1])
 		else :
 			target_system = 0

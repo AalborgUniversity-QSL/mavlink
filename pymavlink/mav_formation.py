@@ -26,9 +26,11 @@ def wait_heartbeat(m):
 
 def wait_statusmsg(m):
     '''wait for a status msg'''
-    print("Waiting for STATUS_MSG")
-    msg = m.recv_match(type='STATUSTEXT', blocking=True)
-    print(msg)
+    # print("Waiting for STATUS_MSG")
+    msg = m.recv_match(type='STATUSTEXT', blocking=False)
+
+    if msg is not None :
+        print(msg)
 
 def quad_arm_disarm(m, target_system, arm_disarm):
     m.mav.command_long_send(
