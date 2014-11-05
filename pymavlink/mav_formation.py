@@ -41,3 +41,12 @@ def quad_cmd_pos(m, target_system, cmd_id, no, x, y, z):
         x,
         y,
         z)
+
+def quad_console(m):
+    print("Waiting for STATUS_MSG")
+    try:
+        while True:
+            wait_statusmsg(m)
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print
