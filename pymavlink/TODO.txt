@@ -1,3 +1,16 @@
+cd mavlink/pymavlink
+python setup.py install --user
+
+Now it installed to COPY THIS PATH FROM THE STATUS MESSAGES, IT MAY VARY: $HOME/.local/lib/python2.6/site-packages/
+
+Edit ~/.bash_profile or ~/.bashrc and add this line:
+
+export PYTHONPATH="$HOME/.local/lib/python2.6/site-packages/:$PYTHONPATH"
+export PATH="$HOME/.local/lib/python2.6/bin/:$PATH"
+
+source ~/.bashrc
+
+
 export PYTHONPATH=$PYTHONPATH:$HOME/ca1/mavlink/
 export PYTHONPATH=$PYTHONPATH:$HOME/ca1/mavlink/pymavlink/p
 export PYTHONPATH="$HOME/.local/lib/python2.7/site-packages/:$PYTHONPATH"
