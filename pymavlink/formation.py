@@ -17,77 +17,88 @@ parser.add_argument("--source-system", dest='SOURCE_SYSTEM', type=int,
                   default=255, help='MAVLink source system for this GCS')
 args = parser.parse_args()
 
+def quad_console(m):
+    print("Waiting for STATUS_MSG")
+    try:
+        while True:
+            formation.wait_statusmsg(m)
+            time.sleep(1)
+    except KeyboardInterrupt:
+        print
+
 # create a mavlink serial instance
 xbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE_SYSTEM, dialect="mavlinkv10")
 
-formation.wait_heartbeat(xbee)
+try:
+	formation.wait_heartbeat(xbee)
 
-while True:
-	input = raw_input("FORMATION >> ")
-	ans = shlex.split(input)
-	dim = len(ans)
+	while True:
+		input = raw_input("FORMATION >> ")
+		ans = shlex.split(input)
+		dim = len(ans)
 
-	if ans[0] == 'arm' :
-		ARM = True
+		if ans[0] == 'arm' :
+			ARM = True
 
-		if dim > 1 :
-			target_system = int(ans[1])
-		else:
-			target_system = mavlink.QUAD_FORMATION_ID_ALL
-		print ("1 - Arming target_system: %u" % (target_system))
+			if dim > 1 :
+				target_system = int(ans[1])
+			else:
+				target_system = mavlink.QUAD_FORMATION_ID_ALL
+			print ("1 - Arming target_system: %u" % (target_system))
 
-		formation.quad_arm_disarm(xbee, target_system, ARM)
-	elif ans[0] == 'disarm' :
-		ARM = False
-		if dim > 1 :
-			target_system = int(ans[1])
-		else:
-			target_system = mavlink.QUAD_FORMATION_ID_ALL
-		formation.quad_arm_disarm(xbee, target_system, ARM)
-		print ("1 - Arming target_system: %u" % (target_system))
+			formation.quad_arm_disarm(xbee, target_system, ARM)
+		elif ans[0] == 'disarm' :
+			ARM = False
+			if dim > 1 :
+				target_system = int(ans[1])
+			else:
+				target_system = mavlink.QUAD_FORMATION_ID_ALL
+			formation.quad_arm_disarm(xbee, target_system, ARM)
+			print ("1 - Arming target_system: %u" % (target_system))
 
-	elif ans[0] == 'start':
-		if dim > 1 :
-			target_system = int(ans[1])
-			QUAD_CMD = int(ans[2])
-		else:
-			target_system = mavlink.QUAD_FORMATION_ID_ALL
-			QUAD_CMD = mavlink.QUAD_CMD_START
-		print ("1 - Start script - target_system: %u  CMD: %u" % (target_system, QUAD_CMD))
+		elif ans[0] == 'start':
+			if dim > 1 :
+				target_system = int(ans[1])
+				QUAD_CMD = int(ans[2])
+			else:
+				target_system = mavlink.QUAD_FORMATION_ID_ALL
+				QUAD_CMD = mavlink.QUAD_CMD_START
+			print ("1 - Start script - target_system: %u  CMD: %u" % (target_system, QUAD_CMD))
 
-		sample_no = 25
-		x = y = z = range(10)
+			sample_no = 25
+			x = y = z = range(10)
 
-		# Execute the given script
-		formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, sample_no, x, y, z)
+			# Execute the given script
+			formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, sample_no, x, y, z)
+			quad_console(m)
 
-		try:
-			while True:
-				formation.wait_statusmsg(xbee)
-				time.sleep(1)
-		except KeyboardInterrupt:
+		elif ans[0] == 'stop':
+			if dim	> 1 :
+				target_system = int(ans[1])
+			else :
+				target_system = 0
+
+			formation.quad_cmd_pos(xbee, target_system, mavlink.QUAD_CMD_STOP, sample_no, x, y, z)
+			print ("2 - Stopping script - target_system: %u" %(target_system))
+
+		elif ans[0] == 'log':
+			print "3 - logging"
+			target_system = ans[1]
+
+
+
+		elif ans[0] == 'help':
+			print "start [target_system] [cmd] - Start script"
+			print "stop [target_system] - Stopping script"
+			print "log [target_system] - logging"
+			print "help"
+			print "exit - close app"
+
+		elif ans[0] == 'exit':
+			print "goodbye!"
 			break
 
-	elif ans[0] == 'stop':
-		if dim	> 1 :
-			target_system = int(ans[1])
-		else :
-			target_system = 0
-		print ("2 - Stopping script - target_system: %u" %(target_system))
+		print
 
-	elif ans[0] == 'log':
-		print "3 - logging"
-		target_system = ans[1]
-
-	elif ans[0] == 'help':
-		print "start [target_system] [cmd] - Start script"
-		print "stop [target_system] - Stopping script"
-		print "log [target_system] - logging"
-		print "help"
-		print "exit - close app"
-
-	elif ans[0] == 'exit':
-		print "goodbye!"
-		break
-
-	print
+except KeyboardInterrupt:
+        print
