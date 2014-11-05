@@ -38,7 +38,10 @@
 	               </entry>
 	          </enum>
 	          <enum name="QUAD_CMD">
-               <entry value="42" name="QUAD_CMD_START_FORMATION">
+               <entry value="42" name="QUAD_CMD_START">
+                    <description>Start BGT formation Script</description>
+               </entry>
+               <entry value="43" name="QUAD_CMD_STOP">
                     <description>Start BGT formation Script</description>
                </entry>
           </enum>
