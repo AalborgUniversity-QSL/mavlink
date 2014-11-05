@@ -8,6 +8,7 @@ from dialects.v10 import mavlinkv10 as mavlink
 from pymavlink import mav_formation as formation
 
 from argparse import ArgumentParser
+
 parser = ArgumentParser(description=__doc__)
 
 parser.add_argument("-b", type=int,
