@@ -50,7 +50,12 @@ thread1 = myThread(1, "vicon")
 thread1.start()
 # thread2.start()
 
-while True:
-    print ("%d,%d,%d" % (x,y,z) )
-    sleep(0.1)
-# print "Exiting Main Thread"
+try:
+
+    while True:
+        print ("%d,%d,%d" % (x,y,z) )
+        sleep(0.1)
+except(KeyboardInterrupt, SystemExit):
+    clean_stop_thread;
+    sys.exit()
+    # print "Exiting Main Thread"
