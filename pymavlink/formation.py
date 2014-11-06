@@ -22,10 +22,12 @@ args = parser.parse_args()
 xbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE_SYSTEM, dialect="mavlinkv10")
 
 index_old = 0
+index = 0
+x = y = z = 0
 
 try:
 	formation.wait_heartbeat(xbee)
-	multi.th.start()
+	# multi.th.start()
 
 	while True:
 		input = raw_input("FORMATION >> ")
@@ -68,10 +70,12 @@ try:
 			try:
 				while True:
 					# print index_old
+					formation.wait_statusmsg(xbee)
 					if multi.index != index_old :
-						index_old = multi.index
-						formation.wait_statusmsg(xbee)
-						formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)
+						# index_old = multi.index
+						# formation.wait_statusmsg(xbee)
+						formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, index, x, y, z)
+						# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)
 						# print("index: %u -> [%f,%f,%f],[%f,%f,%f]" % (multi.index, multi.x[1], multi.y[2], multi.z[3], multi.x[4], multi.y[5], multi.z[6]))
 			except KeyboardInterrupt :
 				print
