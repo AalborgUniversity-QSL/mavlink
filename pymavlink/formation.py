@@ -22,12 +22,14 @@ args = parser.parse_args()
 xbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE_SYSTEM, dialect="mavlinkv10")
 
 index_old = 0
+
+# For test (BGT) commet after you are done
 index = 0
 x = y = z = 0
 
 try:
 	formation.wait_heartbeat(xbee)
-	# multi.th.start()
+	# multi.th.start() '''<-- starts a thread for update on vicon data'''
 
 	while True:
 		input = raw_input("FORMATION >> ")
@@ -72,11 +74,11 @@ try:
 					# print index_old
 					formation.wait_statusmsg(xbee)
 					if multi.index != index_old :
-						# index_old = multi.index
-						# formation.wait_statusmsg(xbee)
+						# index_old = multi.index 		<-- out comment after test
+						# formation.wait_statusmsg(xbee)	'''<-- out comment after test'''
 						formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, index, x, y, z)
-						# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)
-						# print("index: %u -> [%f,%f,%f],[%f,%f,%f]" % (multi.index, multi.x[1], multi.y[2], multi.z[3], multi.x[4], multi.y[5], multi.z[6]))
+						# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)		'''<-- Sends a command to Pixhawk including Vicon data'''
+						# print("index: %u -> [%f,%f,%f],[%f,%f,%f]" % (multi.index, multi.x[1], multi.y[2], multi.z[3], multi.x[4], multi.y[5], multi.z[6]))  '''<-- Debug the vicon data'''
 			except KeyboardInterrupt :
 				print
 		
@@ -95,7 +97,7 @@ try:
 			if dim > 1 :
 				target_system = ans[1]
 			else:
-				target_system = 0
+				target_system = mavlink.QUAD_FORMATION_ID_ALL
 			
 			print "5 - logging - target_system: %u " %(target_system)
 			formation.quad_console(xbee)
