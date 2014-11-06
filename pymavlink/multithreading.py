@@ -1,11 +1,14 @@
 #!/usr/bin/python
 
-import SocketServer, struct, time, threading
+import SocketServer, struct, time, threading, numpy
 from time import sleep
 
 # exitFlag = 0
 
-x = y = z = 3
+index = 0
+x = numpy.zeros((10,), dtype = numpy.float)
+y = numpy.zeros((10,), dtype = numpy.float)
+z = numpy.zeros((10,), dtype = numpy.float)
 
 class myThread (threading.Thread):
     def __init__(self, threadID, name):
@@ -19,23 +22,16 @@ class myThread (threading.Thread):
 
 class MatlabUDPHandler(SocketServer.BaseRequestHandler):
     def handle(self):
-        global x, y, z
+        global index, x, y, z
         data = self.request[0]
         socket = self.request[0]
         # print "%s wrote:" % self.client_address[0]
         numOfValues = len(data) / 8
         unp = struct.unpack('>' + 'd' * numOfValues, data)
-        x = unp[0]
-        y = unp[1]
-        z = unp[2]
-
-# def print_time(threadName, delay, counter):
-#     while counter:
-#         if exitFlag:
-#             thread.exit()
-#         time.sleep(delay)
-#         print "%s: %s" % (threadName, time.ctime(time.time()))
-#         counter -= 1
+        index = unp[0]
+        x = ([ unp[1],unp[4],unp[7],unp[10],unp[13],unp[16],unp[19],unp[22],unp[25],unp[28] ])
+        y = ([ unp[2],unp[5],unp[8],unp[11],unp[14],unp[17],unp[20],unp[23],unp[26],unp[29] ])
+        z = ([ unp[3],unp[6],unp[9],unp[12],unp[15],unp[18],unp[21],unp[24],unp[27],unp[30] ])
 
 def get_vicon_data():
     HOST, PORT = "0.0.0.0", 801
@@ -43,19 +39,18 @@ def get_vicon_data():
     server.serve_forever()
 
 # Create new threads
-thread1 = myThread(1, "vicon")
-# thread2 = myThread(2, "Thread-2", 2)
+th = myThread(1, "vicon")
+th.daemon = True
+# # thread2 = myThread(2, "Thread-2", 2)
 
-# Start new Threads
-thread1.start()
-# thread2.start()
+# # Start new Threads
+# th.start()
+# # thread2.start()
 
-try:
+# try:
 
-    while True:
-        print ("%d,%d,%d" % (x,y,z) )
-        sleep(0.1)
-except(KeyboardInterrupt, SystemExit):
-    clean_stop_thread;
-    sys.exit()
-    # print "Exiting Main Thread"
+#     while True:
+#         print ("%d,%d,%d" % (x,y,z) )
+#         sleep(0.1)
+# except(KeyboardInterrupt, SystemExit):
+#     print
