@@ -41,4 +41,19 @@ def quad_cmd_pos(m, target_system, cmd_id, no, x, y, z):
         x,
         y,
         z)
+
+def commander_send(self,target_system,cmd_id):
+        if self.mavlink10():
+            self.mav.command_long_send(
+                self.target_system,  # target_system
+                0, # target_component
+                mavlink.cmd_id, # command
+                0, # confirmation
+                1, # param1 (1 to indicate arm)
+                0, # param2 (all other params meaningless)
+                0, # param3
+                0, # param4
+                0, # param5
+                0, # param6
+                0) # param7
     
