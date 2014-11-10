@@ -144,7 +144,8 @@
 	},
 	"expanded_folders":
 	[
-		"/home/jeni/ca1/mavlink"
+		"/home/jeni/ca1/mavlink",
+		"/home/jeni/ca1/mavlink/pymavlink"
 	],
 	"file_history":
 	[
@@ -463,8 +464,8 @@
 						"selection":
 						[
 							[
-								2550,
-								2550
+								1183,
+								1183
 							]
 						],
 						"settings":
@@ -473,7 +474,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1035.0,
+						"translation.y": 270.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -853,7 +854,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": false,
+	"side_bar_visible": true,
 	"side_bar_width": 246.0,
 	"status_bar_visible": true,
 	"template_settings":
