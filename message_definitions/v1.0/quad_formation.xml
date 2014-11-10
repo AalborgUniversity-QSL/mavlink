@@ -42,7 +42,7 @@
                     <description>Start BGT formation Script</description>
                </entry>
                <entry value="43" name="QUAD_CMD_STOP">
-                    <description>Start BGT formation Script</description>
+                    <description>Stop BGT formation Script</description>
                </entry>
           </enum>
 	</enums>
