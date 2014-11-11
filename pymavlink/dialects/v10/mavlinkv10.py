@@ -153,10 +153,12 @@ enums['QUAD_FORMATION_ID'][11] = EnumEntry('QUAD_FORMATION_ID_ENUM_END', '''''')
 enums['QUAD_CMD'] = {}
 QUAD_CMD_START = 42 # Start BGT formation Script
 enums['QUAD_CMD'][42] = EnumEntry('QUAD_CMD_START', '''Start BGT formation Script''')
-QUAD_CMD_STOP = 43 # Start BGT formation Script
-enums['QUAD_CMD'][43] = EnumEntry('QUAD_CMD_STOP', '''Start BGT formation Script''')
-QUAD_CMD_ENUM_END = 44 # 
-enums['QUAD_CMD'][44] = EnumEntry('QUAD_CMD_ENUM_END', '''''')
+QUAD_CMD_STOP = 43 # Stop BGT formation Script
+enums['QUAD_CMD'][43] = EnumEntry('QUAD_CMD_STOP', '''Stop BGT formation Script''')
+QUAD_CMD_TEST = 44 # To test different algorithems on the quadrotor
+enums['QUAD_CMD'][44] = EnumEntry('QUAD_CMD_TEST', '''To test different algorithems on the quadrotor''')
+QUAD_CMD_ENUM_END = 45 # 
+enums['QUAD_CMD'][45] = EnumEntry('QUAD_CMD_ENUM_END', '''''')
 
 # MAV_AUTOPILOT
 enums['MAV_AUTOPILOT'] = {}
@@ -1554,7 +1556,7 @@ class MAVLink_quad_pos_message(MAVLink_message):
                 self.z = z
 
         def pack(self, mav):
-                return MAVLink_message.pack(self, mav, 89, struct.pack('<10h10h10hBBB', self.x[0], self.x[1], self.x[2], self.x[3], self.x[4], self.x[5], self.x[6], self.x[7], self.x[8], self.x[9], self.y[0], self.y[1], self.y[2], self.y[3], self.y[4], self.y[5], self.y[6], self.y[7], self.y[8], self.y[9], self.z[0], self.z[1], self.z[2], self.z[3], self.z[4], self.z[5], self.z[6], self.z[7], self.z[8], self.z[9], self.target_system, self.cmd_id, self.pos_no))
+                return MAVLink_message.pack(self, mav, 35, struct.pack('<10f10f10fBBB', self.x[0], self.x[1], self.x[2], self.x[3], self.x[4], self.x[5], self.x[6], self.x[7], self.x[8], self.x[9], self.y[0], self.y[1], self.y[2], self.y[3], self.y[4], self.y[5], self.y[6], self.y[7], self.y[8], self.y[9], self.z[0], self.z[1], self.z[2], self.z[3], self.z[4], self.z[5], self.z[6], self.z[7], self.z[8], self.z[9], self.target_system, self.cmd_id, self.pos_no))
 
 class MAVLink_heartbeat_message(MAVLink_message):
         '''
@@ -3731,7 +3733,7 @@ class MAVLink_debug_message(MAVLink_message):
 
 
 mavlink_map = {
-        MAVLINK_MSG_ID_QUAD_POS : ( '<10h10h10hBBB', MAVLink_quad_pos_message, [3, 4, 5, 0, 1, 2], [10, 10, 10, 1, 1, 1], 89 ),
+        MAVLINK_MSG_ID_QUAD_POS : ( '<10f10f10fBBB', MAVLink_quad_pos_message, [3, 4, 5, 0, 1, 2], [10, 10, 10, 1, 1, 1], 35 ),
         MAVLINK_MSG_ID_HEARTBEAT : ( '<IBBBBB', MAVLink_heartbeat_message, [1, 2, 3, 0, 4, 5], [1, 1, 1, 1, 1, 1], 50 ),
         MAVLINK_MSG_ID_SYS_STATUS : ( '<IIIHHhHHHHHHb', MAVLink_sys_status_message, [0, 1, 2, 3, 4, 5, 12, 6, 7, 8, 9, 10, 11], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 124 ),
         MAVLINK_MSG_ID_SYSTEM_TIME : ( '<QI', MAVLink_system_time_message, [0, 1], [1, 1], 137 ),
@@ -4062,12 +4064,12 @@ class MAVLink(object):
                 The message includes Commands and quadrotor positions in the Vicon
                 space.
 
-                target_system             : The target_system is defined in enum QUAD_FORMATION_ID (uint8_t)
-                cmd_id                    : Command ID is defined in enum QUAD_CMD (uint8_t)
+                target_system             : The target_system is defined in enum QUAD_FORMATION_ID (Zero To anounce all quads (uint8_t)
+                cmd_id                    : Command ID is defined in enum QUAD_CMD (Command IDs smaller than 0 is no cmd) (uint8_t)
                 pos_no                    : Coordinate set number (uint8_t)
-                x                         : x-axis (int16_t[10]) (int16_t)
-                y                         : y-axis (int16_t[10]) (int16_t)
-                z                         : z-axis (int16_t[10]) = -1 if coordinate is Not Available (int16_t)
+                x                         : x-axis (float[10]) (float)
+                y                         : y-axis (float[10]) (float)
+                z                         : z-axis (float[10]) = -1 if coordinate is Not Available (float)
 
                 '''
                 msg = MAVLink_quad_pos_message(target_system, cmd_id, pos_no, x, y, z)
@@ -4079,12 +4081,12 @@ class MAVLink(object):
                 The message includes Commands and quadrotor positions in the Vicon
                 space.
 
-                target_system             : The target_system is defined in enum QUAD_FORMATION_ID (uint8_t)
-                cmd_id                    : Command ID is defined in enum QUAD_CMD (uint8_t)
+                target_system             : The target_system is defined in enum QUAD_FORMATION_ID (Zero To anounce all quads (uint8_t)
+                cmd_id                    : Command ID is defined in enum QUAD_CMD (Command IDs smaller than 0 is no cmd) (uint8_t)
                 pos_no                    : Coordinate set number (uint8_t)
-                x                         : x-axis (int16_t[10]) (int16_t)
-                y                         : y-axis (int16_t[10]) (int16_t)
-                z                         : z-axis (int16_t[10]) = -1 if coordinate is Not Available (int16_t)
+                x                         : x-axis (float[10]) (float)
+                y                         : y-axis (float[10]) (float)
+                z                         : z-axis (float[10]) = -1 if coordinate is Not Available (float)
 
                 '''
                 return self.send(self.quad_pos_encode(target_system, cmd_id, pos_no, x, y, z))
