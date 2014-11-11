@@ -56,4 +56,3 @@ def commander_send(self,target_system,cmd_id):
                 0, # param5
                 0, # param6
                 0) # param7
-    

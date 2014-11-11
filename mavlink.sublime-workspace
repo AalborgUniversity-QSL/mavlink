@@ -83,7 +83,7 @@
 			"file": "message_definitions/v1.0/quad_formation.xml",
 			"settings":
 			{
-				"buffer_size": 3202,
+				"buffer_size": 3200,
 				"line_ending": "Unix"
 			}
 		},
@@ -157,10 +157,10 @@
 	],
 	"file_history":
 	[
-		"/home/jeni/ca1/mavlink/message_definitions/v0.9/common.xml",
-		"/home/jeni/ca1/mavlink/message_definitions/v1.0/common.xml",
 		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavtest.py",
+		"/home/jeni/ca1/mavlink/message_definitions/v0.9/common.xml",
+		"/home/jeni/ca1/mavlink/message_definitions/v1.0/common.xml",
 		"/home/jeni/ca1/mavlink/message_definitions/v1.0/quad_formation.xml",
 		"/home/jeni/ca1/mavlink/message_definitions/v1.0/pixhawk.xml",
 		"/home/jeni/ca1/mavlink/pymavlink/__init__.py",
@@ -494,15 +494,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3202,
+						"buffer_size": 3200,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2352,
-								2352
+								3015,
+								3015
 							]
 						],
 						"settings":
@@ -511,7 +511,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 720.0,
+						"translation.y": 540.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -662,16 +662,16 @@
 		"selected_items":
 		[
 			[
+				"mavlink",
+				"pymavlink/dialects/v10/mavlinkv10.py"
+			],
+			[
 				"common",
 				"message_definitions/v0.9/common.xml"
 			],
 			[
 				"qua",
 				"message_definitions/v1.0/quad_formation.xml"
-			],
-			[
-				"mavlink",
-				"pymavlink/dialects/v10/mavlinkv10.py"
 			],
 			[
 				"q_",
