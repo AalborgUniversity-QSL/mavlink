@@ -75,7 +75,7 @@
 			"file": "pymavlink/formation.py",
 			"settings":
 			{
-				"buffer_size": 4991,
+				"buffer_size": 4818,
 				"line_ending": "Unix"
 			}
 		},
@@ -440,7 +440,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -449,15 +449,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4991,
+						"buffer_size": 4818,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4398,
-								4398
+								3610,
+								3610
 							]
 						],
 						"settings":
@@ -466,10 +466,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2017.0,
+						"translation.y": 1395.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -485,8 +485,8 @@
 						"selection":
 						[
 							[
-								587,
-								587
+								683,
+								683
 							]
 						],
 						"settings":
@@ -497,10 +497,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 172.0,
+						"translation.y": 37.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -530,7 +530,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]

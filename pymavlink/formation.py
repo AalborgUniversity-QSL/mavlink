@@ -24,10 +24,10 @@ xbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE
 index_old = 0
 
 # For test (BGT) commet after you are done
-# index = 0
-# x = np.zeros((10,), dtype = np.float)
-# y = np.zeros((10,), dtype = np.float)
-# z = [0.8, 0, -1, -1, -1, -1, -1, -1, -1, -1,]
+index = 0
+x = np.zeros((10,), dtype = np.float)
+y = np.zeros((10,), dtype = np.float)
+z = [0.8, 0, -1, -1, -1, -1, -1, -1, -1, -1,]
 
 try:
 	formation.wait_heartbeat(xbee)
@@ -113,7 +113,7 @@ try:
 						index_old = multi.index
 						formation.wait_statusmsg(xbee)
 						formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)
-						print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x[1], multi.y[2], multi.z[3]))
+						print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x[0], multi.y[0], multi.z[0]))
 			except KeyboardInterrupt :
 				print
 
@@ -133,7 +133,7 @@ try:
 			else :
 				target_system = 0
 
-			formation.quad_cmd_pos(xbee, target_system, mavlink.QUAD_CMD_STOP, 0, 0, 0, 0)
+			formation.quad_cmd_pos(xbee, target_system, mavlink.QUAD_CMD_STOP, index, x, y, z)
 			print ("5 - Stopping script - target_system: %u" %(target_system))
 
 		# LOG STATUSTEXT FROM FORMATION
