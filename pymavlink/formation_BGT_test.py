@@ -56,7 +56,7 @@ try:
 			else:
 				target_system = mavlink.QUAD_FORMATION_ID_ALL
 			formation.quad_arm_disarm(xbee, target_system, ARM)
-			print ("2 - Arming target_system: %u" % (target_system))
+			print ("2 - Disarm target_system: %u" % (target_system))
 
 		elif ans[0] == 'set_mode' :
 			if dim > 1 :

@@ -80,6 +80,14 @@
 			}
 		},
 		{
+			"file": "pymavlink/formation_BGT_test.py",
+			"settings":
+			{
+				"buffer_size": 4764,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "pymavlink/mav_formation.py",
 			"settings":
 			{
@@ -440,7 +448,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -469,11 +477,40 @@
 						"translation.y": 1612.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "pymavlink/formation_BGT_test.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4764,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3806,
+								3806
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1530.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "pymavlink/mav_formation.py",
 					"semi_transient": false,
 					"settings":
@@ -500,11 +537,11 @@
 						"translation.y": 450.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "pymavlink/multithreading.py",
 					"semi_transient": false,
 					"settings":
@@ -530,7 +567,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -587,6 +624,10 @@
 		"selected_items":
 		[
 			[
+				"form",
+				"pymavlink/formation_BGT_test.py"
+			],
+			[
 				"mu",
 				"pymavlink/multithreading.py"
 			],
@@ -625,10 +666,6 @@
 			[
 				"mavlinkv",
 				"pymavlink/dialects/v10/mavlinkv10.py"
-			],
-			[
-				"form",
-				"pymavlink/formation.py"
 			],
 			[
 				"to",
