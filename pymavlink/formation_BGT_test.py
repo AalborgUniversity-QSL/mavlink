@@ -125,7 +125,7 @@ try:
 			else :
 				target_system = 0
 
-			formation.quad_cmd_pos(xbee, target_system, mavlink.QUAD_CMD_STOP, sample_no, x, y, z)
+			formation.quad_cmd_pos(xbee, target_system, mavlink.QUAD_CMD_STOP, index, x, y, z)
 			print ("5 - Stopping script - target_system: %u" %(target_system))
 
 		# LOG STATUSTEXT FROM FORMATION

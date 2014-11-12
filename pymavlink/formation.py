@@ -25,11 +25,13 @@ index_old = 0
 
 # For test (BGT) commet after you are done
 index = 0
-x = y = z = np.zeros((10,), dtype = np.float)
+x = np.zeros((10,), dtype = np.float)
+y = np.zeros((10,), dtype = np.float)
+z = [0.8, 0, -1, -1, -1, -1, -1, -1, -1, -1,]
 
 try:
 	formation.wait_heartbeat(xbee)
-	# multi.th.start() '''<-- starts a thread for update on vicon data'''
+	# multi.th.start()
 
 	while True:
 		input = raw_input("FORMATION >> ")
@@ -96,14 +98,14 @@ try:
 			print
 			print("Waiting for STATUS_MSG")
 
-			formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, index, x, y, z)
+			# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, index, x, y, z)
 
-			try:
-				while True:
-					# print index_old
-					formation.wait_statusmsg(xbee)
-			except KeyboardInterrupt :
-				print
+			# try:
+			# 	while True:
+			# 		# print index_old
+			# 		formation.wait_statusmsg(xbee)
+			# except KeyboardInterrupt :
+			# 	print
 
 
 			# try:
@@ -111,12 +113,23 @@ try:
 			# 		# print index_old
 			# 		formation.wait_statusmsg(xbee)
 			# 		if multi.index != index_old :
-			# 			# index_old = multi.index 		'''<-- out comment after test'''
+			# 			index_old = multi.index
 			# 			formation.wait_statusmsg(xbee)
-			# 			# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)		'''<-- Sends a command to Pixhawk including Vicon data'''
+			# 			formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, index, x, y, z)
+
+			# 			# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)
 			# 			# print("index: %u -> [%f,%f,%f],[%f,%f,%f]" % (multi.index, multi.x[1], multi.y[2], multi.z[3], multi.x[4], multi.y[5], multi.z[6]))  '''<-- Debug the vicon data'''
 			# except KeyboardInterrupt :
 			# 	print
+
+			try:
+				while True:
+					# print index_old
+					formation.wait_statusmsg(xbee)
+					formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, index, x, y, z)
+						
+			except KeyboardInterrupt :
+				print
 		
 		# STOP SCRIPT
 		elif ans[0] == 'stop':
