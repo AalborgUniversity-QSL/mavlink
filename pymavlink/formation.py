@@ -24,16 +24,18 @@ xbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE
 index_old = 0
 
 # For test (BGT) commet after you are done
-index = 0
-x = np.zeros((10,), dtype = np.float)
-y = np.zeros((10,), dtype = np.float)
-z = [0.8, 0, -1, -1, -1, -1, -1, -1, -1, -1,]
+# index = 0
+# x = np.zeros((10,), dtype = np.float)
+# y = np.zeros((10,), dtype = np.float)
+# z = [0.8, 0, -1, -1, -1, -1, -1, -1, -1, -1,]
 
 try:
 	formation.wait_heartbeat(xbee)
-	# multi.th.start()
+	# 172.26.56.58 is me
+	multi.th.start()
 
 	while True:
+		print
 		input = raw_input("FORMATION >> ")
 		ans = shlex.split(input)
 		dim = len(ans)
@@ -60,31 +62,29 @@ try:
 			formation.quad_arm_disarm(xbee, target_system, ARM)
 			print ("2 - Arming target_system: %u" % (target_system))
 
-		elif ans[0] == 'set_mode' :
-			if dim > 1 :
-				target_system = int(ans[1])
-				mode = int(ans[2])
-			else:
-				target_system = mavlink.QUAD_FORMATION_ID_ALL
-			xbee.set_mode(mode)
-			print ("3 - Setting mode - target_system: %u - mode: %u" % (target_system, mode))
-			print("Waiting for STATUS_MSG")
-			try:
-				while True:
-					# print index_old
-						formation.wait_statusmsg(xbee)
-			except KeyboardInterrupt :
-				print
+		# elif ans[0] == 'set_mode' :
+		# 	if dim > 1 :
+		# 		target_system = int(ans[1])
+		# 		mode = int(ans[2])
+		# 	else:
+		# 		target_system = mavlink.QUAD_FORMATION_ID_ALL
+		# 	xbee.set_mode(mode)
+		# 	print ("3 - Setting mode - target_system: %u - mode: %u" % (target_system, mode))
+		# 	print("Waiting for STATUS_MSG")
+		# 	try:
+		# 		while True:
+		# 			# print index_old
+		# 				formation.wait_statusmsg(xbee)
+		# 	except KeyboardInterrupt :
+		# 		print
 
-		elif ans[0] == 'set_flag' :
-			if dim > 1:
-				target_system = int(ans[1])
-				flag = int(ans[2])
-				enable = int(ans[3])
-			xbee.set_mode_flag(flag,enable)
-			print ("3 - Setting mode flag - target_system: %u - flag: %u - enable: %u" % (target_system, flag, enable))
-
-
+		# elif ans[0] == 'set_flag' :
+		# 	if dim > 1:
+		# 		target_system = int(ans[1])
+		# 		flag = int(ans[2])
+		# 		enable = int(ans[3])
+		# 	xbee.set_mode_flag(flag,enable)
+		# 	print ("3 - Setting mode flag - target_system: %u - flag: %u - enable: %u" % (target_system, flag, enable))
 
 		# START SCRIPT
 		elif ans[0] == 'start':
@@ -98,27 +98,10 @@ try:
 			print
 			print("Waiting for STATUS_MSG")
 
-			# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, index, x, y, z)
-
 			# try:
 			# 	while True:
 			# 		# print index_old
 			# 		formation.wait_statusmsg(xbee)
-			# except KeyboardInterrupt :
-			# 	print
-
-
-			# try:
-			# 	while True:
-			# 		# print index_old
-			# 		formation.wait_statusmsg(xbee)
-			# 		if multi.index != index_old :
-			# 			index_old = multi.index
-			# 			formation.wait_statusmsg(xbee)
-			# 			formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, index, x, y, z)
-
-			# 			# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)
-			# 			# print("index: %u -> [%f,%f,%f],[%f,%f,%f]" % (multi.index, multi.x[1], multi.y[2], multi.z[3], multi.x[4], multi.y[5], multi.z[6]))  '''<-- Debug the vicon data'''
 			# except KeyboardInterrupt :
 			# 	print
 
@@ -126,10 +109,22 @@ try:
 				while True:
 					# print index_old
 					formation.wait_statusmsg(xbee)
-					formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, index, x, y, z)
-						
+					if multi.index != index_old :
+						index_old = multi.index
+						formation.wait_statusmsg(xbee)
+						formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)
+						print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x[1], multi.y[2], multi.z[3]))
 			except KeyboardInterrupt :
 				print
+
+			# try:
+			# 	while True:
+			# 		# print index_old
+			# 		formation.wait_statusmsg(xbee)
+			# 		formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, index, x, y, z)
+						
+			# except KeyboardInterrupt :
+			# 	print
 		
 		# STOP SCRIPT
 		elif ans[0] == 'stop':
@@ -138,7 +133,7 @@ try:
 			else :
 				target_system = 0
 
-			formation.quad_cmd_pos(xbee, target_system, mavlink.QUAD_CMD_STOP, sample_no, x, y, z)
+			formation.quad_cmd_pos(xbee, target_system, mavlink.QUAD_CMD_STOP, 0, 0, 0, 0)
 			print ("5 - Stopping script - target_system: %u" %(target_system))
 
 		# LOG STATUSTEXT FROM FORMATION
