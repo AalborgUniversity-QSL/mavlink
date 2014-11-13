@@ -94,7 +94,7 @@ try:
 			else:
 				target_system = mavlink.QUAD_FORMATION_ID_ALL
 				# QUAD_CMD = mavlink.QUAD_CMD_START
-			print ("4 - Start script - target_system: %u  CMD: %u" % (target_system, QUAD_CMD))
+			print ("4 - Start script - target_system: %u  CMD: %u" % (target_system, mavlink.QUAD_CMD_START))
 			print
 			print("Waiting for STATUS_MSG")
 
@@ -122,7 +122,7 @@ try:
 					        multi.z)
 
 						# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)
-						# print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x[0], multi.y[0], multi.z[0]))
+						print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x[0], multi.y[0], multi.z[0]))
 			except KeyboardInterrupt :
 				print
 

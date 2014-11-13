@@ -58,29 +58,29 @@ try:
 			formation.quad_arm_disarm(xbee, target_system, ARM)
 			print ("2 - Disarm target_system: %u" % (target_system))
 
-		elif ans[0] == 'set_mode' :
-			if dim > 1 :
-				target_system = int(ans[1])
-				mode = int(ans[2])
-			else:
-				target_system = mavlink.QUAD_FORMATION_ID_ALL
-			xbee.set_mode(mode)
-			print ("3 - Setting mode - target_system: %u - mode: %u" % (target_system, mode))
-			print("Waiting for STATUS_MSG")
-			try:
-				while True:
-					# print index_old
-						formation.wait_statusmsg(xbee)
-			except KeyboardInterrupt :
-				print
+		# elif ans[0] == 'set_mode' :
+		# 	if dim > 1 :
+		# 		target_system = int(ans[1])
+		# 		mode = int(ans[2])
+		# 	else:
+		# 		target_system = mavlink.QUAD_FORMATION_ID_ALL
+		# 	xbee.set_mode(mode)
+		# 	print ("3 - Setting mode - target_system: %u - mode: %u" % (target_system, mode))
+		# 	print("Waiting for STATUS_MSG")
+		# 	try:
+		# 		while True:
+		# 			# print index_old
+		# 				formation.wait_statusmsg(xbee)
+		# 	except KeyboardInterrupt :
+		# 		print
 
-		elif ans[0] == 'set_flag' :
-			if dim > 1:
-				target_system = int(ans[1])
-				flag = int(ans[2])
-				enable = int(ans[3])
-			xbee.set_mode_flag(flag,enable)
-			print ("3 - Setting mode flag - target_system: %u - flag: %u - enable: %u" % (target_system, flag, enable))
+		# elif ans[0] == 'set_flag' :
+		# 	if dim > 1:
+		# 		target_system = int(ans[1])
+		# 		flag = int(ans[2])
+		# 		enable = int(ans[3])
+		# 	xbee.set_mode_flag(flag,enable)
+		# 	print ("3 - Setting mode flag - target_system: %u - flag: %u - enable: %u" % (target_system, flag, enable))
 
 
 
