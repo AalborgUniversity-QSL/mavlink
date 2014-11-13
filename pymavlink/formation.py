@@ -27,7 +27,7 @@ index_old = 0
 index = 0
 x = np.zeros((10,), dtype = np.float)
 y = np.zeros((10,), dtype = np.float)
-z = [0.8, 0, -1, -1, -1, -1, -1, -1, -1, -1,]
+z = [0.8, -1, -1, -1, -1, -1, -1, -1, -1, -1,]
 
 try:
 	formation.wait_heartbeat(xbee)
@@ -93,7 +93,7 @@ try:
 				QUAD_CMD = int(ans[2])
 			else:
 				target_system = mavlink.QUAD_FORMATION_ID_ALL
-				QUAD_CMD = mavlink.QUAD_CMD_START
+				# QUAD_CMD = mavlink.QUAD_CMD_START
 			print ("4 - Start script - target_system: %u  CMD: %u" % (target_system, QUAD_CMD))
 			print
 			print("Waiting for STATUS_MSG")
@@ -115,7 +115,7 @@ try:
 
 						xbee.mav.quad_pos_send(
 							target_system,
-							QUAD_CMD,
+							mavlink.QUAD_CMD_START,
 					        multi.index,
 					        multi.x,
 					        multi.y,
@@ -142,7 +142,7 @@ try:
 			else :
 				target_system = 0
 
-			formation.quad_cmd_pos(xbee, target_system, mavlink.QUAD_CMD_STOP, index, x, y, z)
+			formation.quad_cmd_pos(xbee, target_system, mavlink.QUAD_CMD_STOP, multi.index, multi.x, multi.y, multi.z)
 			print ("5 - Stopping script - target_system: %u" %(target_system))
 
 		# LOG STATUSTEXT FROM FORMATION
