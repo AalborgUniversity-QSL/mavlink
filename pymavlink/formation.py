@@ -114,6 +114,7 @@ try:
 						formation.wait_statusmsg(xbee)
 
 						xbee.mav.quad_pos_send(
+							0,
 							target_system,
 							mavlink.QUAD_CMD_START,
 					        multi.index,

@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Vicon",
+				"viconRead"
+			],
+			[
 				"QU",
 				"QUAD_CMD_START"
 			],
@@ -79,7 +83,39 @@
 			"file": "pymavlink/formation.py",
 			"settings":
 			{
-				"buffer_size": 5034,
+				"buffer_size": 5044,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pymavlink/formation-v2.py",
+			"settings":
+			{
+				"buffer_size": 5387,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pymavlink/mav_formation.py",
+			"settings":
+			{
+				"buffer_size": 1611,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pymavlink/dialects/v10/mavlinkv10.py",
+			"settings":
+			{
+				"buffer_size": 550867,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pymavlink/multithreading.py",
+			"settings":
+			{
+				"buffer_size": 1436,
 				"line_ending": "Unix"
 			}
 		}
@@ -129,14 +165,25 @@
 	],
 	"file_history":
 	[
-		"/home/jeni/ca1/mavlink/pymavlink/multithreading.py",
-		"/home/jeni/ca1/mavlink/pymavlink/mav_formation.py",
-		"/home/jeni/ca1/mavlink/message_definitions/v1.0/quad_formation.xml",
-		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
-		"/home/jeni/ca1/libs/quad_formation/mavlink_msg_quad_pos.h",
 		"/home/jeni/ca1/mavlink/pymavlink/mavutil.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavtest.py",
+		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
 		"/home/jeni/ca1/mavlink/pymavlink/formation_BGT_test.py",
+		"/home/jeni/ca1/mavlink/message_definitions/v1.0/common.xml",
+		"/home/jeni/ca1/mavlink/message_definitions/v1.0/quad_formation.xml",
+		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/quad_formation.h",
+		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/mavlink.h",
+		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/mavlink_msg_quad_pos.h",
+		"/home/jeni/ca1/mavlink/message_definitions/v0.9/common.xml",
+		"/home/jeni/ca1/mavlink/pymavlink/scanwin32.py",
+		"/home/jeni/ca1/mavlink/pymavlink/setup.py",
+		"/home/jeni/ca1/mavlink/pymavlink/tools/python_array_test_send.py",
+		"/home/jeni/ca1/mavlink/pymavlink/generator/javascript/lib/jspack/LICENSE",
+		"/home/jeni/ca1/mavlink/missionlib/testing/.gitignore",
+		"/home/jeni/ca1/mavlink/pymavlink/build/lib.linux-x86_64-2.7/pymavlink/formation.py",
+		"/home/jeni/ca1/mavlink/pymavlink/mav_formation.py",
+		"/home/jeni/ca1/mavlink/pymavlink/multithreading.py",
+		"/home/jeni/ca1/libs/quad_formation/mavlink_msg_quad_pos.h",
 		"/home/jeni/ca1/mavlink/mavlink.sublime-project",
 		"/home/jeni/ca1/mavlink/pc.in",
 		"/home/jeni/ca1/mavlink/viconReader.py",
@@ -148,8 +195,6 @@
 		"/home/jeni/ca1/mavlink/.travis.yml",
 		"/home/jeni/ca1/mavlink/.gitmodules",
 		"/home/jeni/ca1/mavlink/.gitignore",
-		"/home/jeni/ca1/mavlink/message_definitions/v0.9/common.xml",
-		"/home/jeni/ca1/mavlink/message_definitions/v1.0/common.xml",
 		"/home/jeni/ca1/mavlink/message_definitions/v1.0/pixhawk.xml",
 		"/home/jeni/ca1/mavlink/pymavlink/__init__.py",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/lib/genxmlif/xmliftest.py",
@@ -158,7 +203,6 @@
 		"/home/jeni/Dropbox/CA1/projekt/matlab/Selector.m",
 		"/home/jeni/Dropbox/CA1/projekt/matlab/pos_estimator.py",
 		"/home/jeni/Dropbox/CA1/projekt/matlab/mat2py.py",
-		"/home/jeni/ca1/mavlink/pymavlink/build/lib.linux-x86_64-2.7/pymavlink/formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mat2py.py",
 		"/home/jeni/ca1/mavlink/pymavlink/quad_threads.py",
 		"/home/jeni/ca1/mavlink/pymavlink/formation.py",
@@ -175,19 +219,14 @@
 		"/home/jeni/ca1/mavlink/pymavlink/mavtester.py",
 		"/home/jeni/test.py",
 		"/home/jeni/Downloads/diveintopython-5.4/py/argecho.py",
-		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/mavlink_msg_quad_pos.h",
 		"/home/jeni/ca1/viconReader.py",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/CS/common/ByteArrayUtil.cs",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/java/lib/Messages/MAVLinkStats.java",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/lib/minixsv/xsvalSimpleTypes.py",
-		"/home/jeni/ca1/mavlink/pymavlink/scanwin32.py",
-		"/home/jeni/ca1/mavlink/pymavlink/setup.py",
 		"/home/jeni/ca1/mavlink/pymavlink/tools/AccelSearch.py",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/java/lib/Parser.java",
 		"/home/jeni/.cache/.fr-kan3IS/logconv.m",
 		"/media/jeni/32CD-4E21/APM/LOGS/42.BIN",
-		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/mavlink.h",
-		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/quad_formation.h",
 		"/home/jeni/ca1/libs/mavlink_types.h",
 		"/home/jeni/ca1/mavlink/message_definitions/v0.9/pixhawk.xml",
 		"/home/jeni/ca1/mavlink/pymavlink/dialects/v09/pixhawk.py",
@@ -253,10 +292,7 @@
 		"/home/jeni/mavlink/pymavlink/generator/CS/common/ByteArrayUtil.cs",
 		"/home/jeni/mavlink/pymavlink/generator/lib/genxmlif/xmlifUtils.py",
 		"/home/jeni/mavlink/cmake/arkcmake/ExternalProjectWithFilename.cmake",
-		"/home/jeni/mavlink/examples/linux/.gitignore",
-		"/home/jeni/mavlink/pymavlink/generator/lib/genxmlif/xmlifElementTree.py",
-		"/home/jeni/mavlink/message_definitions/v1.0/common.xml",
-		"/home/jeni/mavlink/message_definitions/v0.9/common.xml"
+		"/home/jeni/mavlink/examples/linux/.gitignore"
 	],
 	"find":
 	{
@@ -282,6 +318,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"quad_",
+			"timestamp",
+			"sensor",
+			"sensor_combined",
 			"quad_pos",
 			"QUAD_CMD_STOP",
 			"position",
@@ -405,11 +445,7 @@
 			"set mode",
 			"mode_flag",
 			"send",
-			"sned",
-			"arm_",
-			"arm_send",
-			"heartbeat",
-			"heartbeat_decode"
+			"sned"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -437,15 +473,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5034,
+						"buffer_size": 5044,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3498,
-								3498
+								3398,
+								3398
 							]
 						],
 						"settings":
@@ -454,10 +490,129 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1533.0,
+						"translation.y": 1365.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "pymavlink/formation-v2.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5387,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1602,
+								1602
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 337.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "pymavlink/mav_formation.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1611,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 195.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "pymavlink/dialects/v10/mavlinkv10.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 550867,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								272173,
+								272182
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 52791.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "pymavlink/multithreading.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1436,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1393,
+								1393
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -514,12 +669,36 @@
 		"selected_items":
 		[
 			[
-				"quad",
-				"message_definitions/v1.0/quad_formation.xml"
+				"mavlin",
+				"pymavlink/dialects/v10/mavlinkv10.py"
 			],
 			[
 				"mavlink",
 				"pymavlink/dialects/v10/mavlinkv10.py"
+			],
+			[
+				"mav_fo",
+				"pymavlink/mav_formation.py"
+			],
+			[
+				"mul",
+				"pymavlink/multithreading.py"
+			],
+			[
+				"quad",
+				"message_definitions/v1.0/quad_formation.xml"
+			],
+			[
+				"common",
+				"message_definitions/v1.0/common.xml"
+			],
+			[
+				"commo",
+				"message_definitions/v0.9/common.xml"
+			],
+			[
+				"forma",
+				"pymavlink/formation_BGT_test.py"
 			],
 			[
 				"form",
@@ -528,10 +707,6 @@
 			[
 				"mu",
 				"pymavlink/multithreading.py"
-			],
-			[
-				"common",
-				"message_definitions/v0.9/common.xml"
 			],
 			[
 				"qua",
@@ -546,16 +721,8 @@
 				"message_definitions/v1.0/quad_formation.xml"
 			],
 			[
-				"mul",
-				"pymavlink/multithreading.py"
-			],
-			[
 				"mavu",
 				"pymavlink/mavutil.py"
-			],
-			[
-				"forma",
-				"pymavlink/mav_formation.py"
 			],
 			[
 				"mavlinkv",
@@ -604,10 +771,6 @@
 			[
 				"mavtes",
 				"pymavlink/mavtester.py"
-			],
-			[
-				"mavlin",
-				"pymavlink/dialects/v10/mavlinkv10.py"
 			],
 			[
 				"mavtestgen",

@@ -52,6 +52,7 @@
 	     <messages>
 	          <message id="199" name="QUAD_POS">
 	               <description>The message includes Commands and quadrotor positions in the Vicon space.</description>
+	               <field type="uint64_t" name="timestamp">Timestamp from system bootup</field>
 	               <field type="uint8_t" name="target_system"> The target_system is defined in enum QUAD_FORMATION_ID (Zero To anounce all quads</field>
 	               <field type="uint8_t" name="cmd_id">Command ID is defined in enum QUAD_CMD (Command IDs smaller than 0 is no cmd)</field>
 	               <field type="uint8_t" name="pos_no">Coordinate set number</field>

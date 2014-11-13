@@ -33,24 +33,12 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         y = ([ vicn[2],vicn[5],vicn[8],vicn[11],vicn[14],vicn[17],vicn[20],vicn[23],vicn[26],vicn[29] ])
         z = ([ vicn[3],vicn[6],vicn[9],vicn[12],vicn[15],vicn[18],vicn[21],vicn[24],vicn[27],vicn[30] ])
 
-def get_vicon_data():
-    HOST, PORT = "0.0.0.0", 801
-    server = SocketServer.UDPServer((HOST, PORT), MatlabUDPHandler)
-    server.serve_forever()
+def get_vicon_data() :
+        HOST, PORT = "0.0.0.0", 801
+        server = SocketServer.UDPServer((HOST, PORT), MatlabUDPHandler)
+        server.serve_forever()
+
 
 # Create new threads
 th = myThread(1, "vicon")
 th.daemon = True
-# thread2 = myThread(2, "Thread-2", 2)
-
-# # Start new Threads
-# th.start()
-# # thread2.start()
-
-# try:
-
-#     while True:
-#         print ("%d,%d,%d" % (x,y,z) )
-#         sleep(0.1)
-# except(KeyboardInterrupt, SystemExit):
-#     print
