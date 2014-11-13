@@ -112,7 +112,16 @@ try:
 					if multi.index != index_old :
 						index_old = multi.index
 						formation.wait_statusmsg(xbee)
-						formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)
+
+						xbee.mav.quad_pos_send(
+							target_system,
+							QUAD_CMD,
+					        multi.index,
+					        multi.x,
+					        multi.y,
+					        multi.z)
+
+						# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)
 						# print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x[0], multi.y[0], multi.z[0]))
 			except KeyboardInterrupt :
 				print

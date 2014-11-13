@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"in",
+				"index"
+			],
+			[
 				"inde",
 				"index_old"
 			],
@@ -75,7 +79,7 @@
 			"file": "pymavlink/formation.py",
 			"settings":
 			{
-				"buffer_size": 4818,
+				"buffer_size": 4816,
 				"line_ending": "Unix"
 			}
 		},
@@ -449,15 +453,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4818,
+						"buffer_size": 4816,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3610,
-								3610
+								3439,
+								3439
 							]
 						],
 						"settings":
@@ -466,7 +470,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1395.0,
+						"translation.y": 1530.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -485,8 +489,8 @@
 						"selection":
 						[
 							[
-								683,
-								683
+								612,
+								612
 							]
 						],
 						"settings":
@@ -497,10 +501,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 37.0,
+						"translation.y": 180.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -516,8 +520,8 @@
 						"selection":
 						[
 							[
-								252,
-								252
+								828,
+								828
 							]
 						],
 						"settings":
@@ -530,7 +534,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
