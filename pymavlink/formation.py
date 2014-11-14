@@ -24,15 +24,15 @@ xbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE
 index_old = 0
 
 # For test (BGT) commet after you are done
-index = 0
-x = np.zeros((10,), dtype = np.float)
-y = np.zeros((10,), dtype = np.float)
-z = [0.8, -1, -1, -1, -1, -1, -1, -1, -1, -1,]
+# index = 0
+# x = np.zeros((10,), dtype = np.float)
+# y = np.zeros((10,), dtype = np.float)
+# z = [0.8, -1, -1, -1, -1, -1, -1, -1, -1, -1,]
 
 try:
 	formation.wait_heartbeat(xbee)
 	# 172.26.56.58 is me
-	multi.th.start()
+	# multi.th.start()
 
 	while True:
 		print
@@ -93,7 +93,7 @@ try:
 				QUAD_CMD = int(ans[2])
 			else:
 				target_system = mavlink.QUAD_FORMATION_ID_ALL
-				# QUAD_CMD = mavlink.QUAD_CMD_START
+				QUAD_CMD = mavlink.QUAD_CMD_START
 			print ("4 - Start script - target_system: %u  CMD: %u" % (target_system, mavlink.QUAD_CMD_START))
 			print
 			print("Waiting for STATUS_MSG")
@@ -105,36 +105,36 @@ try:
 			# except KeyboardInterrupt :
 			# 	print
 
-			try:
-				while True:
-					# print index_old
-					formation.wait_statusmsg(xbee)
-					if multi.index != index_old :
-						index_old = multi.index
-						formation.wait_statusmsg(xbee)
-
-						xbee.mav.quad_pos_send(
-							0,
-							target_system,
-							mavlink.QUAD_CMD_START,
-					        multi.index,
-					        multi.x,
-					        multi.y,
-					        multi.z)
-
-						# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)
-						print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x[0], multi.y[0], multi.z[0]))
-			except KeyboardInterrupt :
-				print
-
 			# try:
 			# 	while True:
 			# 		# print index_old
+			# 		ts = time.time()
 			# 		formation.wait_statusmsg(xbee)
-			# 		formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, index, x, y, z)
-						
+			# 		if multi.index != index_old :
+			# 			index_old = multi.index
+			# 			formation.wait_statusmsg(xbee)
+
+			# 			xbee.mav.quad_pos_send(
+			# 				0,
+			# 				42,
+			# 		        multi.index,
+			# 		        1,
+			# 		        2,
+			# 		        3)
+
+			# 			# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)
+			# 			# print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x[0], multi.y[0], multi.z[0]))
 			# except KeyboardInterrupt :
 			# 	print
+
+			try:
+				while True:
+					formation.wait_statusmsg(xbee)
+					xbee.mav.quad_pos_send(1, 42, 0, 1, 2, 3)
+					time.sleep(2000)
+						
+			except KeyboardInterrupt :
+				print
 		
 		# STOP SCRIPT
 		elif ans[0] == 'stop':
@@ -143,7 +143,7 @@ try:
 			else :
 				target_system = 0
 
-			formation.quad_cmd_pos(xbee, target_system, mavlink.QUAD_CMD_STOP, multi.index, multi.x, multi.y, multi.z)
+			formation.quad_cmd_pos(xbee, 1, 43, 0, 1, 2, 3)
 			print ("5 - Stopping script - target_system: %u" %(target_system))
 
 		# LOG STATUSTEXT FROM FORMATION
