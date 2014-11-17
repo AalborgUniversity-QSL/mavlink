@@ -87,7 +87,7 @@
 			"file": "pymavlink/formation.py",
 			"settings":
 			{
-				"buffer_size": 3984,
+				"buffer_size": 4008,
 				"line_ending": "Unix"
 			}
 		},
@@ -96,6 +96,14 @@
 			"settings":
 			{
 				"buffer_size": 1525,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pymavlink/mav_formation.py",
+			"settings":
+			{
+				"buffer_size": 1611,
 				"line_ending": "Unix"
 			}
 		},
@@ -461,15 +469,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3984,
+						"buffer_size": 4008,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3098,
-								3098
+								2778,
+								2778
 							]
 						],
 						"settings":
@@ -478,7 +486,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1287.0,
+						"translation.y": 1305.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -516,6 +524,36 @@
 				},
 				{
 					"buffer": 2,
+					"file": "pymavlink/mav_formation.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1611,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 90.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "pymavlink/dialects/v10/mavlinkv10.py",
 					"semi_transient": false,
 					"settings":
@@ -541,7 +579,7 @@
 						"translation.y": 52817.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -597,6 +635,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"mav_",
+				"pymavlink/mav_formation.py"
+			],
 			[
 				"mul",
 				"pymavlink/multithreading.py"

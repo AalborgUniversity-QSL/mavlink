@@ -96,11 +96,13 @@ try:
 			# except KeyboardInterrupt :
 			# 	print
 
+			i = 0;
 			try:
 				while True:
+					xbee.mav.quad_pos_send(mavlink.QUAD_FORMATION_ID_ALL, mavlink.QUAD_CMD_START, 0, i, 2, 3)
+					time.sleep(1)
+					i = i + 1
 					formation.wait_statusmsg(xbee)
-					xbee.mav.quad_pos_send(mavlink.QUAD_FORMATION_ID_1, mavlink.QUAD_CMD_START, 0, 1, 2, 3)
-					time.sleep(2000)
 						
 			except KeyboardInterrupt :
 				print
