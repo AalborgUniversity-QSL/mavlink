@@ -92,7 +92,7 @@ try:
 					        multi.y,
 					        multi.z)
 
-						print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x, multi.y, multi.z))
+						# print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x, multi.y, multi.z))
 			except KeyboardInterrupt :
 				print
 
