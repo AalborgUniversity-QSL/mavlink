@@ -70,17 +70,10 @@ try:
 			print
 			print("Waiting for STATUS_MSG")
 
-			# try:
-			# 	while True:
-			# 		# print index_old
-			# 		formation.wait_statusmsg(xbee)
-			# except KeyboardInterrupt :
-			# 	print
-
 			try:
 				while True:
 					# print index_old
-					# formation.wait_statusmsg(xbee)
+					formation.wait_statusmsg(xbee)
 					if multi.index != index_old :
 						index_old = multi.index
 						# formation.wait_statusmsg(xbee)
@@ -94,6 +87,7 @@ try:
 
 						# print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x, multi.y, multi.z))
 			except KeyboardInterrupt :
+				xbee.mav.quad_pos_send(target_system, mavlink.QUAD_CMD_STOP, 0, 0, 0, 0)
 				print
 
 			# i = 0;
