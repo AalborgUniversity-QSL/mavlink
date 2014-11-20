@@ -25,5 +25,6 @@ include/
 .tags*
 *.sublime-project
 *.sublime-workspace
+*.pyc
 pymavlink/dialects/v10/quad_formation.py
 pymavlink/dialects/v10/quad_formation.xml
