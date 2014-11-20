@@ -12,6 +12,7 @@ from dialects.v10 import mavlinkv10 as mavlink
 index, x, y, z = 0,0,0,0
 transmit = False
 QUAD_CMD = 0;
+xbee = 0;
 
 class myThread1 (threading.Thread):
     def __init__(self, threadID, name):

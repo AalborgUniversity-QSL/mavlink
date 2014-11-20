@@ -75,11 +75,10 @@ try:
 				while True:
 					formation.wait_statusmsg(xbee)
 			except KeyboardInterrupt :
-				multi.transmit = False
+				# multi.transmit = False
+				QUAD_CMD = mavlink.QUAD_CMD_STOP
 				print
 
-
-		
 		# STOP SCRIPT
 		elif ans[0] == 'stop':
 			if dim	> 1 :
