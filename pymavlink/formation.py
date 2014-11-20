@@ -77,44 +77,47 @@ try:
 			# except KeyboardInterrupt :
 			# 	print
 
-			# try:
-			# 	while True:
-			# 		# print index_old
-			# 		formation.wait_statusmsg(xbee)
-			# 		if multi.index != index_old :
-			# 			index_old = multi.index
-			# 			formation.wait_statusmsg(xbee)
-			# 			# xbee.mav.quad_pos_send(
-			# 			# 	target_system,
-			# 			# 	QUAD_CMD,
-			# 		 #        multi.index,
-			# 		 #        multi.x,
-			# 		 #        multi.y,
-			# 		 #        multi.z)					
-
-			# 			# print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x, multi.y, multi.z))
-			# except KeyboardInterrupt :
-			# 	print
-
-			i = 0;
 			try:
 				while True:
-					xbee.mav.quad_pos_send(mavlink.QUAD_FORMATION_ID_ALL, mavlink.QUAD_CMD_START, 0, i, 2, 3)
-					time.sleep(1)
-					i = i + 1
-					formation.wait_statusmsg(xbee)
-						
+					# print index_old
+					# formation.wait_statusmsg(xbee)
+					if multi.index != index_old :
+						index_old = multi.index
+						# formation.wait_statusmsg(xbee)
+						xbee.mav.quad_pos_send(
+							target_system,
+							mavlink.QUAD_CMD_START,
+					        multi.index,
+					        multi.x,
+					        multi.y,
+					        multi.z)
+
+						print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x, multi.y, multi.z))
 			except KeyboardInterrupt :
 				print
+
+			# i = 0;
+			# try:
+			# 	while True:
+			# 		timestamp = int(time.time())
+			# 		# xbee.mav.quad_pos_send(mavlink.QUAD_FORMATION_ID_1, 42, 0, i, 2, 3)
+			# 		xbee.mav.vicon_position_estimate_send(timestamp, i, 1, 2, 0, 0, 0)
+			# 		time.sleep(0.1)
+			# 		i = i + 1
+			# 		print timestamp
+			# 		# formation.wait_statusmsg(xbee)
+						
+			# except KeyboardInterrupt :
+			# 	print
 		
 		# STOP SCRIPT
 		elif ans[0] == 'stop':
 			if dim	> 1 :
 				target_system = int(ans[1])
 			else :
-				target_system = 0
+				target_system = mavlink.QUAD_FORMATION_ID_ALL
 
-			xbee.mav.quad_pos_send(1, 43, 43, 43, 43, 43)
+			xbee.mav.quad_pos_send(target_system, mavlink.QUAD_CMD_STOP, 0, 0, 0, 0)
 			print ("5 - Stopping script - target_system: %u" %(target_system))
 
 		# LOG STATUSTEXT FROM FORMATION
