@@ -3,6 +3,7 @@
 import SocketServer, struct, time, threading, numpy
 from time import sleep
 from dialects.v10 import mavlinkv10 as mavlink
+import parm as pa
 
 # exitFlag = 0
 
@@ -10,9 +11,6 @@ from dialects.v10 import mavlinkv10 as mavlink
 # y = numpy.zeros((10,), dtype = numpy.float)
 # z = numpy.zeros((10,), dtype = numpy.float)
 index, x, y, z = 0,0,0,0
-transmit = False
-QUAD_CMD = 0;
-xbee = 0;
 
 class myThread1 (threading.Thread):
     def __init__(self, threadID, name):
@@ -54,20 +52,31 @@ def get_vicon_data() :
 	server.serve_forever()
 
 def send_vicon_data() :
-	global index, x, y, z, transmit, xbee
+	global index, x, y, z
 	index_old = 0;
+	timeout, time_diff = 1000,0
+	last_run = int(round(time.time() * 1000))
+	data_recived = False
 	while True:
-		if transmit and (index != index_old) :
+		if pa.transmit and (index != index_old) :
 			index_old = index
-			xbee.mav.quad_pos_send(
-			target_system,
-			QUAD_CMD,
+			pa.xbee.mav.quad_pos_send(
+			pa.target_system,
+			pa.QUAD_CMD,
 		        index,
 		        x,
 		        y,
 		        z)
 
-			# print("index: %u -> [%f,%f,%f]" % (index, x, y, z))
+		        time_diff = int(round(time.time() * 1000)) - last_run
+		        last_run = int(round(time.time() * 1000))
+			# print time_diff
+			# print("[%f,%f,%f]" % (x, y, z))
+			data_recived = True
+		# elif pa.transmit and time_diff > timeout :
+		# 	print "Vicon timeout"
+		# 	time.sleep(1)
+		# 	last_run = int(round(time.time() * 1000))
 
 # Create new threads
 get_vicon = myThread1(1, "Vicon serve")

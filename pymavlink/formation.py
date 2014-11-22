@@ -72,22 +72,22 @@ try:
 
 			try:
 				while True:
-					# print index_old
 					formation.wait_statusmsg(xbee)
 					if multi.index != index_old :
 						index_old = multi.index
-						# formation.wait_statusmsg(xbee)
+						formation.wait_statusmsg(xbee)
 						xbee.mav.quad_pos_send(
 							target_system,
 							mavlink.QUAD_CMD_START,
-					        multi.index,
-					        multi.x,
-					        multi.y,
-					        multi.z)
+					        	multi.index,
+					        	multi.x,
+					        	multi.y,
+					        	multi.z)
 
 						# print("index: %u -> [%f,%f,%f]" % (multi.index, multi.x, multi.y, multi.z))
 			except KeyboardInterrupt :
 				xbee.mav.quad_pos_send(target_system, mavlink.QUAD_CMD_STOP, 0, 0, 0, 0)
+				formation.quad_arm_disarm(xbee, target_system, False)
 				print
 
 			# i = 0;
