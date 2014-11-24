@@ -55,34 +55,58 @@ def get_vicon_data() :
 def send_vicon_data() :
 	global index, x, y, z
 	index_old = 0;
-	timeout = 1000
+	timeout, interval = 1000,0
 	last_run = int(round(time.time() * 1000))
 	data_recived = False
-	first_run = True
+	first_run,first_no_data = True,True
 	while True:
 		if pa.transmit and (index != index_old) :
 			index_old = index
-			pa.xbee.mav.quad_pos_send(
-			pa.target_system,
-			pa.QUAD_CMD,
-		        index,
-		        x,
-		        y,
-		        z)
+			# pa.xbee.mav.quad_pos_send(
+			# pa.target_system,
+			# pa.QUAD_CMD,
+		 #        index,
+		 #        x,
+		 #        y,
+		 #        z)
 
 		        if first_run :
 		        	last_run = int(round(time.time() * 1000))
 		        	time_diff = 0
 		        	first_run = False
+		        	print "first_run"
         		else :
 		        	time_diff = int(round(time.time() * 1000)) - last_run
 		        	last_run = int(round(time.time() * 1000))
 			# print time_diff
 			# print("[%f,%f,%f]" % (x, y, z))
 
-		if pa.transmit and time_diff > timeout :
-			formation.quad_arm_disarm(pa.xbee,pa.target_system, False)
-			print "Vicon timeout"
+			first_no_data = True
+
+		elif pa.transmit and (index == index_old) :
+			if first_no_data :
+				time_off = int(round(time.time() * 1000))
+				first_no_data = False
+
+			if (int(round(time.time() * 1000)) - time_off) > timeout :
+				formation.quad_arm_disarm(pa.xbee,pa.target_system, False)
+				
+				# pa.xbee.mav.quad_pos_send(
+				# pa.target_system,
+				# pa.QUAD_CMD_STOP,
+		  #       	index,
+		  #       	x,
+		  #       	y,
+		  #       	z)
+				
+				pa.transmit, first_no_data = False, True
+
+				print "Vicon timeout"
+
+
+		# if pa.transmit and time_diff > timeout :
+		# 	formation.quad_arm_disarm(pa.xbee,pa.target_system, False)
+		# 	print "Vicon timeout"
 
 			
 

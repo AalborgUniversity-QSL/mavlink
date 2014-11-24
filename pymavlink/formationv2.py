@@ -13,7 +13,7 @@ import parm as pa
 index_old = 0
 
 try:
-	# formation.wait_heartbeat(xbee)
+	formation.wait_heartbeat(pa.xbee)
 	# 172.26.56.58 is me
 	multi.get_vicon.start()
 	multi.send_vicon.start()
@@ -68,7 +68,7 @@ try:
 				ARM = False
 				pa.QUAD_CMD = mavlink.QUAD_CMD_STOP
 				formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
-				print
+				print "\nSTOPPING & DISARMING"
 
 		# STOP SCRIPT
 		elif ans[0] == 'stop':
