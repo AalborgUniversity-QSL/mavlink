@@ -55,7 +55,7 @@ def get_vicon_data() :
 def send_vicon_data() :
 	global index, x, y, z
 	index_old = 0;
-	timeout, time_diff = 1000,0
+	timeout = 1000
 	last_run = int(round(time.time() * 1000))
 	data_recived = False
 	first_run = True
@@ -72,15 +72,16 @@ def send_vicon_data() :
 
 		        if first_run :
 		        	last_run = int(round(time.time() * 1000))
+		        	time_diff = 0
 		        	first_run = False
-
-		        time_diff = int(round(time.time() * 1000)) - last_run
-		        last_run = int(round(time.time() * 1000))
+        		else :
+		        	time_diff = int(round(time.time() * 1000)) - last_run
+		        	last_run = int(round(time.time() * 1000))
 			# print time_diff
 			# print("[%f,%f,%f]" % (x, y, z))
 
 		if pa.transmit and time_diff > timeout :
-			formation.quad_arm_disarm(pa.xbee,pa.target_system,False)
+			formation.quad_arm_disarm(pa.xbee,pa.target_system, False)
 			print "Vicon timeout"
 
 			

@@ -13,7 +13,7 @@ import parm as pa
 index_old = 0
 
 try:
-	formation.wait_heartbeat(xbee)
+	# formation.wait_heartbeat(xbee)
 	# 172.26.56.58 is me
 	multi.get_vicon.start()
 	multi.send_vicon.start()
