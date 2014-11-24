@@ -3,6 +3,7 @@
 import SocketServer, struct, time, threading, numpy
 from time import sleep
 from dialects.v10 import mavlinkv10 as mavlink
+import mav_formation as formation
 import parm as pa
 
 # exitFlag = 0
@@ -57,6 +58,7 @@ def send_vicon_data() :
 	timeout, time_diff = 1000,0
 	last_run = int(round(time.time() * 1000))
 	data_recived = False
+	first_run = True
 	while True:
 		if pa.transmit and (index != index_old) :
 			index_old = index
@@ -68,15 +70,20 @@ def send_vicon_data() :
 		        y,
 		        z)
 
+		        if first_run :
+		        	last_run = int(round(time.time() * 1000))
+		        	first_run = False
+
 		        time_diff = int(round(time.time() * 1000)) - last_run
 		        last_run = int(round(time.time() * 1000))
 			# print time_diff
 			# print("[%f,%f,%f]" % (x, y, z))
-			data_recived = True
-		# elif pa.transmit and time_diff > timeout :
-		# 	print "Vicon timeout"
-		# 	time.sleep(1)
-		# 	last_run = int(round(time.time() * 1000))
+
+		if pa.transmit and time_diff > timeout :
+			formation.quad_arm_disarm(pa.xbee,pa.target_system,False)
+			print "Vicon timeout"
+
+			
 
 # Create new threads
 get_vicon = myThread1(1, "Vicon serve")

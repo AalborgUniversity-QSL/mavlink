@@ -120,6 +120,14 @@
 			}
 		},
 		{
+			"file": "/home/jeni/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+			"settings":
+			{
+				"buffer_size": 318,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "pymavlink/parm.py",
 			"settings":
 			{
@@ -150,6 +158,14 @@
 		"height": 392.0,
 		"selected_items":
 		[
+			[
+				"rein",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"reinden",
+				"Indentation: Reindent Lines"
+			],
 			[
 				"Snippet: ",
 				"Snippet: figtex"
@@ -190,6 +206,7 @@
 	"file_history":
 	[
 		"/home/jeni/ca1/mavlink/pymavlink/formation.py",
+		"/home/jeni/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
 		"/home/jeni/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 		"/home/jeni/ca1/mavlink/pymavlink/multithreading.py",
 		"/home/jeni/ca1/Firmware/gr731/parameters_plus.txt",
@@ -315,8 +332,7 @@
 		"/home/jeni/libs/mavlink_types.h",
 		"/home/jeni/mavlink/build/include/v0.9/common/mavlink.h",
 		"/home/jeni/mavlink/doc/mavlink.php",
-		"/home/jeni/mavlink/build/mavlink.pc",
-		"/home/jeni/mavlink/pymavlink/__init__.py"
+		"/home/jeni/mavlink/build/mavlink.pc"
 	],
 	"find":
 	{
@@ -342,6 +358,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"auto_indent",
 			"write",
 			"stream",
 			"vicon",
@@ -468,8 +485,7 @@
 			"def command_send",
 			"command_",
 			"command",
-			"command_send",
-			"command"
+			"command_send"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -504,8 +520,8 @@
 						"selection":
 						[
 							[
-								1748,
-								1748
+								608,
+								608
 							]
 						],
 						"settings":
@@ -515,7 +531,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 720.0,
+						"translation.y": 156.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -523,6 +539,34 @@
 				},
 				{
 					"buffer": 1,
+					"file": "/home/jeni/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 318,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "pymavlink/parm.py",
 					"semi_transient": false,
 					"settings":
@@ -546,11 +590,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 3,
 					"file": "pymavlink/mavutil.py",
 					"semi_transient": false,
 					"settings":
@@ -576,7 +620,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
@@ -586,7 +630,7 @@
 			"sheets":
 			[
 				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "pymavlink/multithreadingv2.py",
 					"semi_transient": false,
 					"settings":
@@ -598,8 +642,8 @@
 						"selection":
 						[
 							[
-								1796,
-								1796
+								511,
+								511
 							]
 						],
 						"settings":
@@ -609,7 +653,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 592.0,
+						"translation.y": 78.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -676,15 +720,15 @@
 		"selected_items":
 		[
 			[
+				"form",
+				"pymavlink/formation.py"
+			],
+			[
 				"mul",
 				"pymavlink/multithreading.py"
 			],
 			[
 				"for",
-				"pymavlink/formation.py"
-			],
-			[
-				"form",
 				"pymavlink/formation.py"
 			],
 			[
