@@ -45,7 +45,7 @@ try:
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
-			print ("2 - Arming target_system: %u" % (target_system))
+			print ("2 - Arming target_system: %u" % (pa.target_system))
 
 
 		# START SCRIPT

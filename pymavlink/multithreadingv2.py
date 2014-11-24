@@ -62,24 +62,13 @@ def send_vicon_data() :
 	while True:
 		if pa.transmit and (index != index_old) :
 			index_old = index
-			# pa.xbee.mav.quad_pos_send(
-			# pa.target_system,
-			# pa.QUAD_CMD,
-		 #        index,
-		 #        x,
-		 #        y,
-		 #        z)
-
-		        if first_run :
-		        	last_run = int(round(time.time() * 1000))
-		        	time_diff = 0
-		        	first_run = False
-		        	print "first_run"
-        		else :
-		        	time_diff = int(round(time.time() * 1000)) - last_run
-		        	last_run = int(round(time.time() * 1000))
-			# print time_diff
-			# print("[%f,%f,%f]" % (x, y, z))
+			pa.xbee.mav.quad_pos_send(
+			pa.target_system,
+			pa.QUAD_CMD,
+		        index,
+		        x,
+		        y,
+		        z)
 
 			first_no_data = True
 
@@ -91,24 +80,18 @@ def send_vicon_data() :
 			if (int(round(time.time() * 1000)) - time_off) > timeout :
 				formation.quad_arm_disarm(pa.xbee,pa.target_system, False)
 				
-				# pa.xbee.mav.quad_pos_send(
-				# pa.target_system,
-				# pa.QUAD_CMD_STOP,
-		  #       	index,
-		  #       	x,
-		  #       	y,
-		  #       	z)
+				pa.xbee.mav.quad_pos_send(
+				pa.target_system,
+				mavlink.QUAD_CMD_STOP,
+		        	index,
+		        	x,
+		        	y,
+		        	z)
 				
 				pa.transmit, first_no_data = False, True
 
 				print "Vicon timeout"
 
-
-		# if pa.transmit and time_diff > timeout :
-		# 	formation.quad_arm_disarm(pa.xbee,pa.target_system, False)
-		# 	print "Vicon timeout"
-
-			
 
 # Create new threads
 get_vicon = myThread1(1, "Vicon serve")
