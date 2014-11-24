@@ -23,9 +23,10 @@ try:
 		input = raw_input("FORMATION >> ")
 		ans = shlex.split(input)
 		dim = len(ans)
+		pa.transmit = False
 
 		# ARM
-		if ans[0] == 'arm' :
+		if ans[0] == 'a' :
 			ARM = True
 
 			if dim > 1 :
@@ -38,7 +39,7 @@ try:
 
 
 		# DISARM
-		elif ans[0] == 'disarm' :
+		elif ans[0] == 'd' :
 			ARM = False
 			if dim > 1 :
 				pa.target_system = int(ans[1])
@@ -64,7 +65,6 @@ try:
 				while True:
 					formation.wait_statusmsg(pa.xbee)
 			except KeyboardInterrupt :
-				# multi.transmit = False
 				ARM = False
 				pa.QUAD_CMD = mavlink.QUAD_CMD_STOP
 				formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)

@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
-import SocketServer, struct, time, threading, numpy
+import SocketServer, struct, time, threading
 from time import sleep
 from dialects.v10 import mavlinkv10 as mavlink
 import mav_formation as formation
+import numpy as np
 import parm as pa
 
 # exitFlag = 0
@@ -59,16 +60,39 @@ def send_vicon_data() :
 	last_run = int(round(time.time() * 1000))
 	data_recived = False
 	first_run,first_no_data = True,True
+
+	# time2kill = 5000 
 	while True:
 		if pa.transmit and (index != index_old) :
 			index_old = index
+
+			# # For test of safty cutoff
+			# if first_run :
+			# 	last_run = int(round(time.time() * 1000))
+			# 	first_run = False
+			# if time2kill > (int(round(time.time() * 1000)) - last_run) :
+			# 	pa.xbee.mav.quad_pos_send(
+			# 	pa.target_system,
+			# 	pa.QUAD_CMD,
+			#         index,
+			#         x,
+			#         y,
+			#         z)
+
+			# else :
+			# 	print "not sending"
+
+			# if np.absolute
+
+
 			pa.xbee.mav.quad_pos_send(
-			pa.target_system,
-			pa.QUAD_CMD,
-		        index,
-		        x,
-		        y,
-		        z)
+				pa.target_system,
+				pa.QUAD_CMD,
+			        index,
+			        x,
+			        y,
+			        z)
+
 
 			first_no_data = True
 
@@ -89,7 +113,6 @@ def send_vicon_data() :
 		        	z)
 				
 				pa.transmit, first_no_data = False, True
-
 				print "Vicon timeout"
 
 
