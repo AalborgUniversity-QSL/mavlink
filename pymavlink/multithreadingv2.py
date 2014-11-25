@@ -82,19 +82,30 @@ def send_vicon_data() :
 			# else :
 			# 	print "not sending"
 
-			# if np.absolute
+			if first_run :
+				init_pos_x = x
+				init_pos_y = y
+				init_pos_z = z
+				first_run = False
 
+			abs_x = np.absolute(x - init_pos_x)
+			abs_y = np.absolute(y - init_pos_y)
 
-			pa.xbee.mav.quad_pos_send(
+			# print "x:%.3f y:%.3f" % (abs_x, abs_y)
+
+			if abs_x > 1000 or abs_y > 1000 or z > 500 :
+				shutdown()
+				print "Outside sandbox"
+			else :
+				pa.xbee.mav.quad_pos_send(
 				pa.target_system,
 				pa.QUAD_CMD,
 			        index,
-			        x,
-			        y,
-			        z)
+			        x - init_pos_x,
+			        y - init_pos_y,
+			        z - init_pos_z)
 
-
-			first_no_data = True
+			        first_no_data = True
 
 		elif pa.transmit and (index == index_old) :
 			if first_no_data :
@@ -102,18 +113,22 @@ def send_vicon_data() :
 				first_no_data = False
 
 			if (int(round(time.time() * 1000)) - time_off) > timeout :
-				formation.quad_arm_disarm(pa.xbee,pa.target_system, False)
-				
-				pa.xbee.mav.quad_pos_send(
-				pa.target_system,
-				mavlink.QUAD_CMD_STOP,
-		        	index,
-		        	x,
-		        	y,
-		        	z)
-				
-				pa.transmit, first_no_data = False, True
+				shutdown()
+				pa.transmit, first_no_data,first_run = False, True, True
 				print "Vicon timeout"
+
+
+def shutdown() :
+	formation.quad_arm_disarm(pa.xbee,pa.target_system, False)
+				
+	pa.xbee.mav.quad_pos_send(
+	pa.target_system,
+	mavlink.QUAD_CMD_STOP,
+	0,
+	0,
+	0,
+	0)
+
 
 
 # Create new threads
