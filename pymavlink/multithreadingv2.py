@@ -94,12 +94,13 @@ def send_vicon_data() :
 
 			# print "x:%.3f y:%.3f" % (abs_x, abs_y)
 
-			if abs_x > 1000 or abs_y > 1000 or z > 5000 :
+			if abs_x > 1000 or abs_y > 1000 or z > 500 :
 				shutdown()
 				print "Outside sandbox"
 			else :
 				pa.xbee.mav.quad_pos_send(
-				pa.target_system,
+				pa.target_system
+				,
 				pa.QUAD_CMD,
 			        index,
 			        x - init_pos_x,
