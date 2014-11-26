@@ -56,7 +56,7 @@ def get_vicon_data() :
 def send_vicon_data() :
 	global index, x, y, z
 	index_old = 0;
-	timeout, interval = 1000,0
+	timeout,time_diff = 1000,0
 	last_run = int(round(time.time() * 1000))
 	data_recived = False
 	first_run,first_no_data = True,True
@@ -87,13 +87,14 @@ def send_vicon_data() :
 				init_pos_y = y
 				init_pos_z = z
 				first_run = False
+				last_run = int(round(time.time() * 1000))
 
 			abs_x = np.absolute(x - init_pos_x)
 			abs_y = np.absolute(y - init_pos_y)
 
 			# print "x:%.3f y:%.3f" % (abs_x, abs_y)
 
-			if abs_x > 1000 or abs_y > 1000 or z > 500 :
+			if abs_x > 1000 or abs_y > 1000 or z > 5000 :
 				shutdown()
 				print "Outside sandbox"
 			else :
@@ -103,7 +104,12 @@ def send_vicon_data() :
 			        index,
 			        x - init_pos_x,
 			        y - init_pos_y,
-			        z - init_pos_z)
+			        z)
+
+			        time_diff = int(round(time.time() * 1000)) - last_run
+			        last_run = int(round(time.time() * 1000))
+
+			        # print "sample time: %.3f " % time_diff
 
 			        first_no_data = True
 

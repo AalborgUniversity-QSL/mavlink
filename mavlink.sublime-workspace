@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"tim",
+				"time_diff"
+			],
+			[
+				"time_",
+				"time_diff"
+			],
+			[
 				"ini",
 				"init_pos_z"
 			],
@@ -155,7 +163,7 @@
 			"file": "pymavlink/multithreadingv2.py",
 			"settings":
 			{
-				"buffer_size": 3512,
+				"buffer_size": 3718,
 				"line_ending": "Unix"
 			}
 		}
@@ -548,8 +556,8 @@
 						"selection":
 						[
 							[
-								593,
-								593
+								353,
+								353
 							]
 						],
 						"settings":
@@ -599,15 +607,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3512,
+						"buffer_size": 3718,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2621,
-								2621
+								2775,
+								2775
 							]
 						],
 						"settings":
@@ -617,7 +625,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1170.0,
+						"translation.y": 1125.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
