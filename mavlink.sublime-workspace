@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"y",
+				"y"
+			],
+			[
 				"tim",
 				"time_diff"
 			],
@@ -155,7 +159,7 @@
 			"file": "pymavlink/parm.py",
 			"settings":
 			{
-				"buffer_size": 734,
+				"buffer_size": 749,
 				"line_ending": "Unix"
 			}
 		},
@@ -163,7 +167,7 @@
 			"file": "pymavlink/multithreadingv2.py",
 			"settings":
 			{
-				"buffer_size": 3718,
+				"buffer_size": 3826,
 				"line_ending": "Unix"
 			}
 		}
@@ -171,15 +175,43 @@
 	"build_system": "Packages/Python/Python.sublime-build",
 	"command_palette":
 	{
-		"height": 392.0,
+		"height": 264.0,
 		"selected_items":
 		[
+			[
+				"user",
+				"Preferences: Settings - User"
+			],
+			[
+				"use",
+				"Preferences: Settings - User"
+			],
+			[
+				"us",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"pus",
+				"Git: Push"
+			],
+			[
+				"q",
+				"Git: Quick Commit"
+			],
+			[
+				"ke",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				"key",
+				"Preferences: Key Bindings - User"
+			],
 			[
 				"pu",
 				"Git: Push"
 			],
 			[
-				"q",
+				"qc",
 				"Git: Quick Commit"
 			],
 			[
@@ -222,6 +254,9 @@
 		"height": 146.0,
 		"history":
 		[
+			"sublime.log_commands(False)",
+			"sublime.log_commands(True)",
+			"sublime.log_command(true)",
 			"cd comm"
 		]
 	},
@@ -236,11 +271,19 @@
 	},
 	"expanded_folders":
 	[
-		"/home/jeni/ca1/mavlink",
-		"/home/jeni/ca1/mavlink/pymavlink"
+		"/home/jeni/ca1/mavlink"
 	],
 	"file_history":
 	[
+		"/home/jeni/ca1/mavlink/pymavlink/realtime.py",
+		"/home/jeni/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/jeni/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
+		"/home/jeni/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/jeni/.config/sublime-text-3/Packages/SublimeGit/Default (Linux).sublime-keymap",
+		"/media/jeni/32CD-4E21/etc/config.txt",
+		"/home/jeni/ca1/mavlink/config.h.in",
+		"/home/jeni/ca1/mavlink/message_definitions/v1.0/common.xml",
+		"/home/jeni/.config/sublime-text-3/Packages/SublimeGit/Default.sublime-keymap",
 		"/home/jeni/ca1/mavlink/pymavlink/mav_formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavutil.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavtest.py",
@@ -248,8 +291,6 @@
 		"/home/jeni/ca1/mavlink/pymavlink/formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/lib/genxmlif/xmlifMinidom.py",
 		"/home/jeni/ca1/mavlink/pymavlink/formation_BGT_test.py",
-		"/home/jeni/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
-		"/media/jeni/32CD-4E21/etc/config.txt",
 		"/media/jeni/32CD-4E21/etc/extras.txt",
 		"/media/jeni/32CD-4E21/dataman",
 		"/media/jeni/32CD-4E21/msgs_1971_03_21_02_42_10.txt",
@@ -262,7 +303,6 @@
 		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
 		"/home/jeni/ca1/mavlink/message_definitions/v1.0/pixhawk.xml",
 		"/home/jeni/ca1/mavlink/message_definitions/v1.0/quad_formation.xml",
-		"/home/jeni/ca1/mavlink/message_definitions/v1.0/common.xml",
 		"/home/jeni/ca1/mavlink/message_definitions/v0.9/common.xml",
 		"/home/jeni/ca1/mavlink/mavlink.sublime-project",
 		"/home/jeni/ca1/mavlink/pymavlink/examples/mav_accel.py",
@@ -282,7 +322,6 @@
 		"/home/jeni/ca1/mavlink/pc.in",
 		"/home/jeni/ca1/mavlink/viconReader.py",
 		"/home/jeni/ca1/mavlink/mavgenerate.py",
-		"/home/jeni/ca1/mavlink/config.h.in",
 		"/home/jeni/ca1/mavlink/README.md",
 		"/home/jeni/ca1/mavlink/COPYING",
 		"/home/jeni/ca1/mavlink/CMakeLists.txt",
@@ -363,16 +402,11 @@
 		"/home/jeni/ca1/mavlink_types.h",
 		"/home/jeni/ca1/mavlink/message_definitions/v1.0/quad_position.xml",
 		"/home/jeni/ca1/mavlink/message_definitions/v1.0/quad_pos.xml",
-		"/home/jeni/mavlink/pymavlink/mavtester.py",
-		"/home/jeni/mavlink/pymavlink/build/lib.linux-x86_64-2.7/pymavlink/generator/mavtestgen.py",
-		"/home/jeni/mavlink/pymavlink/mavparm.py",
-		"/home/jeni/mavlink/pymavlink/README.txt",
-		"/home/jeni/ca1/qgroundcontrol/libs/mavlink/include/mavlink/v1.0/mavlink_types.h",
-		"/home/jeni/libs/mavlink_types.h"
+		"/home/jeni/mavlink/pymavlink/mavtester.py"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -394,6 +428,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"blit",
+			"commit",
+			"git",
 			"auto_indent",
 			"write",
 			"stream",
@@ -518,10 +555,7 @@
 			"command",
 			"MAV_mode_flag",
 			"MAV_CMD",
-			"def command_send",
-			"command_",
-			"command",
-			"command_send"
+			"def command_send"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -556,8 +590,8 @@
 						"selection":
 						[
 							[
-								353,
-								353
+								1593,
+								1593
 							]
 						],
 						"settings":
@@ -567,10 +601,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 45.0,
+						"translation.y": 663.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -579,15 +613,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 734,
+						"buffer_size": 749,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								733,
-								733
+								748,
+								748
 							]
 						],
 						"settings":
@@ -598,7 +632,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -607,25 +641,30 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3718,
+						"buffer_size": 3826,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2775,
-								2775
+								1646,
+								1646
+							],
+							[
+								1789,
+								1789
 							]
 						],
 						"settings":
 						{
+							"spell_check": false,
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"tab_size": 8,
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1125.0,
+						"translation.y": 714.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -696,6 +735,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"confi",
+				"/media/jeni/32CD-4E21/etc/config.txt"
+			],
 			[
 				"mav_for",
 				"pymavlink/mav_formation.py"
@@ -877,10 +920,6 @@
 				"src/modules/commander/commander_params.c"
 			],
 			[
-				"confi",
-				"src/systemcmds/config/config.c"
-			],
-			[
 				"rcs",
 				"ROMFS/px4fmu_common/init.d/rcS"
 			],
@@ -926,7 +965,7 @@
 		[
 			[
 				"",
-				"~/ca1/Firmware/Firmware.sublime-project"
+				"~/ca1/projekt/worksheets/worksheets.sublime-project"
 			],
 			[
 				"f",

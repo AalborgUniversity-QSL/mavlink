@@ -18,3 +18,4 @@ xbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE
 target_system = 0
 QUAD_CMD = 0
 transmit = False
+no_of_quad = 1
