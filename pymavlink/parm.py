@@ -27,4 +27,4 @@ timeout,time_diff = 1000,0
 data_recived = False
 init_pos_x, init_pos_y, init_pos_z = 0,0,0
 
-sandbox = [1000, 1000, 3000]
+sandbox = [1000, 1000, 1000]
