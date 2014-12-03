@@ -55,69 +55,47 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 	# 	y = vicn[3*i-1]
 	# 	z = vicn[3*i]
 
-	if pa.transmit and (index != pa.index_old) :
+	if pa.transmit :
+		if pa.first_run :
+			pa.init_pos_x = x
+			pa.init_pos_y = y
+			pa.init_pos_z = z
+			pa.first_run = False
+			pa.last_run = int(round(time.time() * 1000))
 
-			# # For test of safty cutoff
-			# if pa.first_run :
-			# 	last_run = int(round(time.time() * 1000))
-			# 	pa.first_run = False
-			# if time2kill > (int(round(time.time() * 1000)) - last_run) :
-			# 	pa.xbee.mav.quad_pos_send(
-			# 	pa.target_system,
-			# 	pa.QUAD_CMD,
-			#         index,
-			#         x,
-			#         y,
-			#         z)
+		abs_x = np.absolute(x - pa.init_pos_x)
+		abs_y = np.absolute(y - pa.init_pos_y)
 
-			# else :
-			# 	print "not sending"
+		# print "x:%.3f y:%.3f" % (abs_x, abs_y)
 
-			pa.index_old = index
-
-			if pa.first_run :
-				pa.init_pos_x = x
-				pa.init_pos_y = y
-				pa.init_pos_z = z
-				pa.first_run = False
-				pa.last_run = int(round(time.time() * 1000))
-
-			abs_x = np.absolute(x - pa.init_pos_x)
-			abs_y = np.absolute(y - pa.init_pos_y)
-
-			# print "x:%.3f y:%.3f" % (abs_x, abs_y)
-
-			if abs_x > pa.sandbox[0] or abs_y > pa.sandbox[1] or z > pa.sandbox[2] :
-				shutdown()
-				print "Outside sandbox"
-			else :
-				pa.xbee.mav.quad_pos_send(
-				pa.target_system,
-				pa.QUAD_CMD,
-			        index,
-			        x - pa.init_pos_x,
-			        y - pa.init_pos_y,
-			        z - pa.init_pos_z)
-
-			        if(pa.vicon_test == True) : 
-					time_diff = int(round(time.time() * 1000)) - pa.last_run
-				        pa.last_run = int(round(time.time() * 1000))
-
-	       				print "sample time: %d " % time_diff
-
-			        first_no_data = True
-
-	elif pa.transmit and (index == pa.index_old) :
-		if first_no_data :
-			time_off = int(round(time.time() * 1000))
-			first_no_data = False
-
-		if (int(round(time.time() * 1000)) - time_off) > timeout :
+		if abs_x > pa.sandbox[0] or abs_y > pa.sandbox[1] or z > pa.sandbox[2] :
 			shutdown()
-			pa.transmit, first_no_data,first_run = False, True, True
-			print "Vicon timeout"
+			print "Outside sandbox"
+		else :
+			pa.xbee.mav.quad_pos_send(
+			pa.target_system,
+			pa.QUAD_CMD,
+		        index,
+		        x - pa.init_pos_x,
+		        y - pa.init_pos_y,
+		        z - pa.init_pos_z)
 
+		        if(pa.vicon_test == True) : 
+				time_diff = int(round(time.time() * 1000)) - pa.last_run
+			        pa.last_run = int(round(time.time() * 1000))
 
+       				# print "sample time: %d " % time_diff
+       				print "x:%.3f y:%.3f z:%.3f" % (x- pa.init_pos_x, y - pa.init_pos_y, z - pa.init_pos_z)
+
+	       	time_diff = int(round(time.time() * 1000)) - pa.last_run
+	        pa.last_run = int(round(time.time() * 1000))
+
+	        if (time_diff > pa.timeout) or index == pa.index_old :
+	        	shutdown()
+	        	pa.transmit,first_run = False, True
+	        	print "Vicon timeout"
+
+	        pa.index_old = index
 
 def get_vicon_data() :
 	HOST, PORT = "0.0.0.0", 13001
