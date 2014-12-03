@@ -89,7 +89,7 @@ def send_vicon_data() :
 			# else :
 			# 	print "not sending"
 
-			if first_run :
+			if pa.first_run :
 				init_pos_x = x
 				init_pos_y = y
 				init_pos_z = z
@@ -105,18 +105,18 @@ def send_vicon_data() :
 				shutdown()
 				print "Outside sandbox"
 			else :
-				pa.xbee.mav.quad_pos_send(
-				pa.target_system,
-				pa.QUAD_CMD,
-			        index,
-			        x - init_pos_x,
-			        y - init_pos_y,
-			        z - init_pos_z)
+				# pa.xbee.mav.quad_pos_send(
+				# pa.target_system,
+				# pa.QUAD_CMD,
+			 #        index,
+			 #        x - init_pos_x,
+			 #        y - init_pos_y,
+			 #        z - init_pos_z)
 
 			        time_diff = int(round(time.time() * 1000)) - last_run
 			        last_run = int(round(time.time() * 1000))
 
-			        # print "sample time: %.3f " % time_diff
+			        print "sample time: %.3f " % time_diff
 
 			        first_no_data = True
 
