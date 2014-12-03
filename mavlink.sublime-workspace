@@ -183,7 +183,7 @@
 			"file": "pymavlink/multithreadingv2.py",
 			"settings":
 			{
-				"buffer_size": 4876,
+				"buffer_size": 4880,
 				"line_ending": "Unix"
 			}
 		}
@@ -590,7 +590,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -620,7 +620,7 @@
 						"translation.y": 741.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -636,8 +636,8 @@
 						"selection":
 						[
 							[
-								960,
-								960
+								961,
+								961
 							]
 						],
 						"settings":
@@ -645,7 +645,7 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 78.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -691,15 +691,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4876,
+						"buffer_size": 4880,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4677,
-								4677
+								1313,
+								1313
 							]
 						],
 						"settings":
@@ -710,10 +710,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 780.0,
+						"translation.y": 429.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -1051,7 +1051,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
