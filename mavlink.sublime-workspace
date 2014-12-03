@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"in",
+				"index_old"
+			],
+			[
+				"time",
+				"timeout"
+			],
+			[
+				"tim",
+				"timeout"
+			],
+			[
+				"ini",
+				"init_pos_z"
+			],
+			[
+				"ind",
+				"index"
+			],
+			[
 				"san",
 				"sandbox_corner_x"
 			],
@@ -20,16 +40,8 @@
 				"y"
 			],
 			[
-				"tim",
-				"time_diff"
-			],
-			[
 				"time_",
 				"time_diff"
-			],
-			[
-				"ini",
-				"init_pos_z"
 			],
 			[
 				"firs",
@@ -52,20 +64,12 @@
 				"first_no_data"
 			],
 			[
-				"time",
-				"timeout"
-			],
-			[
 				"data",
 				"data_recived"
 			],
 			[
 				"Time",
 				"timeout"
-			],
-			[
-				"ind",
-				"index_old"
 			],
 			[
 				"C",
@@ -112,10 +116,6 @@
 				"QUAD_CMD"
 			],
 			[
-				"in",
-				"index"
-			],
-			[
 				"m",
 				"multi"
 			],
@@ -159,7 +159,7 @@
 			"file": "pymavlink/formationv2.py",
 			"settings":
 			{
-				"buffer_size": 2957,
+				"buffer_size": 2984,
 				"line_ending": "Unix"
 			}
 		},
@@ -167,7 +167,15 @@
 			"file": "pymavlink/parm.py",
 			"settings":
 			{
-				"buffer_size": 795,
+				"buffer_size": 962,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pymavlink/vicontest.py",
+			"settings":
+			{
+				"buffer_size": 465,
 				"line_ending": "Unix"
 			}
 		},
@@ -175,7 +183,7 @@
 			"file": "pymavlink/multithreadingv2.py",
 			"settings":
 			{
-				"buffer_size": 3618,
+				"buffer_size": 4876,
 				"line_ending": "Unix"
 			}
 		}
@@ -284,6 +292,7 @@
 	"file_history":
 	[
 		"/home/jeni/ca1/mavlink/pymavlink/realtime.py",
+		"/home/jeni/ca1/mavlink/README.md",
 		"/home/jeni/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
 		"/home/jeni/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
 		"/home/jeni/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
@@ -330,7 +339,6 @@
 		"/home/jeni/ca1/mavlink/pc.in",
 		"/home/jeni/ca1/mavlink/viconReader.py",
 		"/home/jeni/ca1/mavlink/mavgenerate.py",
-		"/home/jeni/ca1/mavlink/README.md",
 		"/home/jeni/ca1/mavlink/COPYING",
 		"/home/jeni/ca1/mavlink/CMakeLists.txt",
 		"/home/jeni/ca1/mavlink/.travis.yml",
@@ -582,7 +590,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -591,15 +599,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2957,
+						"buffer_size": 2984,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								722,
-								722
+								1933,
+								1933
 							]
 						],
 						"settings":
@@ -608,11 +616,11 @@
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": -0.0,
-						"translation.y": 306.0,
+						"translation.x": 0.0,
+						"translation.y": 741.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -621,15 +629,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 795,
+						"buffer_size": 962,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								774,
-								774
+								960,
+								960
 							]
 						],
 						"settings":
@@ -637,27 +645,61 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 78.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "pymavlink/multithreadingv2.py",
+					"file": "pymavlink/vicontest.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3618,
+						"buffer_size": 465,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2631,
-								2631
+								376,
+								376
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 39.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 3,
+					"file": "pymavlink/multithreadingv2.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4876,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4677,
+								4677
 							]
 						],
 						"settings":
@@ -668,10 +710,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1632.0,
+						"translation.y": 780.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -679,7 +721,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 21.0
 	},
 	"input":
 	{
@@ -694,11 +736,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.478770131772,
 			1.0
 		],
 		"rows":
@@ -731,7 +780,7 @@
 	"project": "mavlink.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 40.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -739,6 +788,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"realtim",
+				"pymavlink/realtime.py"
+			],
 			[
 				"confi",
 				"/media/jeni/32CD-4E21/etc/config.txt"

@@ -70,7 +70,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 
 		if abs_x > pa.sandbox[0] or abs_y > pa.sandbox[1] or z > pa.sandbox[2] :
 			shutdown()
-			print "Outside sandbox"
+			print "\nOutside sandbox"
 		else :
 			pa.xbee.mav.quad_pos_send(
 			pa.target_system,
@@ -93,7 +93,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 	        if (time_diff > pa.timeout) or index == pa.index_old :
 	        	shutdown()
 	        	pa.transmit,first_run = False, True
-	        	print "Vicon timeout"
+	        	print "\nVicon timeout"
 
 	        pa.index_old = index
 
