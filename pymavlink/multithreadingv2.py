@@ -175,7 +175,9 @@ def get_vicon_data() :
 
 def shutdown() :
 	formation.quad_arm_disarm(pa.xbee,pa.target_system, False)
-				
+	
+	pa.transmit = False
+
 	pa.xbee.mav.quad_pos_send(
 	pa.target_system,
 	mavlink.QUAD_CMD_STOP,

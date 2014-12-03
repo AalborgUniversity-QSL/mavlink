@@ -71,7 +71,7 @@ try:
 				pa.QUAD_CMD = mavlink.QUAD_CMD_STOP
 				formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
 				print "\nSTOPPING & DISARMING"
-
+				
 		# STOP SCRIPT
 		elif ans[0] == 'stop':
 			if dim	> 1 :
