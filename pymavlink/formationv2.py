@@ -60,6 +60,7 @@ try:
 			print ("4 - Start script - target_system: %u  CMD: %u" % (pa.target_system, mavlink.QUAD_CMD_START))
 
 			pa.transmit = True
+			pa.first_run = True
 
 			try:
 				while True:
