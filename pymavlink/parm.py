@@ -20,5 +20,12 @@ QUAD_CMD = 0
 transmit = False
 first_run = True
 no_of_quad = 1
+last_run = int(round(time.time() * 1000))
+vicon_test = False
+index_old = 0
+timeout,time_diff = 1000,0
+data_recived = False
+first_no_data = True
+init_pos_x, init_pos_y, init_pos_z = 0,0,0
 
 sandbox = [1000, 1000, 500]

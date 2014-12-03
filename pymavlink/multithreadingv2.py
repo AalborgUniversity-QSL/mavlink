@@ -43,35 +43,19 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 	numOfValues = len(data) / 8
 	vicn = struct.unpack('>' + 'd' * numOfValues, data)
 
-	# index, x, y, z = vicn[0], vicn[1], vicn[2], vicn[3]
+	index, x, y, z = vicn[0], vicn[1], vicn[2], vicn[3]
 
-	# Find the number of quadrotors
-	no_of_quad = (len(vicn)-1)/3
+	# # Find the number of quadrotors
+	# no_of_quad = (len(vicn)-1)/3
 
-	index = vicn[0]
+	# index = vicn[0]
 
-	for i in xrange(1,no_of_quad):
-		x = vicn[3*i-2]
-		y = vicn[3*i-1]
-		z = vicn[3*i]
+	# for i in xrange(1,no_of_quad):
+	# 	x = vicn[3*i-2]
+	# 	y = vicn[3*i-1]
+	# 	z = vicn[3*i]
 
-def get_vicon_data() :
-	HOST, PORT = "0.0.0.0", 801
-	server = SocketServer.UDPServer((HOST, PORT), MatlabUDPHandler)
-	server.serve_forever()
-
-def send_vicon_data() :
-	global index, x, y, z
-	index_old = 0;
-	timeout,time_diff = 1000,0
-	last_run = int(round(time.time() * 1000))
-	data_recived = False
-	first_no_data = True
-
-	# time2kill = 5000 
-	while True:
-		if pa.transmit and (index != index_old) :
-			index_old = index
+	if pa.transmit and (index != pa.index_old) :
 
 			# # For test of safty cutoff
 			# if pa.first_run :
@@ -88,6 +72,87 @@ def send_vicon_data() :
 
 			# else :
 			# 	print "not sending"
+
+			pa.index_old = index
+
+			if pa.first_run :
+				pa.init_pos_x = x
+				pa.init_pos_y = y
+				pa.init_pos_z = z
+				pa.first_run = False
+				pa.last_run = int(round(time.time() * 1000))
+
+			abs_x = np.absolute(x - pa.init_pos_x)
+			abs_y = np.absolute(y - pa.init_pos_y)
+
+			# print "x:%.3f y:%.3f" % (abs_x, abs_y)
+
+			if abs_x > pa.sandbox[0] or abs_y > pa.sandbox[1] or z > pa.sandbox[2] :
+				shutdown()
+				print "Outside sandbox"
+			else :
+				pa.xbee.mav.quad_pos_send(
+				pa.target_system,
+				pa.QUAD_CMD,
+			        index,
+			        x - pa.init_pos_x,
+			        y - pa.init_pos_y,
+			        z - pa.init_pos_z)
+
+			        if(pa.vicon_test == True) : 
+					time_diff = int(round(time.time() * 1000)) - pa.last_run
+				        pa.last_run = int(round(time.time() * 1000))
+
+	       				print "sample time: %d " % time_diff
+
+			        first_no_data = True
+
+	elif pa.transmit and (index == pa.index_old) :
+		if first_no_data :
+			time_off = int(round(time.time() * 1000))
+			first_no_data = False
+
+		if (int(round(time.time() * 1000)) - time_off) > timeout :
+			shutdown()
+			pa.transmit, first_no_data,first_run = False, True, True
+			print "Vicon timeout"
+
+
+
+def get_vicon_data() :
+	HOST, PORT = "0.0.0.0", 13001
+	server = SocketServer.UDPServer((HOST, PORT), MatlabUDPHandler)
+	server.serve_forever()
+
+# def send_vicon_data() :
+	global index, x, y, z
+	index_old = 0;
+	timeout,time_diff = 1000,0
+	last_run = int(round(time.time() * 1000))
+	data_recived = False
+	first_no_data = True
+
+	# time2kill = 5000 
+	while True:
+		if pa.transmit and (index != index_old) :
+
+			# # For test of safty cutoff
+			# if pa.first_run :
+			# 	last_run = int(round(time.time() * 1000))
+			# 	pa.first_run = False
+			# if time2kill > (int(round(time.time() * 1000)) - last_run) :
+			# 	pa.xbee.mav.quad_pos_send(
+			# 	pa.target_system,
+			# 	pa.QUAD_CMD,
+			#         index,
+			#         x,
+			#         y,
+			#         z)
+
+			# else :
+			# 	print "not sending"
+
+			index_old = index
 
 			if pa.first_run :
 				init_pos_x = x
@@ -116,7 +181,7 @@ def send_vicon_data() :
 			        time_diff = int(round(time.time() * 1000)) - last_run
 			        last_run = int(round(time.time() * 1000))
 
-			        print "sample time: %.3f " % time_diff
+			        # print "sample time: %d " % time_diff
 
 			        first_no_data = True
 
@@ -130,7 +195,6 @@ def send_vicon_data() :
 				pa.transmit, first_no_data,first_run = False, True, True
 				print "Vicon timeout"
 
-
 def shutdown() :
 	formation.quad_arm_disarm(pa.xbee,pa.target_system, False)
 				
@@ -142,10 +206,8 @@ def shutdown() :
 	0,
 	0)
 
-
-
 # Create new threads
 get_vicon = myThread1(1, "Vicon serve")
-send_vicon = myThread2(1, "Formation link")
+# send_vicon = myThread2(1, "Formation link")
 get_vicon.daemon = True
-send_vicon.daemon = True
+# send_vicon.daemon = True

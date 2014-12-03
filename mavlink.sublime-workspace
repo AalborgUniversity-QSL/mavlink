@@ -159,7 +159,7 @@
 			"file": "pymavlink/formationv2.py",
 			"settings":
 			{
-				"buffer_size": 2955,
+				"buffer_size": 2957,
 				"line_ending": "Unix"
 			}
 		},
@@ -175,7 +175,7 @@
 			"file": "pymavlink/multithreadingv2.py",
 			"settings":
 			{
-				"buffer_size": 3603,
+				"buffer_size": 3618,
 				"line_ending": "Unix"
 			}
 		}
@@ -591,15 +591,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2955,
+						"buffer_size": 2957,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1499,
-								1499
+								722,
+								722
 							]
 						],
 						"settings":
@@ -608,8 +608,8 @@
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.x": -0.0,
+						"translation.y": 306.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -649,15 +649,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3603,
+						"buffer_size": 3618,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2665,
-								2665
+								2631,
+								2631
 							]
 						],
 						"settings":
@@ -668,7 +668,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1734.0,
+						"translation.y": 1632.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

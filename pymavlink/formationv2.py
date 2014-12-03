@@ -16,7 +16,8 @@ try:
 	# formation.wait_heartbeat(pa.xbee)
 	# 172.26.56.58 is me
 	multi.get_vicon.start()
-	multi.send_vicon.start()
+	# multi.send_vicon.start()
+	pa.vicon_test = False
 
 	while True:
 		print
