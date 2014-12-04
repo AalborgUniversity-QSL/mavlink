@@ -10,7 +10,7 @@ from argparse import ArgumentParser
 import multithreadingv2 as multi
 import parm as pa
 
-index_old = 0
+pa.index_old = 0
 
 try:
 	formation.wait_heartbeat(pa.xbee)
