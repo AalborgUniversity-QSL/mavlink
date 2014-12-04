@@ -79,7 +79,7 @@ try:
 			else :
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 
-			pa.xbee.mav.quad_pos_send(pa.target_system, mavlink.QUAD_CMD_STOP, 0, 0, 0, 0)
+			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_STOP) # Check before flight after new implementation
 			print ("5 - Stopping script - target_system: %u" %(target_system))
 
 
