@@ -3,8 +3,8 @@
 	<include>common.xml</include>
 	<enums>
 	          <enum name="QUAD_FORMATION_ID">
-	          	   <entry value="0" name="QUAD_FORMATION_ID_ALL">
-	                    <description>Defines all Quadrotors available</description>
+	               <entry value="0" name="QUAD_FORMATION_ID_ALL">
+	               <description>All Quadrotor</description>
 	               </entry>
 	               <entry value="1" name="QUAD_FORMATION_ID_1">
 	                    <description>Quadrotor ID 1</description>
@@ -15,49 +15,36 @@
 	               <entry value="3" name="QUAD_FORMATION_ID_3">
 	                    <description>Quadrotor ID 3</description>
 	               </entry>
-	               <entry value="4" name="QUAD_FORMATION_ID_4">
-	                    <description>Quadrotor ID 4</description>
-	               </entry>
-	               <entry value="5" name="QUAD_FORMATION_ID_5">
-	                    <description>Quadrotor ID 5</description>
-	               </entry>
-	               <entry value="6" name="QUAD_FORMATION_ID_6">
-	                    <description>Quadrotor ID 6</description>
-	               </entry>
-	               <entry value="7" name="QUAD_FORMATION_ID_7">
-	                    <description>Quadrotor ID 7</description>
-	               </entry>
-	               <entry value="8" name="QUAD_FORMATION_ID_8">
-	                    <description>Quadrotor ID 8</description>
-	               </entry>
-	               <entry value="9" name="QUAD_FORMATION_ID_9">
-	                    <description>Quadrotor ID 9</description>
-	               </entry>
-	               <entry value="10" name="QUAD_FORMATION_ID_10">
-	                    <description>Quadrotor ID 10</description>
-	               </entry>
 	          </enum>
 	          <enum name="QUAD_CMD">
-               <entry value="42" name="QUAD_CMD_START">
-                    <description>Start BGT formation Script</description>
+               <entry value="42" name="QUAD_CMD_START_SWARM">
+                    <description>Begin swarming</description>
                </entry>
-               <entry value="43" name="QUAD_CMD_STOP">
-                    <description>Stop BGT formation Script</description>
+               <entry value="43" name="QUAD_CMD_STOP_SWARM">
+                    <description>Stop swarming and move to hover mode</description>
                </entry>
-               <entry value="44" name="QUAD_CMD_TEST">
-                    <description>To test different algorithems on the quadrotor</description>
+               <entry value="44" name="QUAD_CMD_TAKEOFF">
+                    <description>Take off from GROUNDED state to HOVER state</description>
+               </entry>
+               <entry value="45" name="QUAD_CMD_LAND">
+                    <description>Land quadrotor</description>
                </entry>
           </enum>
 	</enums>
+        
 	     <messages>
 	          <message id="199" name="QUAD_POS">
 	               <description>The message includes Commands and quadrotor positions in the Vicon space.</description>
-	               <field type="uint8_t" name="target_system"> The target_system is defined in enum QUAD_FORMATION_ID (Zero To anounce all quads</field>
-	               <field type="uint8_t" name="cmd_id">Command ID is defined in enum QUAD_CMD (Command IDs smaller than 0 is no cmd)</field>
-	               <field type="uint8_t" name="pos_no">Coordinate set number</field>
-	               <field type="float" name="x">x-axis (float[10])</field>
-	               <field type="float" name="y">y-axis (float[10])</field>
-	               <field type="float" name="z">z-axis (float[10]) = -1 if coordinate is Not Available</field>
+	               <field type="uint8_t" name="target_system"> The target_system is defined in ENUM QUAD_FORMATION_ID (Zero To announce all quads)</field>
+	               <field type="float[3]" name="x">x-axis (float[3])</field>
+	               <field type="float[3]" name="y">y-axis (float[3])</field>
+	               <field type="float[3]" name="z">z-axis (float[3]) -1 if coordinate is not available</field>
 	          </message>
+
+                  <message id="200" name="SWARM_COMMANDER">
+                       <description>The message includes Commands and quadrotor positions in the Vicon space.</description>
+                       <field type="uint8_t" name="target_system"> The target_system is defined in enum QUAD_FORMATION_ID (Zero To announce all quads</field>
+                       <field type="uint8_t" name="cmd_id">Command ID is defined in ENUM QUAD_CMD (Command IDs smaller than 0 is no command)</field>
+                  </message>
 	     </messages>
 </mavlink>
