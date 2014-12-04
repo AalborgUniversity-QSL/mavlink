@@ -31,10 +31,10 @@
                </entry>
           </enum>
 	</enums>
-        
+
 	     <messages>
 	          <message id="199" name="QUAD_POS">
-	               <description>The message includes Commands and quadrotor positions in the Vicon space.</description>
+	               <description>The message includes quadrotor positions in the motion capture space.</description>
 	               <field type="uint8_t" name="target_system"> The target_system is defined in ENUM QUAD_FORMATION_ID (Zero To announce all quads)</field>
 	               <field type="float[3]" name="x">x-axis (float[3])</field>
 	               <field type="float[3]" name="y">y-axis (float[3])</field>
@@ -42,7 +42,7 @@
 	          </message>
 
                   <message id="200" name="SWARM_COMMANDER">
-                       <description>The message includes Commands and quadrotor positions in the Vicon space.</description>
+                       <description>The message defines a swarm commander message.</description>
                        <field type="uint8_t" name="target_system"> The target_system is defined in enum QUAD_FORMATION_ID (Zero To announce all quads</field>
                        <field type="uint8_t" name="cmd_id">Command ID is defined in ENUM QUAD_CMD (Command IDs smaller than 0 is no command)</field>
                   </message>
