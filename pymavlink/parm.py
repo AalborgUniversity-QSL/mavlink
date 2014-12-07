@@ -25,6 +25,14 @@ vicon_test = False
 index_old = 0
 timeout,time_diff = 2000,0
 data_recived = False
-init_pos_x, init_pos_y, init_pos_z = 0,0,0
 
-sandbox = [1000, 1000, 2000]
+index = 0
+x = np.zeros((3,), dtype=np.float)
+y = np.zeros((3,), dtype=np.float)
+z = np.zeros((3,), dtype=np.float)
+
+init_pos_x = np.zeros((3,), dtype=np.float)
+init_pos_y = np.zeros((3,), dtype=np.float)
+init_pos_z = np.zeros((3,), dtype=np.float)
+
+sandbox = [1000, 1000, 1000]
