@@ -31,7 +31,9 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 	# index, x, y, z = vicn[0], vicn[1], vicn[2], vicn[3]
 
 	# Find the number of quadrotors
-	no_of_quad = (len(vicn)-1)/3
+	# no_of_quad = (len(vicn)-1)/3
+
+	no_of_quad = 1
 
 	pa.index = vicn[0]
 
@@ -51,17 +53,17 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 	abs_y = np.absolute(np.subtract(pa.y, pa.init_pos_y))
 
 	# print "x:%.3f y:%.3f" % (abs_x, abs_y)
-
-	for i in xrange(0,no_of_quad-1) :
-		if abs_x[i] > pa.sandbox[0] or abs_y[i] > pa.sandbox[1] or z[i] > pa.sandbox[2] :
-			shutdown(i)
-			print "\nOutside sandbox"
-
 	pa.xbee.mav.quad_pos_send(
-		0,
+		mavlink.QUAD_FORMATION_ID_ALL,
 	        np.subtract(pa.x, pa.init_pos_x),
 	        np.subtract(pa.y, pa.init_pos_y),
 	        np.subtract(pa.z, pa.init_pos_z))
+
+	for i in xrange(1,no_of_quad) :
+		if (abs_x[i-1] > pa.sandbox[0]) or (abs_y[i-1] > pa.sandbox[1]) or (z[i-1] > pa.sandbox[2]) :
+			shutdown(i)
+			print "\nOutside sandbox"
+
 
         if(pa.vicon_test == True) : 
 		time_diff = int(round(time.time() * 1000)) - pa.last_run
@@ -76,8 +78,8 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         pa.last_run = int(round(time.time() * 1000))
 
         if (time_diff > pa.timeout) or index == pa.index_old :
-        	shutdown(0)
-        	pa.transmit,first_run = False, True
+        	shutdown(mavlink.QUAD_FORMATION_ID_ALL)
+        	first_run = True
         	print "\nVicon timeout"
 
         pa.index_old = index

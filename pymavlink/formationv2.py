@@ -19,23 +19,23 @@ try:
 	pa.vicon_test = False
 
 	while True:
-		print
-		input = raw_input("FORMATION >> ")
+		input = raw_input("\nFORMATION >> ")
 		ans = shlex.split(input)
 		dim = len(ans)
-		pa.transmit = False
 
 		# ARM
 		if ans[0] == 'a' :
+
 			ARM = True
-
 			if dim > 1 :
-				target_system = int(ans[1])
+				pa.target_system = int(ans[1])
 			else:
-				target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("1 - Arming target_system: %u" % (target_system))
+				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 
-			formation.quad_arm_disarm(pa.xbee, target_system, ARM)
+			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
+
+			print ("1 - ARMING target_system: %u" % (pa.target_system))
+
 
 
 		# DISARM
@@ -45,31 +45,55 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
+
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
-			print ("2 - Arming target_system: %u" % (pa.target_system))
+
+			print ("2 - DISARMING target_system: %u" % (pa.target_system))
 
 
-		# START SCRIPT
-		elif ans[0] == 'start':
+		# START TAKEOFF
+		elif ans[0] == 'takeoff' :
 			if dim > 1 :
 				pa.target_system = int(ans[1])
-				pa.QUAD_CMD = int(ans[2])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-				pa.QUAD_CMD = mavlink.QUAD_CMD_START
-			print ("4 - Start script - target_system: %u  CMD: %u" % (pa.target_system, mavlink.QUAD_CMD_START))
+			print ("4 - TAKEOFF - target_system: %u" % (pa.target_system))
 
-			pa.transmit = True
 			pa.first_run = True
 
-			try:
-				while True:
-					formation.wait_statusmsg(pa.xbee)
-			except KeyboardInterrupt :
-				ARM = False
-				pa.QUAD_CMD = mavlink.QUAD_CMD_STOP
-				formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
-				print "\nSTOPPING & DISARMING"
+			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_TAKEOFF);
+
+
+		elif ans[0] == 'land' :
+			if dim > 1 :
+				pa.target_system = int(ans[1])
+			else:
+				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
+			print ("4 - LANDING - target_system: %u" % (pa.target_system))
+
+			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_LAND);
+
+
+		# # START SCRIPT
+		# elif ans[0] == 'start':
+		# 	if dim > 1 :
+		# 		pa.target_system = int(ans[1])
+		# 		pa.QUAD_CMD = int(ans[2])
+		# 	else:
+		# 		pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
+		# 		pa.QUAD_CMD = mavlink.QUAD_CMD_START
+		# 	print ("4 - Start script - target_system: %u  CMD: %u" % (pa.target_system, mavlink.QUAD_CMD_START))
+
+		# 	pa.first_run = True
+
+		# 	try:
+		# 		while True:
+		# 			formation.wait_statusmsg(pa.xbee)
+		# 	except KeyboardInterrupt :
+		# 		ARM = False
+		# 		pa.QUAD_CMD = mavlink.QUAD_CMD_STOP
+		# 		formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
+		# 		print "\nSTOPPING & DISARMING"
 				
 		# STOP SCRIPT
 		elif ans[0] == 'stop':
@@ -119,4 +143,6 @@ try:
 		print
 
 except KeyboardInterrupt:
-        print
+        ARM = False
+	formation.quad_arm_disarm(pa.xbee, mavlink.QUAD_FORMATION_ID_ALL, ARM)
+	print "\nSTOPPING & DISARMING"
