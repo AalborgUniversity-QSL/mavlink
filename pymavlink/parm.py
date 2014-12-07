@@ -2,6 +2,9 @@
 import sys, struct, time, os, shlex, select
 from argparse import ArgumentParser
 from pymavlink import mavutil
+import mav_formation as formation
+import numpy as np
+from dialects.v10 import mavlinkv10 as mavlink
 
 parser = ArgumentParser(description=__doc__)
 
@@ -10,6 +13,7 @@ parser.add_argument("-b", type=int,
 parser.add_argument("-d", required=False, help="serial device", default="/dev/ttyUSB0")
 parser.add_argument("--source-system", dest='SOURCE_SYSTEM', type=int,
                   default=255, help='MAVLink source system for this GCS')
+
 args = parser.parse_args()
 
 # create a mavlink serial instance

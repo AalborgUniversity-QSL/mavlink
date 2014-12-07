@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"QUAD",
+				"QUAD_CMD_TAKEOFF"
+			],
+			[
 				"ini",
 				"init_pos_z"
 			],
@@ -116,10 +120,6 @@
 				"QUAD_CMD_START"
 			],
 			[
-				"QUAD",
-				"QUAD_CMD"
-			],
-			[
 				"m",
 				"multi"
 			],
@@ -163,7 +163,7 @@
 			"file": "pymavlink/formationv2.py",
 			"settings":
 			{
-				"buffer_size": 2970,
+				"buffer_size": 3736,
 				"line_ending": "Unix"
 			}
 		},
@@ -179,7 +179,7 @@
 			"file": "pymavlink/multithreadingv2.py",
 			"settings":
 			{
-				"buffer_size": 2642,
+				"buffer_size": 2680,
 				"line_ending": "Unix"
 			}
 		},
@@ -448,6 +448,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"swarm",
 			"x",
 			"quad_",
 			"45",
@@ -574,8 +575,7 @@
 			"quad_pos",
 			"ARM",
 			"MAV_FRAME",
-			"def command",
-			"command"
+			"def command"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -594,7 +594,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -603,15 +603,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2970,
+						"buffer_size": 3736,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1491,
-								1491
+								1234,
+								1234
 							]
 						],
 						"settings":
@@ -621,10 +621,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 675.0,
+						"translation.y": 585.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -640,8 +640,8 @@
 						"selection":
 						[
 							[
-								271390,
-								271390
+								4204,
+								4204
 							]
 						],
 						"settings":
@@ -649,7 +649,7 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1710.0,
+						"translation.y": 1862.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -661,15 +661,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2642,
+						"buffer_size": 2680,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2213,
-								2213
+								1033,
+								1033
 							]
 						],
 						"settings":
@@ -680,10 +680,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 855.0,
+						"translation.y": 418.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{

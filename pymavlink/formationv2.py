@@ -3,8 +3,8 @@ import sys, struct, time, os, shlex, select
 import numpy as np
 from curses import ascii
 from time import sleep
-from pymavlink import mavutil
 from dialects.v10 import mavlinkv10 as mavlink
+from pymavlink import mavutil
 import mav_formation as formation
 from argparse import ArgumentParser
 import multithreadingv2 as multi
@@ -13,7 +13,7 @@ import parm as pa
 pa.index_old = 0
 
 try:
-	formation.wait_heartbeat(pa.xbee)
+	# formation.wait_heartbeat(pa.xbee)
 	# 172.26.56.58 is me
 	multi.get_vicon.start()
 	pa.vicon_test = False
@@ -61,7 +61,8 @@ try:
 
 			pa.first_run = True
 
-			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_TAKEOFF);
+			pa.xbee.mav.quad_pos_send(0,0,0,0,0,0)
+			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_TAKEOFF)
 
 
 		elif ans[0] == 'land' :
@@ -71,7 +72,7 @@ try:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 			print ("4 - LANDING - target_system: %u" % (pa.target_system))
 
-			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_LAND);
+			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_LAND)
 
 
 		# # START SCRIPT

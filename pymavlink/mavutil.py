@@ -11,7 +11,7 @@ import socket, math, struct, time, os, fnmatch, array, sys, errno
 # adding these extra imports allows pymavlink to be used directly with pyinstaller
 # without having complex spec files
 import json
-from pymavlink.dialects.v10 import ardupilotmega
+# from pymavlink.dialects.v10 import ardupilotmega
 from dialects.v10 import mavlinkv10
 
 
@@ -77,6 +77,8 @@ def set_dialect(dialect):
     if mavlink is None or mavlink.WIRE_PROTOCOL_VERSION == "1.0" or not 'MAVLINK09' in os.environ:
         wire_protocol = mavparse.PROTOCOL_1_0
         modname = "pymavlink.dialects.v10." + dialect
+        # modname = "pymavlink.dialects.v10.mavlinkv10"
+
     else:
         wire_protocol = mavparse.PROTOCOL_0_9
         modname = "pymavlink.dialects.v09." + dialect
