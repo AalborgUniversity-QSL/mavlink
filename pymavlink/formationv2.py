@@ -19,7 +19,7 @@ try:
 	pa.vicon_test = False
 
 	while True:
-		input = raw_input("\nFORMATION >> ")
+		input = raw_input("FORMATION >> ")
 		ans = shlex.split(input)
 		dim = len(ans)
 
@@ -61,7 +61,6 @@ try:
 
 			pa.first_run = True
 
-			pa.xbee.mav.quad_pos_send(0,0,0,0,0,0)
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_TAKEOFF)
 
 

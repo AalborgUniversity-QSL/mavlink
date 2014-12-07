@@ -28,19 +28,19 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 	numOfValues = len(data) / 8
 	vicn = struct.unpack('>' + 'd' * numOfValues, data)
 
-	# index, x, y, z = vicn[0], vicn[1], vicn[2], vicn[3]
+	pa.index, pa.x, pa.y, pa.z = vicn[0], [vicn[1], 0, 0], [vicn[2], 0, 0], [vicn[3], 0, 0]
 
 	# Find the number of quadrotors
 	# no_of_quad = (len(vicn)-1)/3
 
 	no_of_quad = 1
 
-	pa.index = vicn[0]
+	# pa.index = vicn[0]
 
-	for i in xrange(1,no_of_quad) :
-		pa.x[i-1] = vicn[3*i-2]
-		pa.y[i-1] = vicn[3*i-1]
-		pa.z[i-1] = vicn[3*i]
+	# for i in xrange(1,no_of_quad) :
+	# 	pa.x[i-1] = vicn[3*i-2]
+	# 	pa.y[i-1] = vicn[3*i-1]
+	# 	pa.z[i-1] = vicn[3*i]
 
 	if pa.first_run :
 		pa.init_pos_x = pa.x
@@ -59,30 +59,35 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 	        np.subtract(pa.y, pa.init_pos_y),
 	        np.subtract(pa.z, pa.init_pos_z))
 
-	for i in xrange(1,no_of_quad) :
-		if (abs_x[i-1] > pa.sandbox[0]) or (abs_y[i-1] > pa.sandbox[1]) or (z[i-1] > pa.sandbox[2]) :
-			shutdown(i)
-			print "\nOutside sandbox"
+	# for i in xrange(1,no_of_quad) :
+	# 	if (abs_x[i-1] > pa.sandbox[0]) or (abs_y[i-1] > pa.sandbox[1]) or (z[i-1] > pa.sandbox[2]) :
+	# 		shutdown(i)
+	# 		print "\nOutside sandbox"
+
+
+	if (abs_x[0] > pa.sandbox[0]) or (abs_y[0] > pa.sandbox[1]) or (pa.z[0] > pa.sandbox[2]) :
+		shutdown(0)
+		print "\nOutside sandbox"
 
 
         if(pa.vicon_test == True) : 
 		time_diff = int(round(time.time() * 1000)) - pa.last_run
 	        pa.last_run = int(round(time.time() * 1000))
 
-		# print "sample time: %d " % time_diff
-		print "x:%.3f y:%.3f z:%.3f" % (np.subtract(pa.x, pa.init_pos_x),
-						np.subtract(pa.y, pa.init_pos_y),
-	        				np.subtract(pa.z, pa.init_pos_z))
+		print "sample time: %d " % time_diff
+		print "x:%.3f y:%.3f z:%.3f" % (np.absolute(np.subtract(pa.x[0], pa.init_pos_x[0])),
+						np.absolute(np.subtract(pa.y[0], pa.init_pos_y[0])),
+	        				np.subtract(pa.z[0], pa.init_pos_z[0]))
 
        	time_diff = int(round(time.time() * 1000)) - pa.last_run
         pa.last_run = int(round(time.time() * 1000))
 
-        if (time_diff > pa.timeout) or index == pa.index_old :
+        if (time_diff > pa.timeout) or pa.index == pa.index_old :
         	shutdown(mavlink.QUAD_FORMATION_ID_ALL)
         	first_run = True
         	print "\nVicon timeout"
 
-        pa.index_old = index
+        pa.index_old = pa.index
 
 def get_vicon_data() :
 	HOST, PORT = "0.0.0.0", 13001

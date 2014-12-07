@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import sys, struct, time, os, shlex, select
 from argparse import ArgumentParser
-from dialects.v10 import mavlinkv10 as mavlink
 from pymavlink import mavutil
 import mav_formation as formation
 import numpy as np

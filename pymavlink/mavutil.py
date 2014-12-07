@@ -12,7 +12,7 @@ import socket, math, struct, time, os, fnmatch, array, sys, errno
 # without having complex spec files
 import json
 from pymavlink.dialects.v10 import ardupilotmega
-from pymavlink.dialects.v10 import mavlinkv10
+from dialects.v10 import mavlinkv10
 
 
 # these imports allow for mavgraph and mavlogdump to use maths expressions more easily
