@@ -3,8 +3,8 @@ import sys, struct, time, os, shlex, select
 import numpy as np
 from curses import ascii
 from time import sleep
-from dialects.v10 import mavlinkv10 as mavlink
 from pymavlink import mavutil
+from dialects.v10 import mavlinkv10 as mavlink
 import mav_formation as formation
 from argparse import ArgumentParser
 import multithreadingv2 as multi
