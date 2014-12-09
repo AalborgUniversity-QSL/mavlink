@@ -13,7 +13,7 @@ import parm as pa
 pa.index_old = 0
 
 try:
-	# formation.wait_heartbeat(pa.xbee)
+	formation.wait_heartbeat(pa.xbee)
 	# 172.26.56.58 is me
 	multi.get_vicon.start()
 	pa.vicon_test = False
@@ -78,6 +78,12 @@ try:
 			print ("4 - LANDING - target_system: %u \n" % (pa.target_system))
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_LAND)
+
+			try:
+				while True:
+					formation.wait_statusmsg(pa.xbee)
+			except KeyboardInterrupt :
+				print
 
 
 		# LOG STATUSTEXT FROM FORMATION
