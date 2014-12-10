@@ -167,7 +167,7 @@
 			"file": "pymavlink/formationv2.py",
 			"settings":
 			{
-				"buffer_size": 2869,
+				"buffer_size": 2973,
 				"line_ending": "Unix"
 			}
 		},
@@ -591,7 +591,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -600,15 +600,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2869,
+						"buffer_size": 2973,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								556,
-								556
+								2003,
+								2003
 							]
 						],
 						"settings":
@@ -618,7 +618,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 234.0,
+						"translation.y": 1425.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -637,8 +637,8 @@
 						"selection":
 						[
 							[
-								2112,
-								2112
+								2390,
+								2390
 							]
 						],
 						"settings":
@@ -649,10 +649,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 886.0,
+						"translation.y": 1170.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -668,8 +668,8 @@
 						"selection":
 						[
 							[
-								923,
-								923
+								1223,
+								1223
 							]
 						],
 						"settings":
@@ -677,10 +677,10 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 270.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
