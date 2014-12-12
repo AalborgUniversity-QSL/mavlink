@@ -47,8 +47,6 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 		pa.last_run = int(round(time.time() * 1000))
 		pa.first_run = False
        	
-       	time_diff = int(round(time.time() * 1000)) - pa.last_run
-        pa.last_run = int(round(time.time() * 1000))
 
 	abs_x = np.absolute(pa.x)
 	abs_y = np.absolute(pa.y)
@@ -80,6 +78,8 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 						pa.y[0],
 	        				np.subtract(pa.z[0], pa.init_pos_z[0]))
 
+       	time_diff = int(round(time.time() * 1000)) - pa.last_run
+        pa.last_run = int(round(time.time() * 1000))
 
         if (time_diff > pa.timeout) or pa.index == pa.index_old :
         	shutdown(mavlink.QUAD_FORMATION_ID_ALL)

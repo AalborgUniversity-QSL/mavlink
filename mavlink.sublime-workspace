@@ -178,14 +178,6 @@
 				"buffer_size": 2709,
 				"line_ending": "Unix"
 			}
-		},
-		{
-			"file": "pymavlink/parm.py",
-			"settings":
-			{
-				"buffer_size": 1224,
-				"line_ending": "Unix"
-			}
 		}
 	],
 	"build_system": "Packages/Python/Python.sublime-build",
@@ -591,7 +583,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -607,8 +599,8 @@
 						"selection":
 						[
 							[
-								2003,
-								2003
+								459,
+								459
 							]
 						],
 						"settings":
@@ -618,10 +610,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1425.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -637,8 +629,8 @@
 						"selection":
 						[
 							[
-								2390,
-								2390
+								1912,
+								1912
 							]
 						],
 						"settings":
@@ -649,35 +641,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1170.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "pymavlink/parm.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1224,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1223,
-								1223
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 270.0,
+						"translation.y": 1018.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
