@@ -85,6 +85,38 @@ try:
 			except KeyboardInterrupt :
 				print
 
+		# START SWARMING
+		elif ans[0] == 'start' :
+			if dim > 1 :
+				pa.target_system = int(ans[1])
+			else:
+				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
+			print ("4 - START SWARMING - target_system: %u \n" % (pa.target_system))
+
+			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_START_SWARM)
+
+			try:
+				while True:
+					formation.wait_statusmsg(pa.xbee)
+			except KeyboardInterrupt :
+				print
+
+		# STOP SWARMING
+		elif ans[0] == 'stop' :
+			if dim > 1 :
+				pa.target_system = int(ans[1])
+			else:
+				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
+			print ("4 - STOP SWARMING - target_system: %u \n" % (pa.target_system))
+
+			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_STOP_SWARM)
+
+			try:
+				while True:
+					formation.wait_statusmsg(pa.xbee)
+			except KeyboardInterrupt :
+				print		
+
 
 		# LOG STATUSTEXT FROM FORMATION
 		elif ans[0] == 'log':

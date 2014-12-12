@@ -167,7 +167,15 @@
 			"file": "pymavlink/formationv2.py",
 			"settings":
 			{
-				"buffer_size": 2973,
+				"buffer_size": 3821,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pymavlink/dialects/v10/mavlinkv10.py",
+			"settings":
+			{
+				"buffer_size": 550661,
 				"line_ending": "Unix"
 			}
 		},
@@ -284,11 +292,11 @@
 	],
 	"file_history":
 	[
-		"/home/jeni/ca1/mavlink/pymavlink/parm.py",
-		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavutil.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavtest.py",
 		"/home/jeni/ca1/mavlink/pymavlink/multithreading.py",
+		"/home/jeni/ca1/mavlink/pymavlink/parm.py",
+		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
 		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/ASLUAV.py",
 		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/ASLUAV.xml",
 		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/__init__.py",
@@ -583,7 +591,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -592,15 +600,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2973,
+						"buffer_size": 3821,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								459,
-								459
+								2473,
+								2473
 							]
 						],
 						"settings":
@@ -610,14 +618,42 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1560.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "pymavlink/dialects/v10/mavlinkv10.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 550661,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3900,
+								3900
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2244.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
 					"file": "pymavlink/multithreadingv2.py",
 					"semi_transient": false,
 					"settings":
@@ -641,10 +677,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1018.0,
+						"translation.y": 1122.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -712,6 +748,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"mavl",
+				"pymavlink/dialects/v10/mavlinkv10.py"
+			],
 			[
 				"mavlink",
 				"pymavlink/dialects/v10/mavlinkv10.py"
