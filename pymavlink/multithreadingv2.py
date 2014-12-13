@@ -20,6 +20,16 @@ class myThread1 (threading.Thread):
 	get_vicon_data()
 	print "Exiting " + self.name
 
+class myThread2 (threading.Thread):
+    def __init__(self, threadID, name):
+	threading.Thread.__init__(self)
+	self.threadID = threadID
+	self.name = name
+    def run(self):
+	print "Starting " + self.name
+	watchdog()
+	print "Exiting " + self.name
+
 class MatlabUDPHandler(SocketServer.BaseRequestHandler):
     def handle(self):
 	data = self.request[0]
@@ -81,21 +91,39 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
        	time_diff = int(round(time.time() * 1000)) - pa.last_run
         pa.last_run = int(round(time.time() * 1000))
 
-        if (time_diff > pa.timeout) or pa.index == pa.index_old :
-        	shutdown(mavlink.QUAD_FORMATION_ID_ALL)
-        	first_run = True
-        	print "Vicon timeout\n"
+        # if (time_diff > pa.timeout) or pa.index == pa.index_old :
+        # 	shutdown(mavlink.QUAD_FORMATION_ID_ALL)
+        # 	first_run = True
+        # 	print "Vicon timeout\n"
 
-        pa.index_old = pa.index
+        # pa.index_old = pa.index
+        
+        pa.tictoc = not(pa.tictoc)
 
 def get_vicon_data() :
 	HOST, PORT = "0.0.0.0", 13001
 	server = SocketServer.UDPServer((HOST, PORT), MatlabUDPHandler)
 	server.serve_forever()
 
+def watchdog():
+	while True :
+
+		if (pa.tictoc ) :
+			pa.time = int(round(time.time() * 1000))
+			pa.tictoc = not(pa.tictoc)
+
+		pa.time_diff = pa.time - int(round(time.time() * 1000))
+
+		if (pa.time_diff > pa.timeout) :
+			shutdown(mavlink.QUAD_FORMATION_ID_ALL)
+		else :
+			# do nothing
+
 def shutdown(target_system) :
 	formation.quad_arm_disarm(pa.xbee,target_system, False)
 
 # Create new threads
-get_vicon = myThread1(1, "Vicon serve\n")
+get_vicon = myThread1(1, "VICON\n")
+watchdog = myThread2(1, "WATCHDOG")
 get_vicon.daemon = True
+watchdog.daemon = True

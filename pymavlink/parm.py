@@ -26,8 +26,9 @@ first_run = True
 last_run = int(round(time.time() * 1000))
 vicon_test = False
 index_old = 0
-timeout,time_diff = 2000,0
-data_recived = False
+timeout,time_diff,time = 2000,0,0
+tictoc = False
+
 
 index = 0
 x = np.zeros((3,), dtype=np.float)
@@ -38,4 +39,4 @@ init_pos_x = np.zeros((3,), dtype=np.float)
 init_pos_y = np.zeros((3,), dtype=np.float)
 init_pos_z = np.zeros((3,), dtype=np.float)
 
-sandbox = [1000, 1500, 1500]
+sandbox = [1000, 1000, 1500]

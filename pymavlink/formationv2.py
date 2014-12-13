@@ -14,8 +14,9 @@ pa.index_old = 0
 
 try:
 	formation.wait_heartbeat(pa.xbee)
-	# 172.26.56.58 is me
+	multi.watchdog()
 	multi.get_vicon.start()
+	
 	pa.vicon_test = False
 
 	while True:
