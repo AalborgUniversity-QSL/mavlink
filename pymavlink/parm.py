@@ -26,7 +26,7 @@ first_run = True
 last_run = int(round(time.time() * 1000))
 vicon_test = False
 index_old = 0
-timeout,time_diff,time = 2000,0,0
+timeout,time,dt = 2000,0,0
 tictoc = False
 
 

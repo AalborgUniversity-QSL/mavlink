@@ -16,7 +16,7 @@ try:
 	formation.wait_heartbeat(pa.xbee)
 	multi.watchdog()
 	multi.get_vicon.start()
-	
+
 	pa.vicon_test = False
 
 	while True:
@@ -87,7 +87,7 @@ try:
 				print
 
 		# START SWARMING
-		elif ans[0] == 'start' :
+		elif ans[0] == 'swarm' :
 			if dim > 1 :
 				pa.target_system = int(ans[1])
 			else:
@@ -103,7 +103,7 @@ try:
 				print
 
 		# STOP SWARMING
-		elif ans[0] == 'stop' :
+		elif ans[0] == 's' :
 			if dim > 1 :
 				pa.target_system = int(ans[1])
 			else:

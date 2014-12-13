@@ -56,6 +56,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 		pa.init_pos_z = pa.z
 		pa.last_run = int(round(time.time() * 1000))
 		pa.first_run = False
+		pa.tictoc = False
        	
 
 	abs_x = np.absolute(pa.x)
@@ -75,7 +76,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 
 
 	if (abs_x[0] > pa.sandbox[0]) or (abs_y[0] > pa.sandbox[1]) or (pa.z[0] > pa.sandbox[2]) :
-		shutdown(0)
+		shutdown(mavlink.QUAD_FORMATION_ID_ALL)
 		print "Outside sandbox\n"
 
 
@@ -97,7 +98,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         # 	print "Vicon timeout\n"
 
         # pa.index_old = pa.index
-        
+
         pa.tictoc = not(pa.tictoc)
 
 def get_vicon_data() :
@@ -105,19 +106,18 @@ def get_vicon_data() :
 	server = SocketServer.UDPServer((HOST, PORT), MatlabUDPHandler)
 	server.serve_forever()
 
-def watchdog():
+def watchdog() :
 	while True :
-
 		if (pa.tictoc ) :
 			pa.time = int(round(time.time() * 1000))
 			pa.tictoc = not(pa.tictoc)
 
-		pa.time_diff = pa.time - int(round(time.time() * 1000))
+		pa.dt = int(round(time.time() * 1000)) - pa.time
 
-		if (pa.time_diff > pa.timeout) :
+		if (pa.dt > pa.timeout) :
 			shutdown(mavlink.QUAD_FORMATION_ID_ALL)
-		else :
-			# do nothing
+			print "\nVICON TIMEOUT"
+
 
 def shutdown(target_system) :
 	formation.quad_arm_disarm(pa.xbee,target_system, False)
