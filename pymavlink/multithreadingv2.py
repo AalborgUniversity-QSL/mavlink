@@ -37,7 +37,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 		pa.init_pos_z = pa.z
 		pa.last_run = int(round(time.time() * 1000))
 		pa.initialised = True
-		# pa.tictoc = False
+                print "[GCS] VICON INITIALISED"
         else :
         	abs_x = np.absolute(pa.x)
         	abs_y = np.absolute(pa.y)

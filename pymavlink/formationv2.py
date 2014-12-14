@@ -32,7 +32,6 @@ try:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
-
 			print ("[GCS] ARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 
@@ -45,7 +44,6 @@ try:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
-
 			print ("[GCS] DISARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 
@@ -123,7 +121,7 @@ try:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 			
 			print "LOGGING -> TARGET SYSTEM: %u \n" %(pa.target_system)
-			
+
 			try:
 				while True:
 					formation.wait_statusmsg(pa.xbee, True)
