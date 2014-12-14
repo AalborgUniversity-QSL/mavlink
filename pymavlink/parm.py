@@ -18,10 +18,10 @@ args = parser.parse_args()
 xbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE_SYSTEM, dialect="mavlinkv10")
 
 target_system = 0
+no_of_quad = 2
 QUAD_CMD = 0
 transmit = False
 first_run = True
-# no_of_quad = 1
 last_run = int(round(time.time() * 1000))
 vicon_test = False
 index_old = 0

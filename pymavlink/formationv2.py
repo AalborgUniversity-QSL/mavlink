@@ -35,10 +35,9 @@ try:
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 
-			pa.first_run = True
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
 
-			print ("1 - ARMING target_system: %u \n" % (pa.target_system))
+			print ("ARMING target_system: %u \n" % (pa.target_system))
 
 
 		# DISARM
@@ -48,11 +47,10 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-				pa.first_run = False
 
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
 
-			print ("2 - DISARMING target_system: %u \n" % (pa.target_system))
+			print ("DISARMING target_system: %u \n" % (pa.target_system))
 
 
 		# START TAKEOFF
@@ -61,7 +59,7 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("4 - TAKEOFF - target_system: %u \n" % (pa.target_system))
+			print ("TAKEOFF - target_system: %u \n" % (pa.target_system))
 
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_TAKEOFF)
@@ -78,7 +76,7 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("4 - LANDING - target_system: %u \n" % (pa.target_system))
+			print ("LANDING - target_system: %u \n" % (pa.target_system))
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_LAND)
 
@@ -94,7 +92,7 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("4 - START SWARMING - target_system: %u \n" % (pa.target_system))
+			print ("START SWARMING - target_system: %u \n" % (pa.target_system))
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_START_SWARM)
 
@@ -110,7 +108,7 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("4 - STOP SWARMING - target_system: %u \n" % (pa.target_system))
+			print ("STOP SWARMING - target_system: %u \n" % (pa.target_system))
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_STOP_SWARM)
 
@@ -128,7 +126,7 @@ try:
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 			
-			print "6 - logging - target_system: %u \n" %(pa.target_system)
+			print "LOGGING - target_system: %u \n" %(pa.target_system)
 			print
 			print("Waiting for STATUS_MSG \n")
 			try:
