@@ -20,8 +20,7 @@ xbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE
 target_system = 0
 no_of_quad = 2
 QUAD_CMD = 0
-transmit = False
-first_run = True
+initialised = False
 last_run = int(round(time.time() * 1000))
 vicon_test = False
 index_old = 0
@@ -29,7 +28,6 @@ timeout,time,dt = 2000,0,0
 tictoc = False
 
 system_addr = [0xFFFF, 0xA59B, 0xD0E3]
-
 
 index = 0
 x = np.zeros((3,), dtype=np.float)

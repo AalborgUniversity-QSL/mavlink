@@ -1,7 +1,7 @@
 import sys, struct, time, os
 from curses import ascii
 import serial
-from collections import deque
+# from collections import deque
 
 from time import sleep
 from pymavlink import mavutil
@@ -24,33 +24,25 @@ def wait_statusmsg(self,blocking):
         print(msg)
 
 def quad_arm_disarm(m, target_system, arm_disarm) :
-        msg = m.mav.command_long_encode(
-                target_system,
-                mavlink.MAV_COMP_ID_ALL,
-                mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
-                0,
-                arm_disarm,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0)
+        msg = m.mav.command_long_encode(target_system, mavlink.MAV_COMP_ID_ALL, mavlink.MAV_CMD_COMPONENT_ARM_DISARM, 0, arm_disarm, 0, 0, 0, 0, 0, 0)
+        
+        '''
+        Send a command with up to seven parameters to the MAV
 
+        target_system             : System which should execute the command (uint8_t)
+        target_component          : Component which should execute the command, 0 for all components (uint8_t)
+        command                   : Command ID, as defined by MAV_CMD enum. (uint16_t)
+        confirmation              : 0: First transmission of this command. 1-255: Confirmation transmissions (e.g. for kill command) (uint8_t)
+        param1                    : Parameter 1, as defined by MAV_CMD enum. (float)
+        param2                    : Parameter 2, as defined by MAV_CMD enum. (float)
+        param3                    : Parameter 3, as defined by MAV_CMD enum. (float)
+        param4                    : Parameter 4, as defined by MAV_CMD enum. (float)
+        param5                    : Parameter 5, as defined by MAV_CMD enum. (float)
+        param6                    : Parameter 6, as defined by MAV_CMD enum. (float)
+        param7                    : Parameter 7, as defined by MAV_CMD enum. (float)
+
+        '''
         m.mav.sendAPI(msg, pa.system_addr[target_system])
-
-    # m.mav.command_long_send(
-    #     target_system,
-    #     mavlink.MAV_COMP_ID_ALL,
-    #     mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
-    #     0,
-    #     arm_disarm,
-    #     0,
-    #     0,
-    #     0,
-    #     0,
-    #     0,
-    #     0)
 
 def send_pos(m, target_system, x, y, z) :
         msg = m.mav.quad_pos_encode(target_system, x, y, z)

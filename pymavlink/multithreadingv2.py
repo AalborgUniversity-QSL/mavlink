@@ -39,7 +39,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 		pa.init_pos_z = pa.z
 		pa.last_run = int(round(time.time() * 1000))
 		pa.initialised = True
-		pa.tictoc = False
+		# pa.tictoc = False
         else :
         	abs_x = np.absolute(pa.x)
         	abs_y = np.absolute(pa.y)
@@ -61,12 +61,12 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         	for i in xrange(1,no_of_quad) :
         		if (abs_x[i-1] > pa.sandbox[0]) or (abs_y[i-1] > pa.sandbox[1]) or (pa.z[i-1] > pa.sandbox[2]) :
         			shutdown(i)
-        			print "OUTSIDE SANDBOX\n"
+        			print "[GCS] OUTSIDE SANDBOX\n"
 
 
         	# if (abs_x[0] > pa.sandbox[0]) or (abs_y[0] > pa.sandbox[1]) or (pa.z[0] > pa.sandbox[2]) :
         	# 	shutdown(mavlink.QUAD_FORMATION_ID_ALL)
-                #       print "OUTSIDE SANDBOX\n"
+                #       print "[GCS] OUTSIDE SANDBOX\n"
 
                 if(pa.vicon_test == True) : 
         		time_diff = int(round(time.time() * 1000)) - pa.last_run
@@ -83,7 +83,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
                 if time_diff > pa.timeout :
                 	shutdown(mavlink.QUAD_FORMATION_ID_ALL)
                 	pa.initialised = False
-                	print "Vicon timeout\n"
+                	print "[GCS] VICON TIMEOUT\n"
 
                 pa.index_old = pa.index
 
