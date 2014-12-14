@@ -20,16 +20,16 @@ class myThread(threading.Thread):
 
 def watchdog() :
         while True :
-                # if ( pa.tictoc ) :
-                #         pa.time = int(round(time.time() * 1000))
-                #         pa.tictoc = not(pa.tictoc)
+                if ( pa.tictoc ) :
+                        pa.time = int(round(time.time() * 1000))
+                        pa.tictoc = not(pa.tictoc)
 
-                # pa.dt = int(round(time.time() * 1000)) - pa.time
+                pa.dt = int(round(time.time() * 1000)) - pa.time
 
-                # if (pa.dt > pa.timeout) :
-                #         shutdown(mavlink.QUAD_FORMATION_ID_ALL)
-                #         print "\nVICON TIMEOUT"
-                print "hej"
+                if (pa.dt > pa.timeout) :
+                        shutdown(mavlink.QUAD_FORMATION_ID_ALL)
+                        print "\nVICON TIMEOUT"
+
 
 def shutdown(target_system) :
         formation.quad_arm_disarm(pa.xbee,target_system, False)

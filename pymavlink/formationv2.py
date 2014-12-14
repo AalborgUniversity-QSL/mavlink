@@ -10,7 +10,7 @@ from argparse import ArgumentParser
 import multithreadingv2 as multi
 # import watchdog
 import parm as pa
-import XBee
+# import XBee
 
 pa.index_old = 0
 
