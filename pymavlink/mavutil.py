@@ -703,8 +703,8 @@ class mavserial(mavfile):
         # we rather strangely set the baudrate initially to 1200, then change to the desired
         # baudrate. This works around a kernel bug on some Linux kernels where the baudrate
         # is not set correctly
-        self.port = serial.Serial(self.device, 1200, timeout=0,
-                                  dsrdtr=False, rtscts=False, xonxoff=False)
+        self.port = serial.Serial(self.device, 1200, timeout=0, dsrdtr=False, rtscts=False, xonxoff=False)
+        
         try:
             fd = self.port.fileno()
             set_close_on_exec(fd)

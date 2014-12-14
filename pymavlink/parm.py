@@ -10,8 +10,7 @@ parser = ArgumentParser(description=__doc__)
 parser.add_argument("-b", type=int,
                   help="master port baud rate", default=57600)
 parser.add_argument("-d", required=False, help="serial device", default="/dev/ttyUSB0")
-parser.add_argument("--source-system", dest='SOURCE_SYSTEM', type=int,
-                  default=255, help='MAVLink source system for this GCS')
+parser.add_argument("--source-system", dest='SOURCE_SYSTEM', type=int, default=255, help='MAVLink source system for this GCS')
 
 args = parser.parse_args()
 
@@ -28,6 +27,8 @@ vicon_test = False
 index_old = 0
 timeout,time,dt = 2000,0,0
 tictoc = False
+
+system_addr = [0xFFFF, 0xA59B, 0xD0E3]
 
 
 index = 0

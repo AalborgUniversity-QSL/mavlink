@@ -15,7 +15,7 @@ import parm as pa
 pa.index_old = 0
 
 try:
-	formation.wait_heartbeat(pa.xbee)
+	# formation.wait_heartbeat(pa.xbee)
 	# watchdog.watchdog.start()
 	multi.get_vicon.start()
 
