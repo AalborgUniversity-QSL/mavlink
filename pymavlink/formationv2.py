@@ -12,7 +12,6 @@ import parm as pa
 
 try:
 	formation.wait_heartbeat(pa.xbee, False)
-	# watchdog.watchdog.start()
 	multi.get_vicon.start()
 
 	pa.vicon_test = False
@@ -134,4 +133,4 @@ try:
 except KeyboardInterrupt:
         ARM = False
 	formation.quad_arm_disarm(pa.xbee, mavlink.QUAD_FORMATION_ID_ALL, ARM)
-	print "DISARMING"
+	print "\n[GCS] DISARMING"
