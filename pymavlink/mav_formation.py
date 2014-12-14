@@ -51,3 +51,12 @@ def quad_arm_disarm(m, target_system, arm_disarm) :
     #     0,
     #     0,
     #     0)
+
+def send_pos(m, target_system, x, y, z) :
+        msg = m.mav.quad_pos_encode(target_system, x, y, z)
+        m.mav.sendAPI(msg, pa.system_addr[target_system])
+
+def swarm_cmd(m, target_system, cmd) :
+        msg = m.mav.swarm_commander_encode(target_system, cmd)
+        m.mav.sendAPI(msg, pa.system_addr[target_system])
+

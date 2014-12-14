@@ -62,7 +62,8 @@ try:
 			print ("TAKEOFF - target_system: %u \n" % (pa.target_system))
 
 
-			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_TAKEOFF)
+			# pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_TAKEOFF)
+			formation.swarm_cmd(pa.xbee, pa.target_system, mavlink.QUAD_CMD_TAKEOFF)
 
 			try:
 				while True:
