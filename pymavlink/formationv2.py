@@ -33,7 +33,7 @@ try:
 
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
 
-			print ("[GCS] ARMING target_system: %u \n" % (pa.target_system))
+			print ("[GCS] ARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 
 		# DISARM
@@ -46,7 +46,7 @@ try:
 
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
 
-			print ("[GCS] DISARMING target_system: %u \n" % (pa.target_system))
+			print ("[GCS] DISARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 
 		# START TAKEOFF
@@ -57,7 +57,7 @@ try:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 
 			formation.swarm_cmd(pa.xbee, pa.target_system, mavlink.QUAD_CMD_TAKEOFF)
-			print ("[GCS] TAKEOFF - target_system: %u \n" % (pa.target_system))
+			print ("[GCS] TAKEOFF -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 			try:
 				while True:
@@ -73,7 +73,7 @@ try:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 
 			formation.swarm_cmd(pa.xbee, pa.target_system, mavlink.QUAD_CMD_LAND)
-			print ("[GCS] LANDING - target_system: %u \n" % (pa.target_system))
+			print ("[GCS] LANDING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 			try:
 				while True:
@@ -89,7 +89,7 @@ try:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 
 			formation.swarm_cmd(pa.xbee, pa.target_system, mavlink.QUAD_CMD_START_SWARM)
-			print ("[GCS] START SWARMING - target_system: %u \n" % (pa.target_system))
+			print ("[GCS] START SWARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 
 			try:
@@ -106,7 +106,7 @@ try:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 
 			formation.swarm_cmd(pa.xbee, pa.target_system, mavlink.QUAD_CMD_STOP_SWARM)
-			print ("[GCS] STOP SWARMING - target_system: %u \n" % (pa.target_system))
+			print ("[GCS] STOP SWARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 			try:
 				while True:
@@ -122,32 +122,16 @@ try:
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 			
-			print "LOGGING - target_system: %u \n" %(pa.target_system)
-			print
-			print("Waiting for STATUS_MSG \n")
+			print "LOGGING -> TARGET SYSTEM: %u \n" %(pa.target_system)
+			
 			try:
 				while True:
 					formation.wait_statusmsg(pa.xbee, True)
 			except KeyboardInterrupt :
 				print
 
-		# HELP
-		elif ans[0] == 'help':
-			print
-			print "ALL COMMANDS HAVE DEFAULT:" 
-			print "target_system = 0 (CALL TO ALL)"
-			print
-			print "arm [target_system]"
-			print "disarm [target_system]"
-			print "start [target_system] [cmd] - Start script"
-			print "stop [target_system] - Stopping script"
-			print "log [target_system] - logging"
-			print "help"
-			print "exit - close app"
-
-		elif ans[0] == 'exit':
-			print "goodbye!"
-			break
+		else :
+			print "WRONG COMMANDO - TRY AGAIN"
 
 except KeyboardInterrupt:
         ARM = False

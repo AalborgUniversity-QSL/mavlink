@@ -84,5 +84,5 @@ def shutdown(target_system) :
 	formation.quad_arm_disarm(pa.xbee,target_system, False)
 
 # Create new threads
-get_vicon = myThread1(1, "VICON\n")
+get_vicon = myThread1(1, "VICON")
 get_vicon.daemon = True
