@@ -11,7 +11,7 @@ import multithreadingv2 as multi
 import parm as pa
 
 try:
-	# formation.wait_heartbeat(pa.xbee)
+	# formation.wait_heartbeat(pa.xbee, False)
 	# watchdog.watchdog.start()
 	multi.get_vicon.start()
 
