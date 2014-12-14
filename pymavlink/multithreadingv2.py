@@ -6,6 +6,7 @@ from dialects.v10 import mavlinkv10 as mavlink
 import mav_formation as formation
 import numpy as np
 import parm as pa
+import XBee
 
 # index, x, y, z = 0,0,0,0
 

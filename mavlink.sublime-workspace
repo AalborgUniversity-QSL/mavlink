@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"arm",
+				"arm_disarm"
+			],
+			[
 				"T",
 				"True"
 			],
@@ -179,8 +183,32 @@
 			"file": "pymavlink/formationv2.py",
 			"settings":
 			{
-				"buffer_size": 3842,
+				"buffer_size": 3856,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pymavlink/mav_formation.py",
+			"settings":
+			{
+				"buffer_size": 3086,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pymavlink/XBee.py",
+			"settings":
+			{
+				"buffer_size": 5511,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/home/jeni/Dropbox/CA1/projekt/xbee_adresses.txt",
+			"settings":
+			{
+				"buffer_size": 73,
+				"line_ending": "Windows"
 			}
 		},
 		{
@@ -203,7 +231,7 @@
 			"file": "pymavlink/multithreadingv2.py",
 			"settings":
 			{
-				"buffer_size": 2788,
+				"buffer_size": 2800,
 				"line_ending": "Unix"
 			}
 		},
@@ -331,8 +359,11 @@
 	],
 	"file_history":
 	[
+		"/home/jeni/ca1/mavlink/pymavlink/generator/lib/genxmlif/xmlifBase.py",
+		"/home/jeni/ca1/mavlink/pymavlink/XBee.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavtest.py",
 		"/home/jeni/ca1/mavlink/pymavlink/multithreading.py",
+		"/home/jeni/ca1/mavlink/pymavlink/formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavutil.py",
 		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
 		"/home/jeni/ca1/mavlink/pymavlink/build/lib.linux-x86_64-2.7/pymavlink/mavparm.py",
@@ -403,7 +434,6 @@
 		"/home/jeni/ca1/mavlink/pymavlink/mav_formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/build/lib.linux-x86_64-2.7/pymavlink/formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/formation_BGT_test.py",
-		"/home/jeni/ca1/mavlink/pymavlink/formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/lib/genxmlif/xmliftest.py",
 		"/home/jeni/ca1/mavlink/pymavlink/vicontest.py",
 		"/home/jeni/ca1/mavlink/pymavlink/realtime.py",
@@ -456,9 +486,7 @@
 		"/home/jeni/ca1/mavlink/pymavlink/mat2py.py",
 		"/home/jeni/ca1/mavlink/pymavlink/quad_threads.py",
 		"/home/jeni/.bashrc",
-		"/home/jeni/ca1/mavlink/pymavlink/TODO.txt",
-		"/home/jeni/ca1/mavlink/pymavlink/viconReader.py",
-		"/home/jeni/ca1/mavlink/pymavlink/komnu.py"
+		"/home/jeni/ca1/mavlink/pymavlink/TODO.txt"
 	],
 	"find":
 	{
@@ -484,6 +512,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"mavserial",
 			"mavlink_conn",
 			"quad_pos",
 			"MAVLink_message.pack",
@@ -610,8 +639,7 @@
 			"mavlink_status",
 			"statustext",
 			"systemtext",
-			"systemtest",
-			"request"
+			"systemtest"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -630,7 +658,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
@@ -639,15 +667,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3842,
+						"buffer_size": 3856,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								483,
-								483
+								837,
+								837
 							]
 						],
 						"settings":
@@ -656,15 +684,99 @@
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
+						"translation.x": -0.0,
+						"translation.y": 408.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "pymavlink/mav_formation.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3086,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								909,
+								909
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
 						"translation.x": 0.0,
-						"translation.y": 255.0,
+						"translation.y": 204.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "pymavlink/XBee.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5511,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								539,
+								539
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 1,
+					"buffer": 3,
+					"file": "/home/jeni/Dropbox/CA1/projekt/xbee_adresses.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 73,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								69,
+								69
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
 					"file": "pymavlink/parm.py",
 					"semi_transient": false,
 					"settings":
@@ -676,8 +788,8 @@
 						"selection":
 						[
 							[
-								1217,
-								1217
+								661,
+								661
 							]
 						],
 						"settings":
@@ -685,14 +797,14 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 439.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
+					"buffer": 5,
 					"file": "pymavlink/mavutil.py",
 					"semi_transient": false,
 					"settings":
@@ -704,8 +816,8 @@
 						"selection":
 						[
 							[
-								37173,
-								37173
+								27090,
+								27094
 							]
 						],
 						"settings":
@@ -713,27 +825,27 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 17007.0,
+						"translation.y": 11686.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
+					"buffer": 6,
 					"file": "pymavlink/multithreadingv2.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2788,
+						"buffer_size": 2800,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1101,
-								1101
+								216,
+								216
 							]
 						],
 						"settings":
@@ -744,14 +856,14 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 102.0,
+						"translation.y": 663.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 7,
 					"file": "pymavlink/watchdog.py",
 					"semi_transient": false,
 					"settings":
@@ -776,11 +888,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 8,
 					"file": "pymavlink/dialects/v10/mavlinkv10.py",
 					"semi_transient": false,
 					"settings":
@@ -792,8 +904,8 @@
 						"selection":
 						[
 							[
-								270519,
-								270519
+								406538,
+								406538
 							]
 						],
 						"settings":
@@ -801,7 +913,7 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 68874.0,
+						"translation.y": 102466.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
@@ -873,6 +985,18 @@
 		"selected_items":
 		[
 			[
+				"xbee",
+				"pymavlink/XBee.py"
+			],
+			[
+				"mav_",
+				"pymavlink/mav_formation.py"
+			],
+			[
+				"form",
+				"pymavlink/formationv2.py"
+			],
+			[
 				"mavu",
 				"pymavlink/mavutil.py"
 			],
@@ -917,10 +1041,6 @@
 				"pymavlink/mav_formation.py"
 			],
 			[
-				"form",
-				"pymavlink/formation.py"
-			],
-			[
 				"mul",
 				"pymavlink/multithreading.py"
 			],
@@ -939,10 +1059,6 @@
 			[
 				"",
 				"pymavlink/dialects/v10/mavlinkv10.py"
-			],
-			[
-				"mav_",
-				"pymavlink/mav_formation.py"
 			],
 			[
 				"comm",
@@ -1122,7 +1238,7 @@
 		[
 			[
 				"",
-				"~/ca1/Firmware/Firmware.sublime-project"
+				"~/ca1/xbee.sublime-project"
 			],
 			[
 				"f",

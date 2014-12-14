@@ -7,6 +7,7 @@ Released under GNU GPL version 3 or later
 '''
 
 import socket, math, struct, time, os, fnmatch, array, sys, errno
+from collections import deque
 
 # adding these extra imports allows pymavlink to be used directly with pyinstaller
 # without having complex spec files
@@ -689,6 +690,9 @@ def set_close_on_exec(fd):
 
 class mavserial(mavfile):
     '''a serial mavlink port'''
+    RxBuff = bytearray()
+    RxMessages = deque()
+    
     def __init__(self, device, baud=115200, autoreconnect=False, source_system=255):
         import serial
         if ',' in device and not os.path.exists(device):

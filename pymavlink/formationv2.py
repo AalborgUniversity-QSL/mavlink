@@ -8,8 +8,9 @@ from dialects.v10 import mavlinkv10 as mavlink
 import mav_formation as formation
 from argparse import ArgumentParser
 import multithreadingv2 as multi
-import watchdog
+# import watchdog
 import parm as pa
+import XBee
 
 pa.index_old = 0
 
