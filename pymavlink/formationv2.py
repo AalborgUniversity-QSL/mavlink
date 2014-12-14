@@ -8,16 +8,17 @@ from dialects.v10 import mavlinkv10 as mavlink
 import mav_formation as formation
 from argparse import ArgumentParser
 import multithreadingv2 as multi
+import watchdog
 import parm as pa
 
 pa.index_old = 0
 
 try:
 	formation.wait_heartbeat(pa.xbee)
-	multi.watchdog()
+	# watchdog.watchdog.start()
 	multi.get_vicon.start()
 
-	pa.vicon_test = False
+	pa.vicon_test = True
 
 	while True:
 		input = raw_input("\nFORMATION >> ")
