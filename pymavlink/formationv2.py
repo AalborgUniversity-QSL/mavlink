@@ -55,11 +55,9 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("[GCS] TAKEOFF - target_system: %u \n" % (pa.target_system))
 
-
-			# pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_TAKEOFF)
 			formation.swarm_cmd(pa.xbee, pa.target_system, mavlink.QUAD_CMD_TAKEOFF)
+			print ("[GCS] TAKEOFF - target_system: %u \n" % (pa.target_system))
 
 			try:
 				while True:
@@ -73,10 +71,9 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("[GCS] LANDING - target_system: %u \n" % (pa.target_system))
 
-			# pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_LAND)
 			formation.swarm_cmd(pa.xbee, pa.target_system, mavlink.QUAD_CMD_LAND)
+			print ("[GCS] LANDING - target_system: %u \n" % (pa.target_system))
 
 			try:
 				while True:
@@ -90,10 +87,9 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("[GCS] START SWARMING - target_system: %u \n" % (pa.target_system))
 
-			# pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_START_SWARM)
 			formation.swarm_cmd(pa.xbee, pa.target_system, mavlink.QUAD_CMD_START_SWARM)
+			print ("[GCS] START SWARMING - target_system: %u \n" % (pa.target_system))
 
 
 			try:
@@ -108,10 +104,9 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("[GCS] STOP SWARMING - target_system: %u \n" % (pa.target_system))
 
-			# pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_STOP_SWARM)
 			formation.swarm_cmd(pa.xbee, pa.target_system, mavlink.QUAD_CMD_STOP_SWARM)
+			print ("[GCS] STOP SWARMING - target_system: %u \n" % (pa.target_system))
 
 			try:
 				while True:

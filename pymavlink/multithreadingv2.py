@@ -26,8 +26,6 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 	numOfValues = len(data) / 8
 	data = struct.unpack('>' + 'd' * numOfValues, data)
 
-	# pa.index, pa.x, pa.y, pa.z = data[0], [data[1], data[4], 0], [data[2], data[5], 0], [data[3], data[6], 0]
-
 	pa.index = data[0]
 
 	for i in xrange(1,pa.no_of_quad) :
@@ -44,13 +42,6 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         	abs_x = np.absolute(pa.x)
         	abs_y = np.absolute(pa.y)
 
-        	# print "[GCS] x:%.3f y:%.3f z:%.3f" % (abs_x[0], abs_y[0], pa.z[0])
-        	# pa.xbee.mav.quad_pos_send(
-        	# 	mavlink.QUAD_FORMATION_ID_ALL,
-        	#         pa.x,
-        	#         pa.y,
-        	#         np.subtract(pa.z, pa.init_pos_z))
-
                 formation.send_pos(
                         pa.xbee,
                         mavlink.QUAD_FORMATION_ID_ALL,
@@ -62,11 +53,6 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         		if (abs_x[i-1] > pa.sandbox[0]) or (abs_y[i-1] > pa.sandbox[1]) or (pa.z[i-1] > pa.sandbox[2]) :
         			shutdown(i)
         			print "[GCS] OUTSIDE SANDBOX\n"
-
-
-        	# if (abs_x[0] > pa.sandbox[0]) or (abs_y[0] > pa.sandbox[1]) or (pa.z[0] > pa.sandbox[2]) :
-        	# 	shutdown(mavlink.QUAD_FORMATION_ID_ALL)
-                #       print "[GCS] OUTSIDE SANDBOX\n"
 
                 if(pa.vicon_test == True) : 
         		time_diff = int(round(time.time() * 1000)) - pa.last_run
