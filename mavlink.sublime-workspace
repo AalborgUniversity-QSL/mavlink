@@ -179,7 +179,7 @@
 			"file": "pymavlink/formationv2.py",
 			"settings":
 			{
-				"buffer_size": 3843,
+				"buffer_size": 3842,
 				"line_ending": "Unix"
 			}
 		},
@@ -639,15 +639,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3843,
+						"buffer_size": 3842,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								370,
-								370
+								2074,
+								2074
 							]
 						],
 						"settings":
@@ -676,8 +676,8 @@
 						"selection":
 						[
 							[
-								882,
-								882
+								1217,
+								1217
 							]
 						],
 						"settings":
@@ -685,7 +685,7 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 184.0,
+						"translation.y": 439.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -1122,7 +1122,7 @@
 		[
 			[
 				"",
-				"~/ca1/xbee.sublime-project"
+				"~/ca1/Firmware/Firmware.sublime-project"
 			],
 			[
 				"f",

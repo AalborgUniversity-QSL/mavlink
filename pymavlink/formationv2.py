@@ -18,7 +18,7 @@ try:
 	# watchdog.watchdog.start()
 	multi.get_vicon.start()
 
-	pa.vicon_test = True
+	pa.vicon_test = False
 
 	while True:
 		input = raw_input("\nFORMATION >> ")
@@ -88,7 +88,7 @@ try:
 				print
 
 		# START SWARMING
-		elif ans[0] == 'swarm' :
+		elif ans[0] == 'start' :
 			if dim > 1 :
 				pa.target_system = int(ans[1])
 			else:

@@ -39,4 +39,4 @@ init_pos_x = np.zeros((3,), dtype=np.float)
 init_pos_y = np.zeros((3,), dtype=np.float)
 init_pos_z = np.zeros((3,), dtype=np.float)
 
-sandbox = [1000, 1000, 1500]
+sandbox = [1800, 1800, 1500]
