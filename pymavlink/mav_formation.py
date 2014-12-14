@@ -22,7 +22,7 @@ def wait_statusmsg(self, blocking):
     msg = self.recv_match(type='STATUSTEXT', blocking = blocking)
 
     if msg is not None :
-        print(msg)
+        print("[system_id: %u] %s " % msg.target_system, msg)
 
 def quad_arm_disarm(m, target_system, arm_disarm) :
         msg = m.mav.command_long_encode(target_system, mavlink.MAV_COMP_ID_ALL, mavlink.MAV_CMD_COMPONENT_ARM_DISARM, 0, arm_disarm, 0, 0, 0, 0, 0, 0)
