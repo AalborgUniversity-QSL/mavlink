@@ -48,8 +48,8 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
+				pa.first_run = False
 
-			pa.first_run = False
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
 
 			print ("2 - DISARMING target_system: %u \n" % (pa.target_system))
@@ -68,7 +68,7 @@ try:
 
 			try:
 				while True:
-					formation.wait_statusmsg(pa.xbee)
+					formation.wait_statusmsg(pa.xbee, True)
 			except KeyboardInterrupt :
 				print
 
@@ -84,7 +84,7 @@ try:
 
 			try:
 				while True:
-					formation.wait_statusmsg(pa.xbee)
+					formation.wait_statusmsg(pa.xbee, True)
 			except KeyboardInterrupt :
 				print
 
@@ -100,7 +100,7 @@ try:
 
 			try:
 				while True:
-					formation.wait_statusmsg(pa.xbee)
+					formation.wait_statusmsg(pa.xbee, True)
 			except KeyboardInterrupt :
 				print
 
@@ -116,7 +116,7 @@ try:
 
 			try:
 				while True:
-					formation.wait_statusmsg(pa.xbee)
+					formation.wait_statusmsg(pa.xbee, True)
 			except KeyboardInterrupt :
 				print		
 
@@ -133,7 +133,7 @@ try:
 			print("Waiting for STATUS_MSG \n")
 			try:
 				while True:
-					formation.wait_statusmsg(pa.xbee)
+					formation.wait_statusmsg(pa.xbee, True)
 			except KeyboardInterrupt :
 				print
 

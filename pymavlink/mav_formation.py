@@ -15,10 +15,10 @@ def wait_heartbeat(self):
     msg = self.recv_match(type='HEARTBEAT', blocking=True)
     print("Heartbeat -> system_id: %u" % msg.target_system)
 
-def wait_statusmsg(m):
+def wait_statusmsg(self,blocking):
     '''wait for a status msg'''
     # print("Waiting for STATUS_MSG")
-    msg = m.recv_match(type='STATUSTEXT', blocking=False)
+    msg = self.recv_match(type='STATUSTEXT', blocking=blocking)
 
     if msg is not None :
         print(msg)

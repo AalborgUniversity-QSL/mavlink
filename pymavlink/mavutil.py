@@ -334,6 +334,13 @@ class mavfile(object):
         '''wait for a heartbeat so we know the target system IDs'''
         return self.recv_match(type='HEARTBEAT', blocking=blocking)
 
+    def wait_statusmsg(self, blocking=False):
+        '''wait for a heartbeat so we know the target system IDs'''
+        msg = self.recv_match(type='STATUSTEXT', blocking=blocking)
+
+        if msg is not None :
+                print(msg)
+
     def param_fetch_all(self):
         '''initiate fetch of all parameters'''
         if time.time() - getattr(self, 'param_fetch_start', 0) < 2.0:
