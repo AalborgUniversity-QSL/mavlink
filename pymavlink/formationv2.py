@@ -8,15 +8,12 @@ from dialects.v10 import mavlinkv10 as mavlink
 import mav_formation as formation
 from argparse import ArgumentParser
 import multithreadingv2 as multi
-# import watchdog
 import parm as pa
-# import XBee
 
 pa.index_old = 0
 
 try:
 	formation.wait_heartbeat(pa.xbee)
-	# watchdog.watchdog.start()
 	multi.get_vicon.start()
 
 	pa.vicon_test = False
@@ -35,10 +32,9 @@ try:
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 
-			pa.first_run = True
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
 
-			print ("1 - ARMING target_system: %u \n" % (pa.target_system))
+			print ("[GCS] ARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 
 		# DISARM
@@ -49,10 +45,9 @@ try:
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 
-			pa.first_run = False
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
 
-			print ("2 - DISARMING target_system: %u \n" % (pa.target_system))
+			print ("[GCS] DISARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 
 		# START TAKEOFF
@@ -61,7 +56,7 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("4 - TAKEOFF - target_system: %u \n" % (pa.target_system))
+			print ("[GCS] TAKEOFF -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_TAKEOFF)
@@ -78,7 +73,7 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("4 - LANDING - target_system: %u \n" % (pa.target_system))
+			print ("[GCS] LANDING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_LAND)
 
@@ -89,12 +84,12 @@ try:
 				print
 
 		# START SWARMING
-		elif ans[0] == 'start' :
+		elif ans[0] == 'q' :
 			if dim > 1 :
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("4 - START SWARMING - target_system: %u \n" % (pa.target_system))
+			print ("[GCS] START SWARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_START_SWARM)
 
@@ -110,7 +105,7 @@ try:
 				pa.target_system = int(ans[1])
 			else:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
-			print ("4 - STOP SWARMING - target_system: %u \n" % (pa.target_system))
+			print ("[GCS] STOP SWARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_STOP_SWARM)
 
@@ -137,25 +132,10 @@ try:
 			except KeyboardInterrupt :
 				print
 
-		# HELP
-		elif ans[0] == 'help':
-			print
-			print "ALL COMMANDS HAVE DEFAULT:" 
-			print "target_system = 0 (CALL TO ALL)"
-			print
-			print "arm [target_system]"
-			print "disarm [target_system]"
-			print "start [target_system] [cmd] - Start script"
-			print "stop [target_system] - Stopping script"
-			print "log [target_system] - logging"
-			print "help"
-			print "exit - close app"
-
-		elif ans[0] == 'exit':
-			print "goodbye!"
-			break
+		else :
+			print "[GCS] WRONG COMMAND"
 
 except KeyboardInterrupt:
         ARM = False
 	formation.quad_arm_disarm(pa.xbee, mavlink.QUAD_FORMATION_ID_ALL, ARM)
-	print "DISARMING"
+	print "\n[GCS] DISARMING"

@@ -23,7 +23,7 @@ def wait_statusmsg(m):
 
 def quad_arm_disarm(m, target_system, arm_disarm) :
     m.mav.command_long_send(
-        target_system,
+        m.target_system,
         mavlink.MAV_COMP_ID_ALL,
         mavlink.MAV_CMD_COMPONENT_ARM_DISARM,
         0,
