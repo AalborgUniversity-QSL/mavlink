@@ -14,6 +14,9 @@ pa.index_old = 0
 
 try:
 	formation.wait_heartbeat(pa.xbee)
+	if pa.two_in_air :
+		formation.wait_heartbeat(pa.xbee2)
+		
 	multi.get_vicon.start()
 
 	pa.vicon_test = False
@@ -34,6 +37,12 @@ try:
 
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
 
+			if pa.two_in_air :
+				print "arm"
+				formation.quad_arm_disarm(pa.xbee2, pa.target_system, ARM)
+
+
+
 			print ("[GCS] ARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 
@@ -46,6 +55,9 @@ try:
 				pa.target_system = mavlink.QUAD_FORMATION_ID_ALL
 
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
+
+			if pa.two_in_air :
+				formation.quad_arm_disarm(pa.xbee2, pa.target_system, ARM)
 
 			print ("[GCS] DISARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
@@ -61,9 +73,15 @@ try:
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_TAKEOFF)
 
+			if pa.two_in_air :
+				pa.xbee2.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_TAKEOFF)
+
 			try:
 				while True:
-					formation.wait_statusmsg(pa.xbee)
+					formation.wait_statusmsg(pa.xbee, not(pa.two_in_air))
+					if pa.two_in_air :
+						formation.wait_statusmsg(pa.xbee2, False)
+
 			except KeyboardInterrupt :
 				print
 
@@ -79,7 +97,9 @@ try:
 
 			try:
 				while True:
-					formation.wait_statusmsg(pa.xbee)
+					formation.wait_statusmsg(pa.xbee, not(pa.two_in_air))
+					if pa.two_in_air :
+						formation.wait_statusmsg(pa.xbee2, False)
 			except KeyboardInterrupt :
 				print
 
@@ -95,7 +115,9 @@ try:
 
 			try:
 				while True:
-					formation.wait_statusmsg(pa.xbee)
+					formation.wait_statusmsg(pa.xbee, not(pa.two_in_air))
+					if pa.two_in_air :
+						formation.wait_statusmsg(pa.xbee2, False)
 			except KeyboardInterrupt :
 				print
 
@@ -111,7 +133,9 @@ try:
 
 			try:
 				while True:
-					formation.wait_statusmsg(pa.xbee)
+					formation.wait_statusmsg(pa.xbee, not(pa.two_in_air))
+					if pa.two_in_air :
+						formation.wait_statusmsg(pa.xbee2, False)
 			except KeyboardInterrupt :
 				print		
 
@@ -128,7 +152,9 @@ try:
 			print("Waiting for STATUS_MSG \n")
 			try:
 				while True:
-					formation.wait_statusmsg(pa.xbee)
+					formation.wait_statusmsg(pa.xbee, not(pa.two_in_air))
+					if pa.two_in_air :
+						formation.wait_statusmsg(pa.xbee2, False)
 			except KeyboardInterrupt :
 				print
 
@@ -138,4 +164,6 @@ try:
 except KeyboardInterrupt:
         ARM = False
 	formation.quad_arm_disarm(pa.xbee, mavlink.QUAD_FORMATION_ID_ALL, ARM)
+	if pa.two_in_air :
+		formation.quad_arm_disarm(pa.xbee2, mavlink.QUAD_FORMATION_ID_ALL, ARM)
 	print "\n[GCS] DISARMING"

@@ -13,10 +13,10 @@ def wait_heartbeat(m):
     msg = m.recv_match(type='HEARTBEAT', blocking=True)
     print("Heartbeat from APM (system %u component %u)" % (m.target_system, m.target_component))
 
-def wait_statusmsg(m):
+def wait_statusmsg(m, blocking):
     '''wait for a status msg'''
     # print("Waiting for STATUS_MSG")
-    msg = m.recv_match(type='STATUSTEXT', blocking=False)
+    msg = m.recv_match(type='STATUSTEXT', blocking=blocking)
 
     if msg is not None :
         print(msg)

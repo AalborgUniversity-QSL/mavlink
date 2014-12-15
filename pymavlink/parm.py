@@ -7,17 +7,23 @@ import numpy as np
 
 parser = ArgumentParser(description=__doc__)
 
-parser.add_argument("-b", type=int, help="master port baud rate", default=57600)
-parser.add_argument("-d1", required=False, help="serial device", default="/dev/ttyUSB0")
-# parser.add_argument("-d2", required=False, help="serial device", default="/dev/ttyUSB1")
-parser.add_argument("--source-system", dest='SOURCE_SYSTEM', type=int,
+parser.add_argument("-b", required=False, type=int, help="master port baud rate", default=57600)
+parser.add_argument("-d1", required=True, help="serial device 1", default="/dev/ttyUSB0")
+parser.add_argument("-d2", required=False, help="serial device 2")
+parser.add_argument("--source-system", required=False, dest='SOURCE_SYSTEM', type=int,
                   default=255, help='MAVLink source system for this GCS')
 
 args = parser.parse_args()
 
 # create a mavlink serial instance
 xbee = mavutil.mavlink_connection(args.d1, baud=args.b, source_system=args.SOURCE_SYSTEM, dialect="mavlinkv10")
-# xbee2 = mavutil.mavlink_connection(args.d2, baud=args.b, source_system=args.SOURCE_SYSTEM, dialect="mavlinkv10")
+
+if args.d2 is not None :
+        xbee2 = mavutil.mavlink_connection(args.d2, baud=args.b, source_system=args.SOURCE_SYSTEM, dialect="mavlinkv10")
+        print xbee2
+        two_in_air = True
+else :
+        two_in_air = False
 
 target_system = 0
 QUAD_CMD = 0

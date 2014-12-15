@@ -59,6 +59,14 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         	        pa.y,
         	        np.subtract(pa.z, pa.init_pos_z))
 
+                if pa.two_in_air :
+                        pa.xbee2.mav.quad_pos_send(
+                                mavlink.QUAD_FORMATION_ID_ALL,
+                                pa.x,
+                                pa.y,
+                                np.subtract(pa.z, pa.init_pos_z))
+
+
 
         	if (abs_x[0] > pa.sandbox[0]) or (abs_y[0] > pa.sandbox[1]) or (pa.z[0] > pa.sandbox[2]) :
         		shutdown(mavlink.QUAD_FORMATION_ID_ALL)
@@ -91,6 +99,9 @@ def get_vicon_data() :
 
 def shutdown(target_system) :
 	formation.quad_arm_disarm(pa.xbee,target_system, False)
+        
+        if two_in_air :
+                formation.quad_arm_disarm(pa.xbee2,target_system, False)
 
 # Create new threads
 get_vicon = myThread1(1, "VICON\n")
