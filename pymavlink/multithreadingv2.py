@@ -47,7 +47,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 		pa.init_pos_z = pa.z
 		pa.last_run = int(round(time.time() * 1000))
 		pa.initialised = True
-                print "[GCS] VICON INITIALISED"
+                print "\n[GCS] VICON INITIALISED"
        	else :
         	abs_x = np.absolute(pa.x)
         	abs_y = np.absolute(pa.y)
@@ -71,10 +71,18 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         		shutdown(mavlink.QUAD_FORMATION_ID_ALL)
         		print "[GCS] QUAD1 OUTSIDE SANDBOX\n"
 
+                # if (abs_x[0] > pa.sandbox_shutdown[0]) or (abs_y[0] > pa.sandbox_shutdown[1]) or (pa.z[0] > pa.sandbox_shutdown[2]) :
+                #         shutdown(mavlink.QUAD_FORMATION_ID_ALL)
+                #         print "[GCS] QUAD1 OUTSIDE SANDBOX\n"
+
                 if pa.two_in_air :
                         if (abs_x[1] > pa.sandbox[0]) or (abs_y[1] > pa.sandbox[1]) or (pa.z[1] > pa.sandbox[2]) :
                                 shutdown(mavlink.QUAD_FORMATION_ID_2)
                                 print "[GCS] QUAD2 OUTSIDE SANDBOX\n"
+
+                        # if (abs_x[1] > pa.sandbox_shutdown[0]) or (abs_y[1] > pa.sandbox_shutdown[1]) or (pa.z[1] > pa.sandbox_shutdown[2]) :
+                        #         shutdown(mavlink.QUAD_FORMATION_ID_2)
+                        #         print "[GCS] QUAD2 OUTSIDE SANDBOX\n"
 
 
 
@@ -93,7 +101,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
                 if time_diff > pa.timeout :
                 	shutdown(mavlink.QUAD_FORMATION_ID_ALL)
                 	first_run = True
-                	print "[GCS] VICON TIMEOUT"
+                	print "\n[GCS] VICON TIMEOUT"
 
                 pa.index_old = pa.index
 
@@ -105,9 +113,9 @@ def get_vicon_data() :
 def shutdown(target_system) :
         if (target_system == mavlink.QUAD_FORMATION_ID_1) or (target_system == mavlink.QUAD_FORMATION_ID_ALL) :
 	        formation.quad_arm_disarm(pa.xbee, target_system, False)
-        
-        if (target_system == mavlink.QUAD_FORMATION_ID_2) or (target_system == mavlink.QUAD_FORMATION_ID_ALL) :
-                formation.quad_arm_disarm(pa.xbee2, target_system, False)
+        if pa.two_in_air :
+                if (target_system == mavlink.QUAD_FORMATION_ID_2) or (target_system == mavlink.QUAD_FORMATION_ID_ALL) :
+                        formation.quad_arm_disarm(pa.xbee2, target_system, False)
 
 # Create new threads
 get_vicon = myThread1(1, "VICON\n")

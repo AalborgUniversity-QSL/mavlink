@@ -92,6 +92,9 @@ try:
 			print ("[GCS] LANDING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_LAND)
+			
+			if pa.two_in_air :
+				pa.xbee2.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_LAND)
 
 			try:
 				while True:
@@ -111,6 +114,9 @@ try:
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_START_SWARM)
 
+			if pa.two_in_air :
+				pa.xbee2.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_SWARM)
+
 			try:
 				while True:
 					formation.wait_statusmsg(pa.xbee, not(pa.two_in_air))
@@ -128,6 +134,9 @@ try:
 			print ("[GCS] STOP SWARMING -> TARGET SYSTEM: %u \n" % (pa.target_system))
 
 			pa.xbee.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_STOP_SWARM)
+			if pa.two_in_air :
+				pa.xbee2.mav.swarm_commander_send(pa.target_system, mavlink.QUAD_CMD_STOP_SWARM)
+
 
 			try:
 				while True:

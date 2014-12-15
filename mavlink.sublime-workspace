@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"QUAD_FORMATION_ID",
+				"QUAD_FORMATION_ID_2"
+			],
+			[
+				"Qu",
+				"QUAD_FORMATION_ID_ALL"
+			],
+			[
 				"wait",
 				"wait_heartbeat"
 			],
@@ -199,15 +207,7 @@
 			"file": "pymavlink/formationv2.py",
 			"settings":
 			{
-				"buffer_size": 4263,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "pymavlink/dialects/v10/mavlinkv10.py",
-			"settings":
-			{
-				"buffer_size": 550661,
+				"buffer_size": 4579,
 				"line_ending": "Unix"
 			}
 		},
@@ -215,7 +215,7 @@
 			"file": "pymavlink/parm.py",
 			"settings":
 			{
-				"buffer_size": 1533,
+				"buffer_size": 1524,
 				"line_ending": "Unix"
 			}
 		},
@@ -231,23 +231,7 @@
 			"file": "pymavlink/multithreadingv2.py",
 			"settings":
 			{
-				"buffer_size": 3222,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "pymavlink/mavutil.py",
-			"settings":
-			{
-				"buffer_size": 53775,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "pymavlink/mavtest.py",
-			"settings":
-			{
-				"buffer_size": 1049,
+				"buffer_size": 4320,
 				"line_ending": "Unix"
 			}
 		}
@@ -356,12 +340,15 @@
 	],
 	"file_history":
 	[
-		"/home/jeni/ca1/mavlink/pymavlink/multithreading.py",
-		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
-		"/home/jeni/ca1/mavlink/pymavlink/mavtest.py",
-		"/home/jeni/Dropbox/CA1/projekt/xbee_adresses.txt",
+		"/home/jeni/ca1/mavlink/message_definitions/v1.0/quad_formation.xml",
+		"/home/jeni/ca1/mavlink/pymavlink/formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavutil.py",
+		"/home/jeni/ca1/mavlink/pymavlink/mavtest.py",
+		"/home/jeni/ca1/mavlink/pymavlink/multithreading.py",
 		"/home/jeni/ca1/mavlink/pymavlink/parm.py",
+		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
+		"/home/jeni/ca1/mavlink/pymavlink/mav_formation.py",
+		"/home/jeni/Dropbox/CA1/projekt/xbee_adresses.txt",
 		"/home/jeni/ca1/mavlink/pymavlink/realtime.py",
 		"/home/jeni/ca1/mavlink/pymavlink/sendAPI.py",
 		"/home/jeni/ca1/mavlink/message_definitions/v0.9/ardupilotmega.xml",
@@ -375,7 +362,6 @@
 		"/home/jeni/ca1/mavlink/pymavlink/formation_BGT_test.py",
 		"/home/jeni/ca1/mavlink/pymavlink/XBee.py",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/lib/genxmlif/xmlifBase.py",
-		"/home/jeni/ca1/mavlink/pymavlink/formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/build/lib.linux-x86_64-2.7/pymavlink/mavparm.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavparm.py",
 		"/home/jeni/ca1/mavlink/missionlib/mavlink_parameters.c",
@@ -437,10 +423,8 @@
 		"/home/jeni/ca1/mavlink/mavlink.sublime-project",
 		"/home/jeni/ca1/mavlink/pymavlink/tools/python_array_test_recv.py",
 		"/home/jeni/ca1/mavlink/message_definitions/v1.0/python_array_test.xml",
-		"/home/jeni/ca1/mavlink/message_definitions/v1.0/quad_formation.xml",
 		"/home/jeni/ca1/libs/quad_formation/mavlink_msg_swarm_commander.h",
 		"/home/jeni/ca1/libs/quad_formation/quad_formation.h",
-		"/home/jeni/ca1/mavlink/pymavlink/mav_formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/build/lib.linux-x86_64-2.7/pymavlink/formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/lib/genxmlif/xmliftest.py",
 		"/home/jeni/ca1/mavlink/pymavlink/vicontest.py",
@@ -655,7 +639,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -664,15 +648,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4263,
+						"buffer_size": 4579,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								429,
-								429
+								3155,
+								3155
 							]
 						],
 						"settings":
@@ -681,8 +665,8 @@
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": -0.0,
-						"translation.y": 153.0,
+						"translation.x": 0.0,
+						"translation.y": 1734.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
@@ -690,19 +674,19 @@
 				},
 				{
 					"buffer": 1,
-					"file": "pymavlink/dialects/v10/mavlinkv10.py",
+					"file": "pymavlink/parm.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 550661,
+						"buffer_size": 1524,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								212,
-								212
+								1505,
+								1505
 							]
 						],
 						"settings":
@@ -710,7 +694,7 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 472.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -718,34 +702,6 @@
 				},
 				{
 					"buffer": 2,
-					"file": "pymavlink/parm.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1533,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1015,
-								1015
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 425.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
 					"file": "pymavlink/mav_formation.py",
 					"semi_transient": false,
 					"settings":
@@ -757,39 +713,36 @@
 						"selection":
 						[
 							[
-								510,
-								510
+								726,
+								726
 							]
 						],
 						"settings":
 						{
-							"spell_check": false,
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 8,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 510.0,
+						"translation.y": 408.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 3,
 					"file": "pymavlink/multithreadingv2.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3222,
+						"buffer_size": 4320,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1544,
-								1544
+								1209,
+								1209
 							]
 						],
 						"settings":
@@ -797,66 +750,10 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1137.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "pymavlink/mavutil.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 53775,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								29663,
-								29663
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 12121.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "pymavlink/mavtest.py",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 1049,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": -0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -925,6 +822,14 @@
 		"selected_items":
 		[
 			[
+				"par",
+				"pymavlink/parm.py"
+			],
+			[
+				"mav_",
+				"pymavlink/mav_formation.py"
+			],
+			[
 				"mavl",
 				"pymavlink/dialects/v10/mavlinkv10.py"
 			],
@@ -953,19 +858,11 @@
 				"pymavlink/XBee.py"
 			],
 			[
-				"mav_",
-				"pymavlink/mav_formation.py"
-			],
-			[
 				"form",
 				"pymavlink/formationv2.py"
 			],
 			[
 				"param.p",
-				"pymavlink/parm.py"
-			],
-			[
-				"par",
 				"pymavlink/parm.py"
 			],
 			[
@@ -1218,7 +1115,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 246.0,
 	"status_bar_visible": true,
 	"template_settings":

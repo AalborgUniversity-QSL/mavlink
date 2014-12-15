@@ -20,7 +20,6 @@ xbee = mavutil.mavlink_connection(args.d1, baud=args.b, source_system=args.SOURC
 
 if args.d2 is not None :
         xbee2 = mavutil.mavlink_connection(args.d2, baud=args.b, source_system=args.SOURCE_SYSTEM, dialect="mavlinkv10")
-        print xbee2
         two_in_air = True
 else :
         two_in_air = False
@@ -46,4 +45,5 @@ init_pos_x = np.zeros((3,), dtype=np.float)
 init_pos_y = np.zeros((3,), dtype=np.float)
 init_pos_z = np.zeros((3,), dtype=np.float)
 
-sandbox = [1800, 1800, 1500]
+sandbox = [2000, 2000, 2000]
+sandbox_shutdown =[2200,2200,2500]
