@@ -36,7 +36,6 @@ try:
 			formation.quad_arm_disarm(pa.xbee, pa.target_system, ARM)
 
 			if pa.two_in_air :
-				print "arm"
 				formation.quad_arm_disarm(pa.xbee2, pa.target_system, ARM)
 
 

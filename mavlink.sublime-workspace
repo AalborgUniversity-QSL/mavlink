@@ -340,6 +340,8 @@
 	],
 	"file_history":
 	[
+		"/media/jeni/32CD-4E21/msgs_1971_03_21_02_42_10.txt",
+		"/media/jeni/32CD-4E21/msgs_1971_03_21_02_42_09.txt",
 		"/home/jeni/ca1/mavlink/message_definitions/v1.0/quad_formation.xml",
 		"/home/jeni/ca1/mavlink/pymavlink/formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavutil.py",
@@ -440,7 +442,6 @@
 		"/home/jeni/ca1/mavlink/pymavlink/generator/lib/genxmlif/xmlifMinidom.py",
 		"/media/jeni/32CD-4E21/etc/extras.txt",
 		"/media/jeni/32CD-4E21/dataman",
-		"/media/jeni/32CD-4E21/msgs_1971_03_21_02_42_10.txt",
 		"/home/jeni/.config/sublime-text-3/Packages/Default/Preferences.sublime-settings",
 		"/home/jeni/ca1/Firmware/gr731/parameters_plus.txt",
 		"/home/jeni/ca1/mavlink/pymavlink/formationv2.py",
@@ -466,8 +467,7 @@
 		"/home/jeni/ca1/mavlink/.travis.yml",
 		"/home/jeni/ca1/mavlink/.gitmodules",
 		"/home/jeni/ca1/mavlink/.gitignore",
-		"/home/jeni/ca1/mavlink/pymavlink/__init__.py",
-		"/home/jeni/ca1/Firmware/gr731/potential_fields/main.c"
+		"/home/jeni/ca1/mavlink/pymavlink/__init__.py"
 	],
 	"find":
 	{
@@ -639,7 +639,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -655,8 +655,8 @@
 						"selection":
 						[
 							[
-								3155,
-								3155
+								1857,
+								1857
 							]
 						],
 						"settings":
@@ -666,10 +666,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1734.0,
+						"translation.y": 1122.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -685,8 +685,8 @@
 						"selection":
 						[
 							[
-								1505,
-								1505
+								824,
+								824
 							]
 						],
 						"settings":
@@ -694,7 +694,7 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 472.0,
+						"translation.y": 204.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -722,7 +722,7 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 408.0,
+						"translation.y": 65.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -741,8 +741,8 @@
 						"selection":
 						[
 							[
-								1209,
-								1209
+								1597,
+								1597
 							]
 						],
 						"settings":
@@ -750,10 +750,10 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 1137.0,
+						"translation.y": 816.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]

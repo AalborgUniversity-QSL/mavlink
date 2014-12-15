@@ -26,24 +26,20 @@ else :
 
 target_system = 0
 QUAD_CMD = 0
-transmit = False
-first_run = True
 initialised = False
 last_run = int(round(time.time() * 1000))
 vicon_test = False
 index_old = 0
 timeout,time,dt = 2000,0,0
-tictoc = False
-
 
 index = 0
 x = np.zeros((3,), dtype=np.float)
 y = np.zeros((3,), dtype=np.float)
 z = np.zeros((3,), dtype=np.float)
 
-init_pos_x = np.zeros((3,), dtype=np.float)
-init_pos_y = np.zeros((3,), dtype=np.float)
+# init_pos_x = np.zeros((3,), dtype=np.float)
+# init_pos_y = np.zeros((3,), dtype=np.float)
 init_pos_z = np.zeros((3,), dtype=np.float)
 
-sandbox = [2000, 2000, 2000]
+sandbox = [2000, 2000, 1500]
 sandbox_shutdown =[2200,2200,2500]

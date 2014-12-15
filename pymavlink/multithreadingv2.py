@@ -6,9 +6,6 @@ from dialects.v10 import mavlinkv10 as mavlink
 import mav_formation as formation
 import numpy as np
 import parm as pa
-import XBee
-
-# index, x, y, z = 0,0,0,0
 
 class myThread1(threading.Thread):
     def __init__(self, threadID, name):
@@ -69,7 +66,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 
         	if (abs_x[0] > pa.sandbox[0]) or (abs_y[0] > pa.sandbox[1]) or (pa.z[0] > pa.sandbox[2]) :
         		shutdown(mavlink.QUAD_FORMATION_ID_ALL)
-        		print "[GCS] QUAD1 OUTSIDE SANDBOX\n"
+        		print "\n[GCS] QUAD1 OUTSIDE SANDBOX"
 
                 # if (abs_x[0] > pa.sandbox_shutdown[0]) or (abs_y[0] > pa.sandbox_shutdown[1]) or (pa.z[0] > pa.sandbox_shutdown[2]) :
                 #         shutdown(mavlink.QUAD_FORMATION_ID_ALL)
@@ -78,7 +75,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
                 if pa.two_in_air :
                         if (abs_x[1] > pa.sandbox[0]) or (abs_y[1] > pa.sandbox[1]) or (pa.z[1] > pa.sandbox[2]) :
                                 shutdown(mavlink.QUAD_FORMATION_ID_2)
-                                print "[GCS] QUAD2 OUTSIDE SANDBOX\n"
+                                print "\n[GCS] QUAD2 OUTSIDE SANDBOX"
 
                         # if (abs_x[1] > pa.sandbox_shutdown[0]) or (abs_y[1] > pa.sandbox_shutdown[1]) or (pa.z[1] > pa.sandbox_shutdown[2]) :
                         #         shutdown(mavlink.QUAD_FORMATION_ID_2)
