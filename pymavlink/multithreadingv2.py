@@ -67,10 +67,15 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
                                 np.subtract(pa.z, pa.init_pos_z))
 
 
-
         	if (abs_x[0] > pa.sandbox[0]) or (abs_y[0] > pa.sandbox[1]) or (pa.z[0] > pa.sandbox[2]) :
         		shutdown(mavlink.QUAD_FORMATION_ID_ALL)
-        		print "[GCS] OUTSIDE SANDBOX\n"
+        		print "[GCS] QUAD1 OUTSIDE SANDBOX\n"
+
+                if pa.two_in_air :
+                        if (abs_x[1] > pa.sandbox[0]) or (abs_y[1] > pa.sandbox[1]) or (pa.z[1] > pa.sandbox[2]) :
+                                shutdown(mavlink.QUAD_FORMATION_ID_2)
+                                print "[GCS] QUAD2 OUTSIDE SANDBOX\n"
+
 
 
                 if(pa.vicon_test == True) : 
@@ -98,10 +103,11 @@ def get_vicon_data() :
 	server.serve_forever()
 
 def shutdown(target_system) :
-	formation.quad_arm_disarm(pa.xbee,target_system, False)
+        if (target_system == mavlink.QUAD_FORMATION_ID_1) or (target_system == mavlink.QUAD_FORMATION_ID_ALL) :
+	        formation.quad_arm_disarm(pa.xbee, target_system, False)
         
-        if two_in_air :
-                formation.quad_arm_disarm(pa.xbee2,target_system, False)
+        if (target_system == mavlink.QUAD_FORMATION_ID_2) or (target_system == mavlink.QUAD_FORMATION_ID_ALL) :
+                formation.quad_arm_disarm(pa.xbee2, target_system, False)
 
 # Create new threads
 get_vicon = myThread1(1, "VICON\n")

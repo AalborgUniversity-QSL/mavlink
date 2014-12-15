@@ -10,13 +10,11 @@ from argparse import ArgumentParser
 import multithreadingv2 as multi
 import parm as pa
 
-pa.index_old = 0
-
 try:
 	formation.wait_heartbeat(pa.xbee)
 	if pa.two_in_air :
 		formation.wait_heartbeat(pa.xbee2)
-		
+
 	multi.get_vicon.start()
 
 	pa.vicon_test = False

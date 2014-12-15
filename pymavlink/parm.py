@@ -8,7 +8,7 @@ import numpy as np
 parser = ArgumentParser(description=__doc__)
 
 parser.add_argument("-b", required=False, type=int, help="master port baud rate", default=57600)
-parser.add_argument("-d1", required=True, help="serial device 1", default="/dev/ttyUSB0")
+parser.add_argument("-d1", required=True, help="serial device 1")
 parser.add_argument("-d2", required=False, help="serial device 2")
 parser.add_argument("--source-system", required=False, dest='SOURCE_SYSTEM', type=int,
                   default=255, help='MAVLink source system for this GCS')
