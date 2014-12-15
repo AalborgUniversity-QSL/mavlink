@@ -49,7 +49,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
                         pa.y,
                         np.subtract(pa.z, pa.init_pos_z))
 
-        	for i in xrange(1,no_of_quad) :
+        	for i in xrange(1,pa.no_of_quad) :
         		if (abs_x[i-1] > pa.sandbox[0]) or (abs_y[i-1] > pa.sandbox[1]) or (pa.z[i-1] > pa.sandbox[2]) :
         			shutdown(i)
         			print "[GCS] OUTSIDE SANDBOX\n"

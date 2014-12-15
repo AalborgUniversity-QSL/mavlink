@@ -14,7 +14,7 @@ def wait_heartbeat(self, blocking):
     print("Waiting for APM heartbeat")
     msg = self.recv_match(type='HEARTBEAT', blocking = blocking)
     if msg is not None :
-         print("Heartbeat -> system_id: %u" % msg.target_system)
+         print("Heartbeat -> system_id: %u" % self.target_system)
 
 def wait_statusmsg(self, blocking):
     '''wait for a status msg'''

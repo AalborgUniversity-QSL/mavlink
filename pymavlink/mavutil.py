@@ -876,7 +876,7 @@ class mavserial(mavfile):
         # Escape any bytes containing reserved characters
         frame = self.Escape(frame)
 
-        print("Tx: " + self.format(frame))
+        # print("Tx: " + self.format(frame))
         return self.port.write(frame)
 
     def Unescape(self, msg):
