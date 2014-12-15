@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"sys",
+				"system_id"
+			],
+			[
+				"tar",
+				"target_system"
+			],
+			[
+				"ini",
+				"initialised"
+			],
+			[
+				"ma",
+				"mav"
+			],
+			[
+				"m",
+				"m"
+			],
+			[
+				"add",
+				"addr"
+			],
+			[
 				"arm",
 				"arm_disarm"
 			],
@@ -34,10 +58,6 @@
 			[
 				"QUAD",
 				"QUAD_CMD_TAKEOFF"
-			],
-			[
-				"ini",
-				"init_pos_z"
 			],
 			[
 				"i",
@@ -140,10 +160,6 @@
 				"QUAD_CMD_START"
 			],
 			[
-				"m",
-				"multi"
-			],
-			[
 				"thre",
 				"thread1"
 			],
@@ -154,14 +170,6 @@
 			[
 				"mav",
 				"mavlinkv10"
-			],
-			[
-				"ma",
-				"mavlink10"
-			],
-			[
-				"tar",
-				"target_system"
 			],
 			[
 				"recv",
@@ -183,7 +191,15 @@
 			"file": "pymavlink/formationv2.py",
 			"settings":
 			{
-				"buffer_size": 3858,
+				"buffer_size": 3336,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pymavlink/parm.py",
+			"settings":
+			{
+				"buffer_size": 1224,
 				"line_ending": "Unix"
 			}
 		},
@@ -191,39 +207,15 @@
 			"file": "pymavlink/mav_formation.py",
 			"settings":
 			{
-				"buffer_size": 925,
+				"buffer_size": 3064,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "pymavlink/XBee.py",
+			"file": "pymavlink/dialects/v10/mavlinkv10.py",
 			"settings":
 			{
-				"buffer_size": 5511,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/jeni/Dropbox/CA1/projekt/xbee_adresses.txt",
-			"settings":
-			{
-				"buffer_size": 73,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pymavlink/parm.py",
-			"settings":
-			{
-				"buffer_size": 1219,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "pymavlink/mavutil.py",
-			"settings":
-			{
-				"buffer_size": 59076,
+				"buffer_size": 551112,
 				"line_ending": "Unix"
 			}
 		},
@@ -231,26 +223,15 @@
 			"file": "pymavlink/multithreadingv2.py",
 			"settings":
 			{
-				"buffer_size": 2800,
+				"buffer_size": 2644,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "pymavlink/watchdog.py",
+			"file": "pymavlink/mavutil.py",
 			"settings":
 			{
-				"buffer_size": 1045,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "#!/usr/bin/env python\nimport sys, struct, time, os, shlex, select\nimport numpy as np\nfrom curses import ascii\nfrom time import sleep\nfrom pymavlink import mavutil\nimport multithreading as multi\nfrom dialects.v10 import mavlinkv10 as mavlink\nimport mav_formation as formation\nfrom argparse import ArgumentParser\n\nparser = ArgumentParser(description=__doc__)\n\nparser.add_argument(\"-b\", type=int,\n                    help=\"master port baud rate\", default=57600)\nparser.add_argument(\"-d\", required=False, help=\"serial device\", default=\"/dev/ttyUSB0\")\nparser.add_argument(\"--source-system\", dest='SOURCE_SYSTEM', type=int,\n                    default=255, help='MAVLink source system for this GCS')\nargs = parser.parse_args()\n\n# create a mavlink serial instance\nxbee = mavutil.mavlink_connection(args.d, baud=args.b, source_system=args.SOURCE_SYSTEM, dialect=\"mavlinkv10\")\n\nindex_old = 0\n\n# For test (BGT) commet after you are done\nindex = 0\nx = y = z = np.zeros((10,), dtype = np.float)\n\ntry:\n        formation.wait_heartbeat(xbee)\n        # multi.th.start() '''<-- starts a thread for update on vicon data'''\n\n	while True:\n                input = raw_input(\"FORMATION >> \")\n                ans = shlex.split(input)\n                dim = len(ans)\n\n		# ARM\n                if ans[0] == 'arm' :\n                        ARM = True\n\n			if dim > 1 :\n                                target_system = int(ans[1])\n                        else:\n                                target_system = mavlink.QUAD_FORMATION_ID_ALL\n                                print (\"1 - Arming target_system: %u\" % (target_system))\n\n			formation.quad_arm_disarm(xbee, target_system, ARM)\n\n		# DISARM\n        elif ans[0] == 'disarm' :\n                ARM = False\n                if dim > 1 :\n                        target_system = int(ans[1])\n                else:\n                        target_system = mavlink.QUAD_FORMATION_ID_ALL\n                        formation.quad_arm_disarm(xbee, target_system, ARM)\n                        print (\"2 - Disarm target_system: %u\" % (target_system))\n\n		# elif ans[0] == 'set_mode' :\n                # 	if dim > 1 :\n                # 		target_system = int(ans[1])\n                # 		mode = int(ans[2])\n                # 	else:\n                # 		target_system = mavlink.QUAD_FORMATION_ID_ALL\n                # 	xbee.set_mode(mode)\n                # 	print (\"3 - Setting mode - target_system: %u - mode: %u\" % (target_system, mode))\n                # 	print(\"Waiting for STATUS_MSG\")\n                # 	try:\n                # 		while True:\n                # 			# print index_old\n                # 				formation.wait_statusmsg(xbee)\n                # 	except KeyboardInterrupt :\n                # 		print\n\n		# elif ans[0] == 'set_flag' :\n                # 	if dim > 1:\n                # 		target_system = int(ans[1])\n                # 		flag = int(ans[2])\n                # 		enable = int(ans[3])\n                # 	xbee.set_mode_flag(flag,enable)\n                # 	print (\"3 - Setting mode flag - target_system: %u - flag: %u - enable: %u\" % (target_system, flag, enable))\n\n\n\n		# START SCRIPT\n        elif ans[0] == 'start':\n                if dim > 1 :\n                        target_system = int(ans[1])\n                        QUAD_CMD = int(ans[2])\n                else:\n                        target_system = mavlink.QUAD_FORMATION_ID_ALL\n                        QUAD_CMD = mavlink.QUAD_CMD_START\n                        print (\"4 - Start script - target_system: %u  CMD: %u\" % (target_system, QUAD_CMD))\n                        print\n                        print(\"Waiting for STATUS_MSG\")\n\n			formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, index, x, y, z)\n\n			try:\n                                while True:\n                                        # print index_old\n                                        formation.wait_statusmsg(xbee)\n                                except KeyboardInterrupt :\n                                        print\n\n\n			# try:\n                        # 	while True:\n                        # 		# print index_old\n                        # 		formation.wait_statusmsg(xbee)\n                        # 		if multi.index != index_old :\n                        # 			# index_old = multi.index 		'''<-- out comment after test'''\n                        # 			formation.wait_statusmsg(xbee)\n                        # 			# formation.quad_cmd_pos(xbee, target_system, QUAD_CMD, multi.index, multi.x, multi.y, multi.z)		'''<-- Sends a command to Pixhawk including Vicon data'''\n                        # 			# print(\"index: %u -> [%f,%f,%f],[%f,%f,%f]\" % (multi.index, multi.x[1], multi.y[2], multi.z[3], multi.x[4], multi.y[5], multi.z[6]))  '''<-- Debug the vicon data'''\n                        # except KeyboardInterrupt :\n                        # 	print\n                        \n		# STOP SCRIPT\n        elif ans[0] == 'stop':\n                if dim	> 1 :\n                        target_system = int(ans[1])\n                else :\n                        target_system = 0\n\n			formation.quad_cmd_pos(xbee, target_system, mavlink.QUAD_CMD_STOP, index, x, y, z)\n                        print (\"5 - Stopping script - target_system: %u\" %(target_system))\n\n		# LOG STATUSTEXT FROM FORMATION\n        elif ans[0] == 'log':\n                if dim > 1 :\n                        target_system = ans[1]\n                else:\n                        target_system = mavlink.QUAD_FORMATION_ID_ALL\n                        \n			print \"6 - logging - target_system: %u \" %(target_system)\n                        print\n                        print(\"Waiting for STATUS_MSG\")\n                        try:\n                                while True:\n                                        # print index_old\n                                        formation.wait_statusmsg(xbee)\n                                except KeyboardInterrupt :\n                                        print\n\n		# HELP\n        elif ans[0] == 'help':\n                print\n                print \"ALL COMMANDS HAVE DEFAULT:\" \n                print \"target_system = 0 (CALL TO ALL)\"\n                print\n                print \"arm [target_system]\"\n                print \"disarm [target_system]\"\n                print \"start [target_system] [cmd] - Start script\"\n                print \"stop [target_system] - Stopping script\"\n                print \"log [target_system] - logging\"\n                print \"help\"\n                print \"exit - close app\"\n\n		elif ans[0] == 'exit':\n                        print \"goodbye!\"\n                        break\n\n		print\n\nexcept KeyboardInterrupt:\n        print\n",
-			"file": "pymavlink/formation_BGT_test.py",
-			"file_size": -1,
-			"file_write_time": -1,
-			"settings":
-			{
-				"buffer_size": 6589,
+				"buffer_size": 59293,
 				"line_ending": "Unix"
 			}
 		}
@@ -356,22 +337,34 @@
 	[
 		"/home/jeni/ca1/mavlink",
 		"/home/jeni/ca1/mavlink/pymavlink",
-		"/home/jeni/ca1/mavlink/pymavlink/dialects"
+		"/home/jeni/ca1/mavlink/pymavlink/generator"
 	],
 	"file_history":
 	[
-		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
-		"/home/jeni/ca1/mavlink/pymavlink/generator/lib/genxmlif/xmlifBase.py",
-		"/home/jeni/ca1/mavlink/pymavlink/XBee.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavtest.py",
 		"/home/jeni/ca1/mavlink/pymavlink/multithreading.py",
-		"/home/jeni/ca1/mavlink/pymavlink/formation.py",
+		"/home/jeni/Dropbox/CA1/projekt/xbee_adresses.txt",
+		"/home/jeni/ca1/mavlink/pymavlink/dialects/v10/mavlinkv10.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavutil.py",
+		"/home/jeni/ca1/mavlink/pymavlink/parm.py",
+		"/home/jeni/ca1/mavlink/pymavlink/realtime.py",
+		"/home/jeni/ca1/mavlink/pymavlink/sendAPI.py",
+		"/home/jeni/ca1/mavlink/message_definitions/v0.9/ardupilotmega.xml",
+		"/home/jeni/ca1/mavlink/pymavlink/scanwin32.py",
+		"/home/jeni/ca1/mavlink/pymavlink/setup.py",
+		"/home/jeni/ca1/mavlink/pymavlink/tools/AccelSearch.py",
+		"/home/jeni/ca1/mavlink/pymavlink/generator/C/include_v0.9/test/version.h",
+		"/home/jeni/ca1/mavlink/scripts/update_c_library.sh",
+		"/home/jeni/ca1/mavlink/pymavlink/multithreadingv2.py",
+		"/home/jeni/ca1/mavlink/pymavlink/watchdog.py",
+		"/home/jeni/ca1/mavlink/pymavlink/formation_BGT_test.py",
+		"/home/jeni/ca1/mavlink/pymavlink/XBee.py",
+		"/home/jeni/ca1/mavlink/pymavlink/generator/lib/genxmlif/xmlifBase.py",
+		"/home/jeni/ca1/mavlink/pymavlink/formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/build/lib.linux-x86_64-2.7/pymavlink/mavparm.py",
 		"/home/jeni/ca1/mavlink/pymavlink/mavparm.py",
 		"/home/jeni/ca1/mavlink/missionlib/mavlink_parameters.c",
 		"/home/jeni/ca1/mavlink/missionlib/mavlink_parameters.h",
-		"/home/jeni/ca1/mavlink/pymavlink/parm.py",
 		"/home/jeni/ca1/XBee_802.15.4_APIModeTutorial/Python/main.py",
 		"/home/jeni/ca1/XBee_802.15.4_APIModeTutorial/Python/main",
 		"/home/jeni/ca1/mavlink/message_definitions/v1.0/pixhawk.xml",
@@ -434,10 +427,8 @@
 		"/home/jeni/ca1/libs/quad_formation/quad_formation.h",
 		"/home/jeni/ca1/mavlink/pymavlink/mav_formation.py",
 		"/home/jeni/ca1/mavlink/pymavlink/build/lib.linux-x86_64-2.7/pymavlink/formation.py",
-		"/home/jeni/ca1/mavlink/pymavlink/formation_BGT_test.py",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/lib/genxmlif/xmliftest.py",
 		"/home/jeni/ca1/mavlink/pymavlink/vicontest.py",
-		"/home/jeni/ca1/mavlink/pymavlink/realtime.py",
 		"/home/jeni/ca1/mavlink/README.md",
 		"/home/jeni/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
 		"/home/jeni/.config/sublime-text-3/Packages/User/Preferences.sublime-settings",
@@ -464,8 +455,6 @@
 		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/mavlink_msg_quad_pos.h",
 		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/quad_formation.h",
 		"/home/jeni/ca1/Firmware/mavlink/include/mavlink/v1.0/quad_formation/mavlink.h",
-		"/home/jeni/ca1/mavlink/pymavlink/scanwin32.py",
-		"/home/jeni/ca1/mavlink/pymavlink/setup.py",
 		"/home/jeni/ca1/mavlink/pymavlink/tools/python_array_test_send.py",
 		"/home/jeni/ca1/mavlink/pymavlink/generator/javascript/lib/jspack/LICENSE",
 		"/home/jeni/ca1/mavlink/missionlib/testing/.gitignore",
@@ -479,15 +468,7 @@
 		"/home/jeni/ca1/mavlink/.gitmodules",
 		"/home/jeni/ca1/mavlink/.gitignore",
 		"/home/jeni/ca1/mavlink/pymavlink/__init__.py",
-		"/home/jeni/ca1/Firmware/gr731/potential_fields/main.c",
-		"/home/jeni/ca1/mavlink/examples/linux/mavlink_udp.c",
-		"/home/jeni/Dropbox/CA1/projekt/matlab/Selector.m",
-		"/home/jeni/Dropbox/CA1/projekt/matlab/pos_estimator.py",
-		"/home/jeni/Dropbox/CA1/projekt/matlab/mat2py.py",
-		"/home/jeni/ca1/mavlink/pymavlink/mat2py.py",
-		"/home/jeni/ca1/mavlink/pymavlink/quad_threads.py",
-		"/home/jeni/.bashrc",
-		"/home/jeni/ca1/mavlink/pymavlink/TODO.txt"
+		"/home/jeni/ca1/Firmware/gr731/potential_fields/main.c"
 	],
 	"find":
 	{
@@ -513,6 +494,29 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"def Send",
+			"Send",
+			"quad_formation_ID",
+			"vicn",
+			"pa.xbee",
+			"xbee",
+			"wait",
+			"status",
+			"heartbeat",
+			"wait_heartbeat",
+			"def send",
+			"def pack",
+			"def send",
+			"arm",
+			"pack",
+			"quad_pos",
+			"def quad_pos",
+			"quad_pos",
+			"command_long",
+			"MAVLink_message",
+			"def pack",
+			"def send",
+			"sef send",
 			"write",
 			"heartbeat",
 			"haert",
@@ -617,30 +621,7 @@
 			"takeoff",
 			"mode",
 			"wait_heartbeat",
-			"quad_pos_send",
-			"mavlink_co",
-			"mavlink_conn",
-			"mav",
-			"mav =",
-			"object",
-			"MAVLink()",
-			"MAVLink",
-			"define MAVLink()",
-			"MAVLink()",
-			"quad_pos_send",
-			"quad_pos",
-			"mav",
-			"MAVlink",
-			"quad_pos_send",
-			"command_long_send",
-			"mavlink",
-			"master",
-			"ping",
-			"quad",
-			"__init__",
-			"MAVLink_quad_pos_message",
-			"QUAD_POS",
-			"VEHICLE"
+			"quad_pos_send"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -653,13 +634,13 @@
 		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
-		"whole_word": true,
+		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -668,15 +649,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3858,
+						"buffer_size": 3336,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								400,
-								400
+								585,
+								585
 							]
 						],
 						"settings":
@@ -685,56 +666,87 @@
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 204.0,
+						"translation.x": -0.0,
+						"translation.y": 153.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "pymavlink/mav_formation.py",
+					"file": "pymavlink/parm.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 925,
+						"buffer_size": 1224,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								447,
-								447
+								750,
+								750
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
-						"translation.x": 0.0,
+						"translation.x": -0.0,
 						"translation.y": 102.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "pymavlink/mav_formation.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3064,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								424,
+								424
+							]
+						],
+						"settings":
+						{
+							"spell_check": false,
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 8,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "pymavlink/XBee.py",
+					"buffer": 3,
+					"file": "pymavlink/dialects/v10/mavlinkv10.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5511,
+						"buffer_size": 551112,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								467,
-								467
+								3874,
+								3874
 							]
 						],
 						"settings":
@@ -742,55 +754,27 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1894.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/home/jeni/Dropbox/CA1/projekt/xbee_adresses.txt",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 73,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								69,
-								69
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "pymavlink/parm.py",
+					"file": "pymavlink/multithreadingv2.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1219,
+						"buffer_size": 2644,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								661,
-								661
+								1377,
+								1377
 							]
 						],
 						"settings":
@@ -798,10 +782,10 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 765.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -810,15 +794,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 59076,
+						"buffer_size": 59293,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								28783,
-								28783
+								33302,
+								33302
 							]
 						],
 						"settings":
@@ -826,98 +810,10 @@
 							"syntax": "Packages/Python/Python.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 13165.0,
+						"translation.y": 14610.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "pymavlink/multithreadingv2.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2800,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								216,
-								216
-							]
-						],
-						"settings":
-						{
-							"spell_check": false,
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 8,
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 663.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "pymavlink/watchdog.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1045,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								890,
-								890
-							]
-						],
-						"settings":
-						{
-							"auto_name": "",
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "pymavlink/formation_BGT_test.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6589,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								356,
-								356
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 51.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -986,6 +882,26 @@
 		"selected_items":
 		[
 			[
+				"mavu",
+				"pymavlink/mavutil.py"
+			],
+			[
+				"mavlin",
+				"pymavlink/dialects/v10/mavlinkv10.py"
+			],
+			[
+				"pa",
+				"pymavlink/parm.py"
+			],
+			[
+				"mul",
+				"pymavlink/multithreadingv2.py"
+			],
+			[
+				"mavlink",
+				"pymavlink/dialects/v10/mavlinkv10.py"
+			],
+			[
 				"xbee",
 				"pymavlink/XBee.py"
 			],
@@ -996,14 +912,6 @@
 			[
 				"form",
 				"pymavlink/formationv2.py"
-			],
-			[
-				"mavu",
-				"pymavlink/mavutil.py"
-			],
-			[
-				"mavlink",
-				"pymavlink/dialects/v10/mavlinkv10.py"
 			],
 			[
 				"param.p",
@@ -1042,10 +950,6 @@
 				"pymavlink/mav_formation.py"
 			],
 			[
-				"mul",
-				"pymavlink/multithreading.py"
-			],
-			[
 				"for",
 				"pymavlink/formation.py"
 			],
@@ -1067,10 +971,6 @@
 			],
 			[
 				"malinkv10",
-				"pymavlink/dialects/v10/mavlinkv10.py"
-			],
-			[
-				"mavlin",
 				"pymavlink/dialects/v10/mavlinkv10.py"
 			],
 			[
